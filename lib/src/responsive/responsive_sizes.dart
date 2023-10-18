@@ -40,8 +40,8 @@ mixin ResponsiveSizes {
 
   /// Normal button height
   btn(BuildContext context) => _orientation(context) == Orientation.portrait
-      ? screenWidth(context) / 8
-      : screenHeight(context) / 8;
+      ? screenWidth(context) / 9
+      : screenHeight(context) / 9;
 
   /// Large button height
   lBtn(BuildContext context) => _orientation(context) == Orientation.portrait
