@@ -12,9 +12,13 @@ dependencies:
     sdk: flutter
   get_it:
   shimmer:
+  url_launcher:
 
 dev_dependencies:
   flutter_test:
     sdk: flutter
 
 flutter:
+
+  assets:
+    - assets/
