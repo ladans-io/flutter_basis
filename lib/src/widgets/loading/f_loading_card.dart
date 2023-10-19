@@ -3,9 +3,6 @@ import 'dart:ui' as ui;
 import 'package:flutter/material.dart';
 import 'package:flutter_basis/flutter_basis.dart';
 
-import '../f_text.dart';
-import 'f_loading.dart';
-
 class FLoadingCard extends StatelessWidget with ResponsiveSizes {
   final bool onWillPop;
   final String? loadingPlaceholder;

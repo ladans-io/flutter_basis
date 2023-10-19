@@ -3,11 +3,6 @@ import 'dart:io';
 import 'package:flutter/material.dart';
 import 'package:flutter_basis/flutter_basis.dart';
 
-import 'buttons/f_elevated_button.dart';
-import 'buttons/f_outlined_button.dart';
-import 'f_text.dart';
-import 'loading/f_loading.dart';
-
 class FAlertDialog extends StatefulWidget {
   final String title;
   final String confirmLabel;

@@ -1,8 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_basis/flutter_basis.dart';
 
-import 'f_text.dart';
-
 const Color _snackBarBgColor = Color(0xFF303030);
 const Color _successColor = Color(0xFF4CAF50);
 const Color _errorColor = Color(0xFFFF5252);

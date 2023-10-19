@@ -5,9 +5,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter_basis/flutter_basis.dart';
 
 import '../utils/url_launcher.dart';
-import 'buttons/f_elevated_button.dart';
-import 'buttons/f_text_button.dart';
-import 'f_text.dart';
 
 class FAppUpdateDialog extends StatefulWidget {
   final bool forceUpdate;

@@ -2,8 +2,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_basis/flutter_basis.dart';
 
-import '../f_text.dart';
-
 class FTextButton extends StatelessWidget with ResponsiveSizes {
   const FTextButton({
     super.key, 

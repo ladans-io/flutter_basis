@@ -2,9 +2,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_basis/flutter_basis.dart';
 
-import '../f_text.dart';
-import '../loading/f_loading.dart';
-
 class FOutlinedButton extends StatelessWidget with ResponsiveSizes {
   final Function()? onPressed;
   final String title;
