@@ -24,13 +24,14 @@ class FSnackBars {
   static show({
     required String message,
     required ESnackBarState state,
+    String? suffixIcon,
   }) {
     return GlobalKeys.scaffoldMessengerKey.currentState?.showSnackBar(
       SnackBar(
         elevation: 0,
         backgroundColor: Colors.transparent,
         margin: const EdgeInsets.symmetric(horizontal: 40),
-        content: FSnackBarContent(message: message, state: state),
+        content: FSnackBarContent(message: message, state: state, suffixIcon: suffixIcon),
         behavior: SnackBarBehavior.floating,
       ),
     );
@@ -43,10 +44,7 @@ class FSnackBarContent extends StatelessWidget with ResponsiveSizes {
     required this.message, 
     required this.state,
     this.suffixIcon,
-  }) : assert(
-    suffixIcon is String, 
-    'The icon to be displayed as your suffix brand identity',
-  );
+  });
 
   final String message;
   final String? suffixIcon;
