@@ -27,6 +27,7 @@ class FRichText extends StatelessWidget with ResponsiveSizes {
     this.fontSize1,
     this.fontSize2,
     this.fontFamily,
+    this.textAlign,
   });
   final bool bold, bold1, bold2,
       light, light1, light2,
@@ -36,6 +37,7 @@ class FRichText extends StatelessWidget with ResponsiveSizes {
   final String? fontFamily, fontFamily1, fontFamily2;
   final Color? color, color1, color2;
   final double? fontSize, fontSize1, fontSize2;
+  final TextAlign? textAlign;
 
   FontWeight? get _fontWeight1 {
     if (light || light1) {
@@ -92,6 +94,7 @@ class FRichText extends StatelessWidget with ResponsiveSizes {
           ),
         ],
       ),
+      textAlign: textAlign,
     );
   }
 }
