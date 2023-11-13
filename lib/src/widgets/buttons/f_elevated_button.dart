@@ -8,7 +8,7 @@ class FElevatedButton extends StatelessWidget with ResponsiveSizes {
   final bool fullWidth;
   final bool loading;
   final Color? disabledColor;
-  final Color? backgroundColor;
+  final Color? backgroundColor, color;
   
   const FElevatedButton({
     Key? key,
@@ -22,6 +22,7 @@ class FElevatedButton extends StatelessWidget with ResponsiveSizes {
     this.loading = false,
     this.disabledColor,
     this.backgroundColor,
+    this.color,
     this.horizontalPadding,
   }) : super(key: key);
 
@@ -47,8 +48,8 @@ class FElevatedButton extends StatelessWidget with ResponsiveSizes {
         ),
         onPressed: onPressed,
         child: loading
-          ? FLoading(color: Colors.white, size: dp12(context))
-          : FText(title,color: Colors.white,fontSize: fontSize ?? dp16(context)),
+          ? FLoading(color: color ?? Colors.white, size: dp12(context))
+          : FText(title, color: color ?? Colors.white, fontSize: fontSize ?? dp16(context)),
       ),
     );
   }
