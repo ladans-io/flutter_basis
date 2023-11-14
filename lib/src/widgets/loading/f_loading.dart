@@ -15,17 +15,15 @@ class FLoading extends StatelessWidget {
   Widget build(BuildContext context) {
     final valueColor = color ?? Theme.of(context).colorScheme.primary;
 
-    return Align(
-      child: Container(
-        alignment: alignment ?? Alignment.center,
-        height: size,
-        width: size,
-        child: ColorFiltered(
-          colorFilter: ColorFilter.mode(valueColor, BlendMode.srcATop),
-          child: CircularProgressIndicator.adaptive(
-            strokeWidth: 3,
-            valueColor: AlwaysStoppedAnimation(valueColor),
-          ),
+    return Container(
+      alignment: alignment ?? Alignment.center,
+      height: size,
+      width: size,
+      child: ColorFiltered(
+        colorFilter: ColorFilter.mode(valueColor, BlendMode.srcATop),
+        child: CircularProgressIndicator.adaptive(
+          strokeWidth: 3,
+          valueColor: AlwaysStoppedAnimation(valueColor),
         ),
       ),
     );
