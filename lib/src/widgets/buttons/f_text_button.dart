@@ -14,13 +14,14 @@ class FTextButton extends StatelessWidget with ResponsiveSizes {
     this.fullWidth = false,
     this.underline = false,
     this.paddingZero = false,
+    this.bold = false,
   });
 
   final String title;
   final VoidCallback? onPressed;
   final Color? color;
   final double? fontSize, btnHeight, btnWidth;
-  final bool fullWidth, underline, paddingZero;
+  final bool fullWidth, underline, paddingZero, bold;
 
   @override
   Widget build(BuildContext context) {
@@ -41,6 +42,7 @@ class FTextButton extends StatelessWidget with ResponsiveSizes {
           color: color ?? Colors.black54,
           fontSize: fontSize ?? dp16(context),
           underline: underline,
+          bold: bold,
         ),
       ),
     );

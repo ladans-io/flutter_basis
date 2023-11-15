@@ -7,7 +7,7 @@ class FOutlinedButton extends StatelessWidget with ResponsiveSizes {
   final String title;
   final double? btnHeight, width, fontSize, horizontalPadding, radius;
   final bool fullWidth;
-  final bool loading, disabled;
+  final bool loading, disabled, bold;
   final Color? color, borderColor, foregroundColor;
   const FOutlinedButton({
     Key? key,
@@ -19,6 +19,7 @@ class FOutlinedButton extends StatelessWidget with ResponsiveSizes {
     this.fullWidth = true,
     this.loading = false,
     this.disabled = false,
+    this.bold = false,
     this.color,
     this.borderColor,
     this.foregroundColor,
@@ -53,7 +54,12 @@ class FOutlinedButton extends StatelessWidget with ResponsiveSizes {
         onPressed: onPressed,
         child: loading
           ? FLoading(color: color ?? onPrimary, size: dp10(context))
-          : FText(title, color: textColor, fontSize: fontSize ?? dp16(context)),
+          : FText(
+              title, 
+              color: textColor, 
+              fontSize: fontSize ?? dp16(context),
+              bold: bold,
+            ),
       ),
     );
   }
