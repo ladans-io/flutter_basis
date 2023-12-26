@@ -1,12 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_basis/flutter_basis.dart';
 
-class LoadingCard extends StatelessWidget with ResponsiveSizes {
+class FLoadingCard extends StatelessWidget with ResponsiveSizes {
   final bool onWillPop;
   final String? loadingPlaceholder;
   final VoidCallback? onCancel;
 
-  const LoadingCard({
+  const FLoadingCard({
     Key? key, 
     this.onWillPop = false, 
     this.loadingPlaceholder,
@@ -97,7 +97,7 @@ class LoadingCard extends StatelessWidget with ResponsiveSizes {
       barrierDismissible: false,
       context: Navigate.navigatorKey.currentState!.overlay!.context, 
       barrierColor: Colors.transparent,
-      builder: (context) => LoadingCard(
+      builder: (context) => FLoadingCard(
         loadingPlaceholder: loadingPlaceholder,
         onCancel: onCancel,
       ),
