@@ -1,59 +1,62 @@
+
 import 'package:flutter/material.dart';
 import 'package:flutter_basis/flutter_basis.dart';
 
-class FElevatedButton extends StatelessWidget with ResponsiveSizes {
+class BasisLinedButton extends StatelessWidget with ResponsiveSizes {
   final Function()? onPressed;
   final String title;
   final double? btnHeight, width, fontSize, horizontalPadding, radius;
   final bool fullWidth;
-  final bool loading;
-  final bool bold;
-  final Color? disabledColor;
-  final Color? backgroundColor, color;
-  
-  const FElevatedButton({
+  final bool loading, disabled, bold;
+  final Color? color, borderColor, foregroundColor;
+  const BasisLinedButton({
     Key? key,
     required this.onPressed,
     required this.title,
     this.btnHeight,
     this.fontSize,
     this.width,
-    this.radius,
     this.fullWidth = true,
     this.loading = false,
+    this.disabled = false,
     this.bold = false,
-    this.disabledColor,
-    this.backgroundColor,
     this.color,
+    this.borderColor,
+    this.foregroundColor,
     this.horizontalPadding,
+    this.radius,
   }) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
+    final onPrimary = Theme.of(context).colorScheme.secondary;
+    final textColor = disabled ? Colors.grey : color ?? onPrimary;
 
     return SizedBox(
       height: btnHeight ?? (isTablet(context) ? sBtn(context) : btn(context)),
       width: fullWidth ? screenWidth(context) : width,
-      child: ElevatedButton(
-        style: ElevatedButton.styleFrom(
+      child: OutlinedButton(
+        style: OutlinedButton.styleFrom(
           padding: EdgeInsets.symmetric(
             horizontal: horizontalPadding != null
               ? horizontalPadding!
               : dp20(context),
           ),
-          disabledBackgroundColor: disabledColor ?? Colors.grey,
-          shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(radius ?? dp4(context))),
-          backgroundColor: backgroundColor ?? Theme.of(context).colorScheme.secondary,
+          disabledBackgroundColor: Colors.transparent,
+          surfaceTintColor: color ?? onPrimary,
+          shape: RoundedRectangleBorder(
+            borderRadius: BorderRadius.circular(radius ?? dp4(context)),
+          ),
+          side: BorderSide(color: (disabled ? Colors.grey.shade500 : borderColor ?? color) ?? onPrimary),
           shadowColor: Colors.transparent,
-          surfaceTintColor: Colors.transparent,
-          foregroundColor: Colors.transparent,
+          foregroundColor: foregroundColor ?? onPrimary,
         ),
         onPressed: onPressed,
         child: loading
-          ? FLoading(color: color ?? Colors.white, size: dp12(context))
-          : FText(
+          ? BasisLoading(color: color ?? onPrimary, size: dp10(context))
+          : BasisText(
               title, 
-              color: color ?? Colors.white, 
+              color: textColor, 
               fontSize: fontSize ?? dp16(context),
               bold: bold,
             ),

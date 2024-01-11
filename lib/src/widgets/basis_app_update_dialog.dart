@@ -6,14 +6,14 @@ import 'package:flutter_basis/flutter_basis.dart';
 
 import '../utils/url_launcher.dart';
 
-class FAppUpdateDialog extends StatefulWidget {
+class BasisAppUpdateDialog extends StatefulWidget {
   final bool forceUpdate;
   final String currentVer, 
                newVer, 
                playStoreUrl, 
                appleStoreUrl, 
                versionNews;
-  const FAppUpdateDialog({
+  const BasisAppUpdateDialog({
     Key? key,
     this.forceUpdate = false,
     required this.currentVer,
@@ -24,10 +24,10 @@ class FAppUpdateDialog extends StatefulWidget {
   }) : super(key: key);
 
   @override
-  State<FAppUpdateDialog> createState() => _DshAlertDialogState();
+  State<BasisAppUpdateDialog> createState() => _DshAlertDialogState();
 }
 
-class _DshAlertDialogState extends State<FAppUpdateDialog> with ResponsiveSizes {
+class _DshAlertDialogState extends State<BasisAppUpdateDialog> with ResponsiveSizes {
   @override
   Widget build(BuildContext context) {
     return WillPopScope(
@@ -58,7 +58,7 @@ class _DshAlertDialogState extends State<FAppUpdateDialog> with ResponsiveSizes 
             : 'assets/app-store.png',
           width: screenWidth(context) * .4,
         ),
-        FText(
+        BasisText(
           'Atualizar Odex${widget.forceUpdate ? '!' : '?'}',
           alignCenter: true,
           fontSize: dp18(context),
@@ -75,14 +75,14 @@ class _DshAlertDialogState extends State<FAppUpdateDialog> with ResponsiveSizes 
     return Column(
       mainAxisSize: MainAxisSize.min,
       children: [
-        FText(
+        BasisText(
           'Está disponível uma nova versão deste aplicativo! \nVersão atual ${widget.currentVer} \nNova versão ${widget.newVer}',
           color: Colors.black87,
           fontSize: f16,
         ),
         if (widget.versionNews.isNotEmpty) ...[
           SizedBox(height: dp20(context)),
-          FText(
+          BasisText(
             'O que há de novo?',
             color: Colors.black87,
             fontSize: f16,
@@ -91,7 +91,7 @@ class _DshAlertDialogState extends State<FAppUpdateDialog> with ResponsiveSizes 
           SizedBox(height: dp6(context)),
           if (widget.versionNews.contains('fixture')) const Align(
             alignment: Alignment.topLeft,
-            child: FText(
+            child: BasisText(
               'Correções de bugs:',
               color: Colors.black87,
               semiBold: true,
@@ -100,7 +100,7 @@ class _DshAlertDialogState extends State<FAppUpdateDialog> with ResponsiveSizes 
           ),
           if (widget.versionNews.contains('feature')) const Align(
             alignment: Alignment.topLeft,
-            child: FText(
+            child: BasisText(
               'Novas funcionalidades:',
               color: Colors.black87,
               semiBold: true,
@@ -112,7 +112,7 @@ class _DshAlertDialogState extends State<FAppUpdateDialog> with ResponsiveSizes 
               widget.versionNews.split('***').length - 1,
               (index) => Align(
                 alignment: Alignment.topLeft,
-                child: FText(
+                child: BasisText(
                   '• ${widget.versionNews.split('***')[index + 1]}',
                   color: Colors.black87,
                 ),
@@ -124,7 +124,7 @@ class _DshAlertDialogState extends State<FAppUpdateDialog> with ResponsiveSizes 
   }
 
   Widget get _onConfirmButton {
-    return FElevatedButton(
+    return BasisButton(
       radius: Platform.isIOS ? 0 : null,
       backgroundColor: Platform.isAndroid
         ? const Color(0xff038A5D)
@@ -139,7 +139,7 @@ class _DshAlertDialogState extends State<FAppUpdateDialog> with ResponsiveSizes 
   }
 
   Widget get _onCancelButton {
-    return FTextButton(
+    return BasisTextButton(
       onPressed: Navigator.of(context).pop,
       fullWidth: false,
       color: Platform.isAndroid ? const Color(0xff038A5D) : CupertinoColors.black,

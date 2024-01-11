@@ -1,12 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_basis/flutter_basis.dart';
 
-class FLoadingCard extends StatelessWidget with ResponsiveSizes {
+class BasisPopupLoading extends StatelessWidget with ResponsiveSizes {
   final bool onWillPop;
   final String? loadingPlaceholder;
   final VoidCallback? onCancel;
 
-  const FLoadingCard({
+  const BasisPopupLoading({
     Key? key, 
     this.onWillPop = false, 
     this.loadingPlaceholder,
@@ -73,11 +73,11 @@ class FLoadingCard extends StatelessWidget with ResponsiveSizes {
       child: Column(
         mainAxisAlignment: MainAxisAlignment.spaceEvenly,
         children: [
-          FLoading(color: Colors.white, size: dp30(context)),
+          BasisLoading(color: Colors.white, size: dp30(context)),
 
           SizedBox(height: dp10(context)),
 
-          if (loadingPlaceholder != null) FText(
+          if (loadingPlaceholder != null) BasisText(
             loadingPlaceholder!,
             fontSize: dp14(context),
             color: Colors.white,
@@ -97,7 +97,7 @@ class FLoadingCard extends StatelessWidget with ResponsiveSizes {
       barrierDismissible: false,
       context: Navigate.navigatorKey.currentState!.overlay!.context, 
       barrierColor: Colors.transparent,
-      builder: (context) => FLoadingCard(
+      builder: (context) => BasisPopupLoading(
         loadingPlaceholder: loadingPlaceholder,
         onCancel: onCancel,
       ),

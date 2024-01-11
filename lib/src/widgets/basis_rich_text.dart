@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_basis/flutter_basis.dart';
 
-class FRichText extends StatelessWidget with ResponsiveSizes {
-  const FRichText({
+class BasisRichText extends StatelessWidget with ResponsiveSizes {
+  const BasisRichText({
     super.key,
     this.bold = false,
     this.bold1 = false,

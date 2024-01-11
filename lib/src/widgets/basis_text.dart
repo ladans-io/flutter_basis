@@ -3,7 +3,7 @@ import 'dart:ui' as ui;
 import 'package:flutter/material.dart';
 import 'package:flutter_basis/flutter_basis.dart';
 
-class FText extends StatefulWidget {
+class BasisText extends StatefulWidget {
   final String text;
   final Color? color;
   final double? fontSize;
@@ -22,7 +22,7 @@ class FText extends StatefulWidget {
   final bool underline;
   final EdgeInsetsGeometry? padding;
 
-  const FText(
+  const BasisText(
     this.text, {
       super.key,
       this.color,
@@ -45,10 +45,10 @@ class FText extends StatefulWidget {
   );
 
   @override
-  State<FText> createState() => _OdxTextState();
+  State<BasisText> createState() => _OdxTextState();
 }
 
-class _OdxTextState extends State<FText> with ResponsiveSizes {
+class _OdxTextState extends State<BasisText> with ResponsiveSizes {
   FontWeight? get _fontWeight {
     if (widget.light) {
       return FontWeight.w400;

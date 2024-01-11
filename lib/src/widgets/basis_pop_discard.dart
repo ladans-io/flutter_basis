@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_basis/flutter_basis.dart';
 
-class FWillPopDiscard extends StatelessWidget {
-  const FWillPopDiscard({
+class BasisPopDiscard extends StatelessWidget {
+  const BasisPopDiscard({
     super.key,
     required this.condition,
     required this.child,
@@ -18,7 +18,7 @@ class FWillPopDiscard extends StatelessWidget {
       onWillPop: () async {
         if (condition) {
           showDialog(context: context, builder: (_) {
-            return FAlertDialog(
+            return BasisPopupAlert(
               title: 'Deseja descartar?',
               confirmLabel: 'Sim',
               cancelLabel: 'Não',

@@ -3,7 +3,7 @@ import 'dart:io';
 import 'package:flutter/material.dart';
 import 'package:flutter_basis/flutter_basis.dart';
 
-class FAlertDialog extends StatefulWidget {
+class BasisPopupAlert extends StatefulWidget {
   final String title;
   final String confirmLabel;
   final String? cancelLabel;
@@ -14,7 +14,7 @@ class FAlertDialog extends StatefulWidget {
   final Widget? child;
   final bool loading;
 
-  const FAlertDialog({
+  const BasisPopupAlert({
     Key? key,
     required this.title,
     this.description,
@@ -29,10 +29,10 @@ class FAlertDialog extends StatefulWidget {
   }) : super(key: key);
 
   @override
-  State<FAlertDialog> createState() => _FAlertDialogState();
+  State<BasisPopupAlert> createState() => _BasisPopupAlertState();
 }
 
-class _FAlertDialogState extends State<FAlertDialog> with ResponsiveSizes {
+class _BasisPopupAlertState extends State<BasisPopupAlert> with ResponsiveSizes {
   @override
   Widget build(BuildContext context) {
     return WillPopScope(
@@ -47,7 +47,7 @@ class _FAlertDialogState extends State<FAlertDialog> with ResponsiveSizes {
           content: widget.description != null ? _description : null,
           actions: [
             if (widget.cancelable) _onCancelButton,
-            if (widget.loading) FLoading(color: Colors.white, size: dp12(context))
+            if (widget.loading) BasisLoading(color: Colors.white, size: dp12(context))
             else _onConfirmButton,
           ],
         ),
@@ -56,7 +56,7 @@ class _FAlertDialogState extends State<FAlertDialog> with ResponsiveSizes {
   }
 
   Widget get _title {
-    return FText(
+    return BasisText(
       widget.title,
       alignCenter: true,
       fontSize: dp16(context),
@@ -68,11 +68,11 @@ class _FAlertDialogState extends State<FAlertDialog> with ResponsiveSizes {
   Widget get _description {
     return widget.child != null
       ? widget.child!
-      : FText(widget.description!, color: Colors.black87);
+      : BasisText(widget.description!, color: Colors.black87);
   }
 
   Widget get _onConfirmButton {
-    return FElevatedButton(
+    return BasisButton(
       radius: Platform.isIOS ? 0 : null,
       horizontalPadding: dp22(context) * 2,
       backgroundColor: Colors.red,
@@ -83,7 +83,7 @@ class _FAlertDialogState extends State<FAlertDialog> with ResponsiveSizes {
   }
 
   Widget get _onCancelButton {
-    return FOutlinedButton(
+    return BasisLinedButton(
       borderColor: Platform.isIOS ? Colors.transparent : null,
       radius: Platform.isIOS ? 0 : null,
       horizontalPadding: dp22(context) * 2,

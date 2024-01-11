@@ -2,8 +2,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_basis/flutter_basis.dart';
 
-class FTextButton extends StatelessWidget with ResponsiveSizes {
-  const FTextButton({
+class BasisTextButton extends StatelessWidget with ResponsiveSizes {
+  const BasisTextButton({
     super.key, 
     required this.title, 
     this.onPressed,
@@ -37,7 +37,7 @@ class FTextButton extends StatelessWidget with ResponsiveSizes {
           padding: paddingZero ? EdgeInsets.zero : null,
         ),
         onPressed: onPressed, 
-        child: FText(
+        child: BasisText(
           title,
           color: color ?? Colors.black54,
           fontSize: fontSize ?? dp16(context),

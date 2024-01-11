@@ -1,10 +1,10 @@
 import 'package:flutter/material.dart';
 
-class FLoading extends StatelessWidget {
+class BasisLoading extends StatelessWidget {
   final double? size;
   final AlignmentGeometry? alignment;
   final Color? color;
-  const FLoading({
+  const BasisLoading({
     super.key, 
     this.size = 15, 
     this.alignment = Alignment.center,

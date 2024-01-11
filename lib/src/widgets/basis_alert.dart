@@ -20,7 +20,7 @@ IconData _getIcon(ESnackBarState state) =>
     ESnackBarState.error => Icons.error_rounded,
   };
 
-class FSnackBars {
+class BasisAlert {
   static show({
     required String message,
     required ESnackBarState state,
@@ -31,15 +31,15 @@ class FSnackBars {
         elevation: 0,
         backgroundColor: Colors.transparent,
         margin: const EdgeInsets.symmetric(horizontal: 40),
-        content: FSnackBarContent(message: message, state: state, suffixIcon: suffixIcon),
+        content: AlertContent(message: message, state: state, suffixIcon: suffixIcon),
         behavior: SnackBarBehavior.floating,
       ),
     );
   }
 }
 
-class FSnackBarContent extends StatelessWidget with ResponsiveSizes {
-  const FSnackBarContent({
+class AlertContent extends StatelessWidget with ResponsiveSizes {
+  const AlertContent({
     super.key, 
     required this.message, 
     required this.state,
@@ -75,7 +75,7 @@ class FSnackBarContent extends StatelessWidget with ResponsiveSizes {
               SizedBox(width: dp10(context)),
             ],
             Expanded(
-              child: FText(
+              child: BasisText(
                 message,
                 color: Colors.white,
                 light: true,

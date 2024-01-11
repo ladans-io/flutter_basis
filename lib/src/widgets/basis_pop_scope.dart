@@ -3,24 +3,24 @@ import 'dart:io';
 import 'package:flutter/material.dart';
 import 'package:flutter_basis/flutter_basis.dart';
 
-class FWillPopScope extends StatefulWidget {
-  const FWillPopScope({
+class BasisPopScope extends StatefulWidget {
+  const BasisPopScope({
     super.key,
     required this.child,
   });
   final Widget child;
 
   @override
-  State<FWillPopScope> createState() => _FWillPopScopeState();
+  State<BasisPopScope> createState() => _BasisPopScopeState();
 }
 
-class _FWillPopScopeState extends State<FWillPopScope> {
+class _BasisPopScopeState extends State<BasisPopScope> {
   var _taps = 0;
 
   Future<bool> _onWillPop() async {
     if (_taps == 0) _taps += 1;
     if (_taps == 1) {
-      FSnackBars.show(
+      BasisAlert.show(
         message: 'Clique novamente para encerrar a aplicação!',
         state: ESnackBarState.info,
       );
