@@ -5,7 +5,7 @@ import 'transition.dart';
 
 mixin Routing {
   String get initialRoute => '/';
-  Map<String, BasisRoute> get basisRoutes;
+  Map<String, BasisRoute> get routes;
 
   Widget _transitionBuilder(
     BuildContext context,
@@ -35,11 +35,11 @@ mixin Routing {
     var routerName = routerSettings.name;
     var routerArgs = routerSettings.arguments;
 
-    var navigateTo = basisRoutes[routerName]?.widgetBuilderArgs;
+    var navigateTo = routes[routerName]?.widgetBuilderArgs;
 
-    var transitionType = basisRoutes[routerName]?.transitionType;
-    var transitionDuration = basisRoutes[routerName]?.transitionDuration;
-    var reverseTransitionDuration = basisRoutes[routerName]?.reverseTransitionDuration;
+    var transitionType = routes[routerName]?.transitionType;
+    var transitionDuration = routes[routerName]?.transitionDuration;
+    var reverseTransitionDuration = routes[routerName]?.reverseTransitionDuration;
 
     if (navigateTo == null) return null;
 
