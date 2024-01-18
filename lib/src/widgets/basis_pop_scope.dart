@@ -22,7 +22,7 @@ class _BasisPopScopeState extends State<BasisPopScope> {
     if (_taps == 1) {
       BasisAlert.show(
         message: 'Clique novamente para encerrar a aplicação!',
-        state: SnackBarState.info,
+        state: AlertState.info,
       );
       _taps += 1;
     } else if (_taps == 2) {

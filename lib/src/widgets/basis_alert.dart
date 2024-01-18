@@ -9,7 +9,7 @@ final Color _infoColor = Colors.amber.shade800;
 class BasisAlert {
   static show({
     required String message,
-    required SnackBarState state,
+    required AlertState state,
     String? prefixIcon,
   }) {
     return GlobalKeys.scaffoldMessengerKey.currentState?.showSnackBar(
@@ -34,7 +34,7 @@ class AlertContent extends StatelessWidget with ResponsiveSizes {
 
   final String message;
   final String? prefixIcon;
-  final SnackBarState state;
+  final AlertState state;
 
   @override
   Widget build(BuildContext context) {
@@ -70,14 +70,14 @@ class AlertContent extends StatelessWidget with ResponsiveSizes {
             ),
             Icon(
               switch (state) {
-                SnackBarState.success => Icons.check_circle,
-                SnackBarState.info => Icons.info_rounded,
-                SnackBarState.error => Icons.error_rounded,
+                AlertState.success => Icons.check_circle,
+                AlertState.info => Icons.info_rounded,
+                AlertState.error => Icons.error_rounded,
               },
               color: switch (state) {
-                SnackBarState.success => _successColor,
-                SnackBarState.info => _infoColor,
-                SnackBarState.error => _errorColor,
+                AlertState.success => _successColor,
+                AlertState.info => _infoColor,
+                AlertState.error => _errorColor,
               },
               size: dp28(context),
             ),
@@ -88,5 +88,5 @@ class AlertContent extends StatelessWidget with ResponsiveSizes {
   }
 }
 
-enum SnackBarState { error, info, success }
+enum AlertState { error, info, success }
 
