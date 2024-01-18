@@ -6,32 +6,18 @@ const Color _successColor = Color(0xFF4CAF50);
 const Color _errorColor = Color(0xFFFF5252);
 final Color _infoColor = Colors.amber.shade800;
 
-Color _getColor(ESnackBarState state) =>
-  switch (state) {
-    ESnackBarState.success => _successColor,
-    ESnackBarState.info => _infoColor,
-    ESnackBarState.error => _errorColor,
-  };
-
-IconData _getIcon(ESnackBarState state) =>
-  switch (state) {
-    ESnackBarState.success => Icons.check_circle,
-    ESnackBarState.info => Icons.info_rounded,
-    ESnackBarState.error => Icons.error_rounded,
-  };
-
 class BasisAlert {
   static show({
     required String message,
-    required ESnackBarState state,
-    String? suffixIcon,
+    required SnackBarState state,
+    String? prefixIcon,
   }) {
     return GlobalKeys.scaffoldMessengerKey.currentState?.showSnackBar(
       SnackBar(
         elevation: 0,
         backgroundColor: Colors.transparent,
         margin: const EdgeInsets.symmetric(horizontal: 40),
-        content: AlertContent(message: message, state: state, suffixIcon: suffixIcon),
+        content: AlertContent(message: message, state: state, prefixIcon: prefixIcon),
         behavior: SnackBarBehavior.floating,
       ),
     );
@@ -43,12 +29,12 @@ class AlertContent extends StatelessWidget with ResponsiveSizes {
     super.key, 
     required this.message, 
     required this.state,
-    this.suffixIcon,
+    this.prefixIcon,
   });
 
   final String message;
-  final String? suffixIcon;
-  final ESnackBarState state;
+  final String? prefixIcon;
+  final SnackBarState state;
 
   @override
   Widget build(BuildContext context) {
@@ -64,12 +50,12 @@ class AlertContent extends StatelessWidget with ResponsiveSizes {
         child: Row(
           crossAxisAlignment: CrossAxisAlignment.center,
           children: [
-            if (suffixIcon != null) ...[
+            if (prefixIcon != null) ...[
               Container(
                 width: dp22(context),
                 height: dp22(context),
                 decoration: BoxDecoration(
-                  image: DecorationImage(image: AssetImage(suffixIcon!)),
+                  image: DecorationImage(image: AssetImage(prefixIcon!)),
                 ),
               ),
               SizedBox(width: dp10(context)),
@@ -83,8 +69,16 @@ class AlertContent extends StatelessWidget with ResponsiveSizes {
               ),
             ),
             Icon(
-              _getIcon(state),
-              color: _getColor(state),
+              switch (state) {
+                SnackBarState.success => Icons.check_circle,
+                SnackBarState.info => Icons.info_rounded,
+                SnackBarState.error => Icons.error_rounded,
+              },
+              color: switch (state) {
+                SnackBarState.success => _successColor,
+                SnackBarState.info => _infoColor,
+                SnackBarState.error => _errorColor,
+              },
               size: dp28(context),
             ),
           ],
@@ -94,5 +88,5 @@ class AlertContent extends StatelessWidget with ResponsiveSizes {
   }
 }
 
-enum ESnackBarState { error, info, success }
+enum SnackBarState { error, info, success }
 
