@@ -10,8 +10,16 @@ environment:
 dependencies:
   flutter:
     sdk: flutter
+
+  equatable:
+
+  http:
+
   get_it:
+
   url_launcher:
+
+  shared_preferences:
 
 dev_dependencies:
   flutter_test:
