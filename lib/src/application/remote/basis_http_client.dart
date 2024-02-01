@@ -3,11 +3,12 @@ import 'dart:io';
 
 import 'package:http/http.dart' as http;
 
-class BasisHttpClient extends http.BaseClient with AuthHeaders {
+// ignore_for_file: non_constant_identifier_names
+final class BasisHttpClient extends http.BaseClient with AuthHeaders {
   late String urlBase;
 
-  BasisHttpClient(String urlBase) {
-    this.urlBase = urlBase;
+  BasisHttpClient(String? urlBase) {
+    this.urlBase = urlBase ?? String.fromEnvironment('URL_BASE');
   }
 
   String? _authorizationToken;
@@ -29,13 +30,13 @@ class BasisHttpClient extends http.BaseClient with AuthHeaders {
     }
   }
 
-  Future<http.Response> httpGET(
+  Future<http.Response> GET(
     String path, {
     Map<String, String>? headers,
     bool requireAuth = false,
   }) async {
     return await super.get(
-      Uri.parse('${String.fromEnvironment(urlBase)}/$path'),
+      Uri.parse('$urlBase/$path'),
       headers: authorize(
         requireAuth,
         headers ?? _headers,
@@ -44,7 +45,7 @@ class BasisHttpClient extends http.BaseClient with AuthHeaders {
     );
   }
 
-  Future<http.Response> httpPUT(
+  Future<http.Response> PUT(
     String path, {
     Map<String, String>? headers,
     Object? body,
@@ -53,7 +54,7 @@ class BasisHttpClient extends http.BaseClient with AuthHeaders {
     bool defaultHeaders = true,
   }) async {
     return await super.put(
-      Uri.parse('${String.fromEnvironment(urlBase)}/$path'),
+      Uri.parse('$urlBase/$path'),
       headers: authorize(
         requireAuth,
         headers ?? _headers,
@@ -65,7 +66,7 @@ class BasisHttpClient extends http.BaseClient with AuthHeaders {
     );
   }
 
-  Future<http.Response> httpPOST(
+  Future<http.Response> POST(
     String path, {
     Map<String, String>? headers,
     Object? body,
@@ -74,7 +75,7 @@ class BasisHttpClient extends http.BaseClient with AuthHeaders {
     bool setDefaultHeaders = true,
   }) async {
     return await super.post(
-      Uri.parse('${String.fromEnvironment(urlBase)}/$path'),
+      Uri.parse('$urlBase/$path'),
       headers: authorize(
         requireAuth,
         headers ?? _headers,
@@ -86,7 +87,7 @@ class BasisHttpClient extends http.BaseClient with AuthHeaders {
     );
   }
 
-  Future<http.Response> httpDELETE(
+  Future<http.Response> DELETE(
     String path, {
     Map<String, String>? headers,
     Object? body,
@@ -95,7 +96,7 @@ class BasisHttpClient extends http.BaseClient with AuthHeaders {
     bool setDefaultHeaders = true,
   }) async {
     return await super.delete(
-      Uri.parse('${String.fromEnvironment(urlBase)}/$path'),
+      Uri.parse('$urlBase/$path'),
       headers: authorize(
         requireAuth,
         headers ?? _headers,
@@ -107,7 +108,7 @@ class BasisHttpClient extends http.BaseClient with AuthHeaders {
     );
   }
 
-  Future<http.Response> httpUPLOAD(
+  Future<http.Response> UPLOAD(
     String path, {
     required String fileName,
     required String filePath,
@@ -116,7 +117,7 @@ class BasisHttpClient extends http.BaseClient with AuthHeaders {
     bool setDefaultHeaders = true,
   }) async {
     final multipartRequest =
-        http.MultipartRequest('POST', Uri.parse('${String.fromEnvironment(urlBase)}/$path'))
+        http.MultipartRequest('POST', Uri.parse('$urlBase/$path'))
           ..headers.addAll(
               authorize(requireAuth, headers ?? _headers,
               _authorizationToken, setDefaultHeaders,
@@ -138,7 +139,7 @@ class BasisHttpClient extends http.BaseClient with AuthHeaders {
     );
   }
 
-  Future<http.Response> httpFormaDataPOST(
+  Future<http.Response> FORM_DATA_POST(
     String path, {
     required Map<String, String> files,
     required Map<String, String> body,
@@ -147,7 +148,7 @@ class BasisHttpClient extends http.BaseClient with AuthHeaders {
     bool setDefaultHeaders = true,
   }) async {
     final multipartRequest =
-        http.MultipartRequest('POST', Uri.parse('${String.fromEnvironment(urlBase)}/$path'))
+        http.MultipartRequest('POST', Uri.parse('$urlBase/$path'))
           ..headers.addAll(authorize(
             requireAuth,
             headers ?? _headers,
