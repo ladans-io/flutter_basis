@@ -1,27 +1,71 @@
 import 'dart:async';
 
-abstract class CacheStorage {
-  Future<bool> setString(String key, String value);
+import 'package:shared_preferences/shared_preferences.dart';
 
-  String? getString(String key);
+import 'i_cache_storage.dart';
 
-  Future<bool> setBool(String key, bool value);
+class CacheStorage implements ICacheStorage {
+  CacheStorage(this.prefs);
 
-  bool? getBool(String key);
+  final SharedPreferences prefs;
 
-  Future<bool> setInt(String key, int value);
+  @override
+  Future<bool> setString(String key, String value) async {
+    return await prefs.setString(key, value);
+  }
 
-  int? getInt(String key);
+  @override
+  String? getString(String key) {
+    return prefs.getString(key);
+  }
 
-  Future<bool> setDouble(String key, double value);
+  @override
+  Future<bool> setBool(String key, bool value) async {
+    return await prefs.setBool(key, value);
+  }
 
-  double? getDouble(String key);
+  @override
+  bool? getBool(String key) {
+    return prefs.getBool(key);
+  }
 
-  Future<bool> setStringList(String key, List<String> value);
+  @override
+  Future<bool> setInt(String key, int value) async {
+    return await prefs.setInt(key, value);
+  }
 
-  List<String>? getStringList(String key);
+  @override
+  int? getInt(String key) {
+    return prefs.getInt(key);
+  }
 
-  Future<bool> remove(String key);
+  @override
+  Future<bool> setDouble(String key, double value) async {
+    return await prefs.setDouble(key, value);
+  }
 
-  Future<bool> clearAllCache();
+  @override
+  double? getDouble(String key) {
+    return prefs.getDouble(key);
+  }
+
+  @override
+  Future<bool> setStringList(String key, List<String> value) async {
+    return await prefs.setStringList(key, value);
+  }
+
+  @override
+  List<String>? getStringList(String key) {
+    return prefs.getStringList(key);
+  }
+
+  @override
+  Future<bool> remove(String key) async {
+    return await prefs.remove(key);
+  }
+
+  @override
+  Future<bool> clearAllCache() async {
+    return await prefs.clear();
+  }
 }
