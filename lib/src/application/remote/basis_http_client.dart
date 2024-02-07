@@ -7,7 +7,7 @@ import 'package:http/http.dart' as http;
 class BasisHttpClient extends http.BaseClient with AuthHeaders {
   late String urlBase;
 
-  BasisHttpClient(String? urlBase) {
+  BasisHttpClient({String? urlBase}) {
     this.urlBase = urlBase ?? String.fromEnvironment('URL_BASE');
   }
 
