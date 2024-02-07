@@ -87,3 +87,30 @@ class BasisSocketException extends SocketException {
     return message;
   }
 }
+
+/// [DomainException]
+class DomainException extends Exception {
+  const DomainException(message) : super(message);
+
+  @override
+  List<Object> get props => [exception];
+
+  @override
+  String toString() {
+    return 'EXCEÇÃO DE DOMÍNIO\n$exception';
+  }
+}
+
+/// [UnexpectedValueException]
+///
+class UnexpectedValueException extends Exception {
+  const UnexpectedValueException(super.message);
+
+  @override
+  List<Object> get props => [exception];
+
+  @override
+  String toString() {
+    return 'EXCEÇÃO DE VALOR\n$exception';
+  }
+}

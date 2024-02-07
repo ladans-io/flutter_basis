@@ -29,13 +29,3 @@ class CommonFailure extends Failure {
 class CacheFailure extends Failure {
   const CacheFailure({final message}) : super(message: message);
 }
-
-/// [UnexpectedValueException]
-///
-class UnexpectedValueException extends Failure {
-  const UnexpectedValueException({required super.message});
-}
-
-class CartFailure extends Failure {
-  const CartFailure({required super.message});
-}
