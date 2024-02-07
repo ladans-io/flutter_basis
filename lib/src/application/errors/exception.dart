@@ -5,6 +5,7 @@ import 'package:equatable/equatable.dart';
 const internalProcessingError = 'Ocorreu um erro de processamento interno.';
 const errorReceivingData = 'Falha ao receber os dados.';
 const unknownError = 'Ocorreu um erro desconhecido.';
+const serverNotFound = 'Servidor não encontrado';
 const invalidCredentials = 'E-mail ou senha incorretos.';
 const invalidParameters = 'Dados inválidos.';
 const notFound = 'Funcionalidade indisponível no momento.';
