@@ -1,6 +1,6 @@
 name: flutter_basis
 description: Start point package for Flutter applications
-version: 1.0.5+11
+version: 1.0.6+12
 homepage:
 
 environment:
@@ -20,6 +20,10 @@ dependencies:
   url_launcher:
 
   shared_preferences:
+
+  path_provider:
+
+  dartz:
 
 dev_dependencies:
   flutter_test:

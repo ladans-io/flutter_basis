@@ -34,6 +34,10 @@ abstract class ClientException extends Equatable {
       return requestTimeout;
     }
 
+    if (contains('Server Error')) {
+      return internalProcessingError;
+    }
+
     if (contains('Name or service not known')) return unknownError;
 
     return message!;
@@ -67,9 +71,9 @@ class ClientRequestException extends ClientException {
   List<Object?> get props => [message, statusCode];
 }
 
-/// [DshSocketException]
-class DshSocketException extends SocketException {
-  const DshSocketException(
+/// [BasisSocketException]
+class BasisSocketException extends SocketException {
+  const BasisSocketException(
     String message, {
     OSError? osError,
     InternetAddress? address,

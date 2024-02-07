@@ -12,7 +12,7 @@ mixin CacheFailureOrSuccess {
       return (null, result);
     } on CacheException catch (e) {
       return (CacheFailure(message: e.toString()), null);
-    } on DshSocketException catch (e) {
+    } on BasisSocketException catch (e) {
       return (CommonFailure(message: e.formattedMessage), null);
     } catch (e) {
       return (CommonFailure(message: e.toString()), null);
