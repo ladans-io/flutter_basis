@@ -4,7 +4,7 @@ import 'dart:io';
 import 'package:http/http.dart' as http;
 
 // ignore_for_file: non_constant_identifier_names
-final class BasisHttpClient extends http.BaseClient with AuthHeaders {
+class BasisHttpClient extends http.BaseClient with AuthHeaders {
   late String urlBase;
 
   BasisHttpClient(String? urlBase) {
