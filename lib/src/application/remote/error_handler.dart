@@ -8,6 +8,8 @@ mixin ErrorHandler {
   String _handleMap(Map value, int _) {
     if (value['erro'] != null) return value['erro'];
     
+    if (value['data'] != null) return value['data'];
+
     if (value['message'] != null) return value['message'];
 
     return unknownError;
