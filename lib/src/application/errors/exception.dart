@@ -12,6 +12,28 @@ const notFound = 'Funcionalidade indisponível no momento.';
 const requestTimeout = 'Sem resposta do servidor.';
 const cacheException = 'No momento, não encontramos nenhum registro correspondente.';
 
+String getFormattedMessage(String message) {
+  bool contains(String err) => message.contains(err);
+
+  if (contains('Unauthorized')) return invalidCredentials;
+
+  if (contains('Undefined')) return invalidParameters;
+
+  if (contains('The operation has timed out') || 
+      contains('Timeout during reading')
+  ) {
+    return requestTimeout;
+  }
+
+  if (contains('Server Error')) return internalProcessingError;
+
+  if (contains('Name or service not known')) return unknownError;
+
+  if (contains('Connection closed while receiving data')) return errorReceivingData;
+
+  return message;
+}
+
 /// [Exception]
 abstract class Exception extends Equatable {
   final Object exception;
@@ -24,25 +46,7 @@ abstract class ClientException extends Equatable {
   final int? statusCode;
   const ClientException({this.message, this.statusCode});
 
-  String get formattedMessage {
-    bool contains(String err) => message!.contains(err);
-
-    if (contains('Unauthorized')) return invalidCredentials;
-
-    if (contains('Undefined')) return invalidParameters;
-
-    if (contains('The operation has timed out') || contains('Timeout during reading')) {
-      return requestTimeout;
-    }
-
-    if (contains('Server Error')) {
-      return internalProcessingError;
-    }
-
-    if (contains('Name or service not known')) return unknownError;
-
-    return message!;
-  }
+  String get formattedMessage => getFormattedMessage(message!);
 }
 
 /// [CommonException]

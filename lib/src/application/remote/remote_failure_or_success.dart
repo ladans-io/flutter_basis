@@ -2,14 +2,14 @@ import 'dart:async';
 import 'dart:convert';
 
 import 'package:dartz/dartz.dart';
-import 'package:http/http.dart' hide ClientException;
+import 'package:http/http.dart' as http;
 
 import '../../utils/bytes_to_file.dart';
 import '../errors/exports.dart';
 import 'client_response.dart';
 import 'client_request_handler.dart';
 
-typedef TypeRemoteCall = Future<Response>;
+typedef TypeRemoteCall = Future<http.Response>;
 
 abstract class RemoteFailureOrSuccess extends ClientRequestHandler {
   Future<(Failure?, ClientResponse?)> onRemoteFailureOrSuccess<T>(
@@ -34,6 +34,8 @@ abstract class RemoteFailureOrSuccess extends ClientRequestHandler {
         ServerFailure(message: e.formattedMessage, code: e.statusCode),
         null
       );
+    } on http.ClientException catch (e) {
+      return (ServerFailure(message: getFormattedMessage(e.message), code: 0), null);
     } on BasisSocketException catch (e) {
       return (CommonFailure(message: e.formattedMessage), null);
     } on TimeoutException {
@@ -65,6 +67,8 @@ abstract class RemoteFailureOrSuccess extends ClientRequestHandler {
 
     } on ClientException catch (e) {
       return Left(ServerFailure(message: e.formattedMessage, code: e.statusCode));
+    } on http.ClientException catch (e) {
+      return Left(ServerFailure(message: getFormattedMessage(e.message), code: 0));
     } on BasisSocketException catch (e) {
       return Left(CommonFailure(message: e.formattedMessage));
     } on TimeoutException {
