@@ -3,6 +3,8 @@ import 'dart:io';
 
 import 'package:http/http.dart' as http;
 
+import '../errors/exports.dart';
+
 // ignore_for_file: non_constant_identifier_names
 class BasisHttpClient extends http.BaseClient with AuthHeaders {
   late String urlBase;
@@ -22,7 +24,7 @@ class BasisHttpClient extends http.BaseClient with AuthHeaders {
     try {
       return await request.send().timeout(const Duration(seconds: 45));
     } on SocketException catch (e) {
-      throw SocketException(
+      throw BasisSocketException(
         e.message,
         osError: e.osError,
         address: e.address,
