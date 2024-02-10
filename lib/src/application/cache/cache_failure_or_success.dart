@@ -2,14 +2,12 @@ import '../errors/exports.dart';
 
 typedef TypeCacheCall<T> = T;
 
-mixin CacheFailureOrSuccess {
-  (Failure?, T?) getCacheFailureorSuccess<T>(
+mixin CacheResultHandler {
+  (Failure?, T?) handleCacheResult<T>(
     TypeCacheCall<T> call,
   ) {
     try {
-      final result = call;
-
-      return (null, result);
+      return (null, call);
     } on CacheException catch (e) {
       return (CacheFailure(message: e.toString()), null);
     } on BasisSocketException catch (e) {

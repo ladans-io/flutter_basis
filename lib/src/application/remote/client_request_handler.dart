@@ -4,7 +4,7 @@ import '../errors/exception.dart';
 import 'error_handler.dart';
 
 abstract class ClientRequestHandler with ErrorHandler {
-  Response handleRequest(Response response) {
+  Response handleClientRequest(Response response) {
     switch (response.statusCode) {
       case 200:
       case 201:
