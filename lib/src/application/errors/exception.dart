@@ -85,9 +85,7 @@ class BasisSocketException extends SocketException {
   }) : super(message, osError: osError, address: address);
 
   String get formattedMessage {
-    if (message.contains('Failed host lookup')) {
-      return "Host ${message.split(':')[1]} não foi encontrado";
-    }
+    if (message.contains('Failed host lookup')) return serverNotFound;
 
     return message;
   }
