@@ -3,7 +3,6 @@ import 'dart:io';
 
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-import 'basis_form_field_style.dart';
 
 import '../../../flutter_basis.dart';
 
@@ -11,19 +10,17 @@ var updateOdxTextFieldValue = true;
 
 class BasisFormField extends StatefulWidget {
   final String? fieldLabel;
-  final String? password;
   final String? hintText;
-  final bool isPassword,
-             isEmail,
-             isConfirmPassword,
-             isCpfCnpj,
+  final bool obscureText,
              validate,
              showSuffixIcon,
              showBorderOnFocus,
              showBorder,
              statusEnabled,
              enabled,
-             labelLightWeight;
+             lightLabel,
+             boldLabel,
+             bold;
   final TextEditingController controller;
   final ValueChanged<String>? onChanged;
   final FormFieldSetter<String>? onSaved;
@@ -32,11 +29,11 @@ class BasisFormField extends StatefulWidget {
   final TextInputType? keyboardType;
   final TextInputAction? textInputAction;
   final FocusNode? focusNode;
-  final double? labelSize;
+  final double? labelSize, radius, fontSize;
   final int? maxLines;
   final int? maxLength;
   final String? Function(String?)? validator;
-  final Color? labelColor, disabledColor;
+  final Color? labelColor, disabledColor, borderColor, fillColor;
   final EdgeInsetsGeometry? contentPadding;
   final TextAlign? textAlign;
   final Widget? labelChild;
@@ -48,15 +45,10 @@ class BasisFormField extends StatefulWidget {
   const BasisFormField({
     Key? key,
     this.fieldLabel,
-    this.isPassword = false,
-    this.isEmail = false,
-    this.isConfirmPassword = false,
-    this.isCpfCnpj = false,
     this.statusEnabled = true,
     required this.controller,
     this.onChanged,
     this.onSubmit,
-    this.password,
     this.enabled = true,
     this.inputFormatters,
     this.keyboardType,
@@ -71,7 +63,8 @@ class BasisFormField extends StatefulWidget {
     this.onSaved,
     this.labelColor,
     this.disabledColor,
-    this.labelLightWeight = false,
+    this.lightLabel = false,
+    this.boldLabel = false,
     this.contentPadding,
     this.showBorder = true,
     this.showBorderOnFocus = false,
@@ -82,6 +75,12 @@ class BasisFormField extends StatefulWidget {
     this.formKey,
     this.suffixIcon,
     this.showSuffixIcon = true,
+    this.obscureText = false,
+    this.borderColor,
+    this.radius,
+    this.fillColor,
+    this.bold = false,
+    this.fontSize,
   }) : super(key: key);
 
   @override
@@ -89,13 +88,18 @@ class BasisFormField extends StatefulWidget {
 }
 
 class _BasisFormFieldState extends State<BasisFormField> with ResponsiveSizes,
-                                                                  BasisFormFieldStyle {
+                                                              BasisFormFieldStyle {
 
-  var _obscureText = true;
+  late bool _obscureText;
   var _success = false;
 
-
   late double _labelSize;
+
+  @override
+  void initState() {
+    _obscureText = widget.obscureText;
+    super.initState();
+  }
 
   @override
   void didChangeDependencies() {
@@ -107,14 +111,6 @@ class _BasisFormFieldState extends State<BasisFormField> with ResponsiveSizes,
     return _obscureText 
       ? Icons.visibility_outlined 
       : Icons.visibility_off_outlined;
-  }
-
-  bool get _isPasswordField {
-    return widget.isPassword || widget.isConfirmPassword;
-  }
-
-  bool get _hasSuffix {
-    return _isPasswordField || widget.suffixIcon != null;
   }
 
   @override
@@ -136,7 +132,8 @@ class _BasisFormFieldState extends State<BasisFormField> with ResponsiveSizes,
                   widget.fieldLabel!,
                   fontSize: _labelSize,
                   color: widget.labelColor,
-                  light: widget.labelLightWeight,
+                  bold: widget.boldLabel,
+                  light: widget.lightLabel,
                 ),
 
                 if (widget.labelChild != null)...[
@@ -163,6 +160,8 @@ class _BasisFormFieldState extends State<BasisFormField> with ResponsiveSizes,
                 showBorderOnFocus: widget.showBorderOnFocus,
                 focused: widget.focusNode?.hasFocus ?? false,
                 statusEnabled: widget.statusEnabled,
+                borderColor: widget.borderColor,
+                radius: widget.radius,
               );
 
               if (widget.controller.text.isNotEmpty && updateOdxTextFieldValue) {
@@ -178,7 +177,7 @@ class _BasisFormFieldState extends State<BasisFormField> with ResponsiveSizes,
                   TextField(
                     focusNode: widget.focusNode,
                     enabled: widget.enabled,
-                    style: getInputStyle(context),
+                    style: getInputStyle(context, bold: widget.bold, fontSize: widget.fontSize),
                     maxLength: widget.maxLength,
                     maxLines: widget.maxLines,
                     keyboardType: widget.keyboardType,
@@ -188,7 +187,7 @@ class _BasisFormFieldState extends State<BasisFormField> with ResponsiveSizes,
                     inputFormatters: widget.inputFormatters,
                     textCapitalization: widget.textCapitalization ?? TextCapitalization.sentences,
                     controller: widget.controller,
-                    obscureText: _obscureText && (widget.isPassword || widget.isConfirmPassword),
+                    obscureText: _obscureText,
                     cursorColor: primaryColor,
                     onChanged: (value) {
                       if (widget.onChanged != null) widget.onChanged!(value);
@@ -202,7 +201,12 @@ class _BasisFormFieldState extends State<BasisFormField> with ResponsiveSizes,
                       hintStyle: getInputHintStyle(context),
                       errorStyle: TextStyle(color: Colors.red.shade300, fontSize: dp12(context)),
                       filled: true,
-                      fillColor: getFillColor(context, enabled: widget.enabled, disabledColor: widget.disabledColor),
+                      fillColor: getFillColor(
+                        context,
+                        fillColor: widget.fillColor,
+                        enabled: widget.enabled, 
+                        disabledColor: widget.disabledColor,
+                      ),
                       border: inputBorder.get(),
                       focusedBorder: inputBorder.copy(focusedBorder: true).get(),
                       enabledBorder: inputBorder.get(),
@@ -214,15 +218,16 @@ class _BasisFormFieldState extends State<BasisFormField> with ResponsiveSizes,
                         padding: EdgeInsets.symmetric(horizontal: dp14(context)),
                         child: Row(
                           mainAxisSize: MainAxisSize.min,
+                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
                           children: [
-                            _isPasswordField
+                            _obscureText
                               ? GestureDetector(
-                                  child: Icon(_visibilityIcon, size: dp30(context), color: grey400),
+                                  child: Icon(_visibilityIcon, size: dp24(context), color: grey400),
                                   onTap: () => setState(() => _obscureText = !_obscureText)
                                 )
                               : widget.suffixIcon ?? const SizedBox.shrink(),
 
-                            if (_hasSuffix) SizedBox(width: dp14(context)),
+                            if (_obscureText) SizedBox(width: dp12(context)),
 
                             statusTile(
                               context,

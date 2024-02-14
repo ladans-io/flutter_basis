@@ -1,3 +1,4 @@
+import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_basis/flutter_basis.dart';
 
@@ -28,6 +29,8 @@ class BasisRichText extends StatelessWidget with ResponsiveSizes {
     this.fontSize2,
     this.fontFamily,
     this.textAlign,
+    this.onTap1,
+    this.onTap2,
   });
   final bool bold, bold1, bold2,
       light, light1, light2,
@@ -38,6 +41,7 @@ class BasisRichText extends StatelessWidget with ResponsiveSizes {
   final Color? color, color1, color2;
   final double? fontSize, fontSize1, fontSize2;
   final TextAlign? textAlign;
+  final VoidCallback? onTap1, onTap2;
 
   FontWeight? get _fontWeight1 {
     if (light || light1) {
@@ -76,6 +80,7 @@ class BasisRichText extends StatelessWidget with ResponsiveSizes {
         children: [
           TextSpan(
             text: text1,
+            recognizer: TapGestureRecognizer()..onTap = onTap2,
             style: TextStyle(
               color: color ?? color1 ?? primaryColor,
               fontSize: fontSize ?? fontSize1 ?? dp14(context),
@@ -85,6 +90,7 @@ class BasisRichText extends StatelessWidget with ResponsiveSizes {
           ),
           TextSpan(
             text: text2,
+            recognizer: TapGestureRecognizer()..onTap = onTap2,
             style: TextStyle(
               color: color ?? color2 ?? primaryColor,
               fontSize: fontSize ?? fontSize2 ?? dp14(context),

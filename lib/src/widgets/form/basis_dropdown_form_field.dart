@@ -20,20 +20,29 @@ class BasisDropdownFormField extends StatefulWidget {
     this.fieldLabel,
     this.labelSize,
     this.labelColor,
-    this.labelLightWeight = false,
+    this.lightLabel = false,
     this.labelChild,
     this.radius,
+    this.borderColor,
+    this.fillColor,
+    this.bold = false,
+    this.boldLabel = false,
+    this.showBorder = true,
   });
 
   final List<String> items;
   final ValueChanged<String?> onChanged;
   final FormFieldSetter<String?>? onSaved;
   final String? value, fieldLabel;
-  final Color? color, disabledColor, labelColor;
+  final Color? color, disabledColor, labelColor, borderColor, fillColor;
   final FocusNode? focusNode;
   final double? fontSize, width, height, verticalPadding, labelSize, radius;
   final GlobalKey<FormState>? formKey;
-  final bool enabled, labelLightWeight;
+  final bool enabled, 
+             lightLabel, 
+             showBorder,
+             boldLabel,
+             bold;
   final Widget? labelChild;
 
   @override
@@ -53,7 +62,12 @@ class _BasisDropdownFormFieldState extends State<BasisDropdownFormField> with Re
 
   @override
   Widget build(BuildContext context) {
-    const inputBorder = OdxInputBorder(showBorder: true);
+    final inputBorder = OdxInputBorder(
+      showBorder: widget.showBorder,
+      focused: widget.focusNode?.hasFocus ?? false,
+      borderColor: widget.borderColor,
+      radius: widget.radius,
+    );
 
     return ClipRRect(
       borderRadius: BorderRadius.circular(widget.radius ?? dp4(context)),
@@ -68,7 +82,8 @@ class _BasisDropdownFormFieldState extends State<BasisDropdownFormField> with Re
                   widget.fieldLabel!,
                   fontSize: _labelSize,
                   color: widget.labelColor,
-                  light: widget.labelLightWeight,
+                  light: widget.lightLabel,
+                  bold: widget.boldLabel,
                 ),
 
                 if (widget.labelChild != null)...[
@@ -93,7 +108,7 @@ class _BasisDropdownFormFieldState extends State<BasisDropdownFormField> with Re
                 child: DropdownButtonFormField(
                   focusNode: widget.focusNode,
                   value: widget.value,
-                  style: getInputStyle(context, fontSize: widget.fontSize),
+                  style: getInputStyle(context, bold: widget.bold, fontSize: widget.fontSize),
                   menuMaxHeight: dp25(context) * 8,
                   onSaved: widget.onSaved,
                   validator: widget.formKey != null ? (value) {
@@ -105,7 +120,12 @@ class _BasisDropdownFormFieldState extends State<BasisDropdownFormField> with Re
                     errorStyle: TextStyle(color: Colors.red.shade300, fontSize: dp12(context)),
                     hintStyle: getInputHintStyle(context, fontSize: widget.fontSize),
                     filled: true,
-                    fillColor: getFillColor(context, enabled: widget.enabled, disabledColor: widget.disabledColor),
+                    fillColor: getFillColor(
+                      context,
+                      fillColor: widget.fillColor,
+                      enabled: widget.enabled, 
+                      disabledColor: widget.disabledColor,
+                    ),
                     contentPadding: widget.height != null
                       ? const EdgeInsets.symmetric()
                       : EdgeInsets.symmetric(vertical: widget.verticalPadding ?? dp10(context)),

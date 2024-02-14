@@ -34,39 +34,39 @@ String getFormattedMessage(String message) {
   return message;
 }
 
-/// [Exception]
-abstract class Exception extends Equatable {
+/// [BasisException]
+abstract class BasisException extends Equatable {
   final Object exception;
-  const Exception(this.exception);
+  const BasisException(this.exception);
 }
 
-/// [ClientException]
-abstract class ClientException extends Equatable {
+/// [BasisClientException]
+abstract class BasisClientException extends Equatable {
   final String? message;
   final int? statusCode;
-  const ClientException({this.message, this.statusCode});
+  const BasisClientException({this.message, this.statusCode});
 
   String get formattedMessage => getFormattedMessage(message!);
 }
 
 /// [CommonException]
-class CommonException extends Exception {
+class CommonException extends BasisException {
   const CommonException(exception) : super(exception);
 
   @override
   List<Object> get props => [exception];
 }
 
-/// [CacheException]
-class CacheException extends Exception {
-  const CacheException(exception) : super(exception);
+/// [BasisCacheException]
+class BasisCacheException extends BasisException {
+  const BasisCacheException(exception) : super(exception);
 
   @override
   List<Object> get props => [exception];
 }
 
 /// [ClientRequestException]
-class ClientRequestException extends ClientException {
+class ClientRequestException extends BasisClientException {
   const ClientRequestException({
     final String? message,
     final int? statusCode,
@@ -92,7 +92,7 @@ class BasisSocketException extends SocketException {
 }
 
 /// [DomainException]
-class DomainException extends Exception {
+class DomainException extends BasisException {
   const DomainException(message) : super(message);
 
   @override
@@ -106,7 +106,7 @@ class DomainException extends Exception {
 
 /// [UnexpectedValueException]
 ///
-class UnexpectedValueException extends Exception {
+class UnexpectedValueException extends BasisException {
   const UnexpectedValueException(super.message);
 
   @override

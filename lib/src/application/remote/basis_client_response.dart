@@ -1,12 +1,12 @@
 import 'package:equatable/equatable.dart';
 
-class ClientResponse<T> extends Equatable {
+class BasisClientResponse<T> extends Equatable {
   final T? data;
   final int? statusCode;
   final String? statusMessage;
   final bool success;
 
-  const ClientResponse({
+  const BasisClientResponse({
     this.data,
     this.statusCode,
     this.statusMessage,

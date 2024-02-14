@@ -5,13 +5,13 @@ import 'package:http/http.dart' as http;
 
 import '../../utils/bytes_to_file.dart';
 import '../errors/exports.dart';
-import 'client_response.dart';
+import 'basis_client_response.dart';
 import 'client_request_handler.dart';
 
 typedef ClientRemoteCall = Future<http.Response>;
 
 abstract class ClientEitherResponseHandler extends ClientRequestHandler {
-  Future<(Failure?, ClientResponse?)> handleClientEitherResponse<T>(
+  Future<(Failure?, BasisClientResponse?)> handleClientEitherResponse<T>(
     ClientRemoteCall call, {
       bool downloadFile = false,
     }
@@ -21,7 +21,7 @@ abstract class ClientEitherResponseHandler extends ClientRequestHandler {
 
       return (
         null,
-        ClientResponse(
+        BasisClientResponse(
           data: downloadFile 
             ? await bytesToFile(result.bodyBytes) 
             : switch(result.statusCode) {
@@ -32,7 +32,7 @@ abstract class ClientEitherResponseHandler extends ClientRequestHandler {
           statusMessage: result.reasonPhrase,
         ),
       );
-    } on ClientException catch (e) {
+    } on BasisClientException catch (e) {
       return (ServerFailure(message: e.formattedMessage, code: e.statusCode), null);
     } on http.ClientException catch (e) {
       return (ServerFailure(message: getFormattedMessage(e.message), code: 0), null);

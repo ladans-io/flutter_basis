@@ -2,9 +2,10 @@ import 'package:flutter/material.dart';
 import 'package:flutter_basis/flutter_basis.dart';
 
 mixin BasisFormFieldStyle on ResponsiveSizes {
-  TextStyle getInputStyle(BuildContext context, {double? fontSize}) {
+  TextStyle getInputStyle(BuildContext context, {double? fontSize, bool bold = false}) {
     return TextStyle(
       fontSize: fontSize ?? dp16(context),
+      fontWeight: bold ? FontWeight.bold : FontWeight.normal,
       color: Colors.black87,
     );
   }
@@ -21,10 +22,11 @@ mixin BasisFormFieldStyle on ResponsiveSizes {
     BuildContext context, {
       bool enabled = true,
       Color? disabledColor,
+      Color? fillColor,
     }
   ) {
     return enabled
-      ? Theme.of(context).cardColor
+      ? fillColor ?? Theme.of(context).cardColor
       : (disabledColor ?? Theme.of(context).colorScheme.primary.withOpacity(.03));
   }
 
@@ -63,8 +65,12 @@ class OdxInputBorder extends OutlineInputBorder {
     this.focusedBorder = false,
     this.focused = false,
     this.statusEnabled = true,
+    this.borderColor,
+    this.radius,
   });
 
+  final Color? borderColor;
+  final double? radius;
   final bool error,
              success,
              showBorderOnFocus,
@@ -94,13 +100,13 @@ class OdxInputBorder extends OutlineInputBorder {
     Color getColor() {
       if (success && !error && focused && statusEnabled) return Colors.green;
       if (error) return Colors.red.shade400;
-      if ((showBorderOnFocus && focused) || showBorder) return const Color(0xFFE6E6E6);
+      if ((showBorderOnFocus && focused) || showBorder) return borderColor ?? const Color(0xFFE6E6E6);
 
       return Colors.transparent;
     }
 
     return OutlineInputBorder(
-      borderRadius: BorderRadius.circular(5),
+      borderRadius: BorderRadius.circular(radius ?? 5),
       borderSide: BorderSide(
         width: focusedBorder ? 2.5 : 1,
         color: getColor(),

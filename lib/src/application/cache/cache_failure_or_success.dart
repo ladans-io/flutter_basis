@@ -8,7 +8,7 @@ mixin CacheResultHandler {
   ) {
     try {
       return (null, call);
-    } on CacheException catch (e) {
+    } on BasisCacheException catch (e) {
       return (CacheFailure(message: e.toString()), null);
     } on BasisSocketException catch (e) {
       return (CommonFailure(message: e.formattedMessage), null);
