@@ -2,6 +2,8 @@ library flutter_basis;
 
 export 'src/service_locator.dart';
 
+export 'src/strings.dart';
+
 export 'src/application/helpers/extensions.dart';
 
 export 'src/responsive/responsive_sizes.dart';

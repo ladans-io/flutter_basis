@@ -2,21 +2,22 @@ import 'package:flutter/material.dart';
 import 'package:flutter_basis/flutter_basis.dart';
 
 class BasisPopupLoading extends StatelessWidget with ResponsiveSizes {
-  final bool onWillPop;
-  final String? loadingPlaceholder;
+  final ValueChanged<bool>? onPopInvoked;
+  final String? loadingMsg;
   final VoidCallback? onCancel;
 
   const BasisPopupLoading({
     Key? key, 
-    this.onWillPop = false, 
-    this.loadingPlaceholder,
+    this.onPopInvoked, 
+    this.loadingMsg,
     this.onCancel,
   }) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
-    return WillPopScope(
-      onWillPop: () async => onWillPop,
+    return PopScope(
+      onPopInvoked: onPopInvoked,
+      canPop: false,
       child: Column(
         mainAxisAlignment: MainAxisAlignment.center,
         children: [
@@ -31,9 +32,7 @@ class BasisPopupLoading extends StatelessWidget with ResponsiveSizes {
                   elevation: 0,
                   color: Color(0xFF303030).withOpacity(.9),
                   shape: RoundedRectangleBorder(
-                    borderRadius: BorderRadius.circular(
-                      dp4(context),
-                    ),
+                    borderRadius: BorderRadius.circular(dp4(context)),
                   ),
                   child: _content(context),
                 ),
@@ -71,26 +70,28 @@ class BasisPopupLoading extends StatelessWidget with ResponsiveSizes {
         horizontal: dp10(context),
       ),
       child: Column(
-        mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+        mainAxisAlignment:  MainAxisAlignment.spaceEvenly,
         children: [
           BasisLoading(color: Colors.white, size: dp30(context)),
 
-          SizedBox(height: dp10(context)),
-
-          if (loadingPlaceholder != null) BasisText(
-            loadingPlaceholder!,
-            fontSize: dp14(context),
-            color: Colors.white,
-            alignCenter: true,
-            light: true,
-          ),
+          if (loadingMsg != null && loadingMsg!.isNotEmpty) ...[
+            SizedBox(height: dp10(context)),
+          
+            BasisText(
+              loadingMsg!,
+              fontSize: dp14(context),
+              color: Colors.white,
+              alignCenter: true,
+              light: true,
+            ),
+          ],
         ],
       ),
     );
   }
 
   static show({
-    String? loadingPlaceholder, 
+    String? loadingMsg, 
     VoidCallback? onCancel,
   }) {
     showDialog(
@@ -98,7 +99,7 @@ class BasisPopupLoading extends StatelessWidget with ResponsiveSizes {
       context: Navigate.navigatorKey.currentState!.overlay!.context, 
       barrierColor: Colors.transparent,
       builder: (context) => BasisPopupLoading(
-        loadingPlaceholder: loadingPlaceholder,
+        loadingMsg: loadingMsg,
         onCancel: onCancel,
       ),
     );
