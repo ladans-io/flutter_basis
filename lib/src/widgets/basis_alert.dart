@@ -11,13 +11,20 @@ class BasisAlert {
     required String message,
     required AlertState state,
     String? prefixIcon,
+    Color? backgroundColor,
+    EdgeInsetsGeometry? margin,
   }) {
     return GlobalKeys.scaffoldMessengerKey.currentState?.showSnackBar(
       SnackBar(
         elevation: 0,
         backgroundColor: Colors.transparent,
-        margin: const EdgeInsets.symmetric(horizontal: 40),
-        content: AlertContent(message: message, state: state, prefixIcon: prefixIcon),
+        margin: margin ?? const EdgeInsets.symmetric(horizontal: 40),
+        content: AlertContent(
+          message: message, 
+          state: state, 
+          prefixIcon: prefixIcon, 
+          backgroundColor: backgroundColor,
+        ),
         behavior: SnackBarBehavior.floating,
       ),
     );
@@ -30,11 +37,13 @@ class AlertContent extends StatelessWidget with ResponsiveSizes {
     required this.message, 
     required this.state,
     this.prefixIcon,
+    this.backgroundColor,
   });
 
   final String message;
   final String? prefixIcon;
   final AlertState state;
+  final Color? backgroundColor;
 
   @override
   Widget build(BuildContext context) {
@@ -43,10 +52,8 @@ class AlertContent extends StatelessWidget with ResponsiveSizes {
       child: Container(
         width: screenWidth(context),
         padding: EdgeInsets.all(dp15(context)),
-        constraints: BoxConstraints(
-          maxHeight: screenHeight(context) * .5,
-        ),
-        color: _snackBarBgColor,
+        constraints: BoxConstraints(maxHeight: screenHeight(context) * .5),
+        color: backgroundColor ?? _snackBarBgColor,
         child: Row(
           crossAxisAlignment: CrossAxisAlignment.center,
           children: [
