@@ -1,6 +1,7 @@
 export 'basis_popup_alert.dart';
 export 'basis_app_update_dialog.dart';
 export 'basis_alert.dart';
+export 'basis_banner.dart';
 export 'basis_text.dart';
 export 'basis_rich_text.dart';
 export 'basis_pop_discard.dart';

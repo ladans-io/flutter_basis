@@ -1,10 +1,28 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_basis/flutter_basis.dart';
 
-const Color _snackBarBgColor = Color(0xFF303030);
-const Color _successColor = Color(0xFF4CAF50);
-const Color _errorColor = Color(0xFFFF5252);
-final Color _infoColor = Colors.amber.shade800;
+import '../colors.dart';
+
+void showBasisAlert(
+    String msg, {
+      bool error = false,
+      bool info = false,
+      Duration? duration,
+      String? prefixIcon,
+      Color? backgroundColor,
+      BorderRadiusGeometry? radius,
+    }) => BasisAlert.show(
+    message: msg,
+    prefixIcon: prefixIcon,
+    radius: radius ?? BorderRadius.zero,
+    backgroundColor: (backgroundColor ?? snackBarColor).withOpacity(.9),
+    duration: duration ?? const Duration(seconds: 4),
+    state: error
+      ? AlertState.error
+      : info
+        ? AlertState.info
+        : AlertState.success,
+);
 
 void closeAlert() {
   GlobalKeys.scaffoldMessengerKey.currentState?.clearSnackBars();
@@ -25,7 +43,7 @@ class BasisAlert {
     return GlobalKeys.scaffoldMessengerKey.currentState?.showSnackBar(
       SnackBar(
         elevation: 0,
-        backgroundColor: backgroundColor ?? _snackBarBgColor,
+        backgroundColor: backgroundColor ?? snackBarColor,
         dismissDirection: dismissDirection ?? DismissDirection.down,
         duration: duration,
         shape: RoundedRectangleBorder(borderRadius: radius ?? BorderRadius.circular(4)),
@@ -74,6 +92,7 @@ class AlertContent extends StatelessWidget with ResponsiveSizes {
           ),
           SizedBox(width: dp10(context)),
         ],
+
         Expanded(
           child: BasisText(
             message,
@@ -82,6 +101,9 @@ class AlertContent extends StatelessWidget with ResponsiveSizes {
             overflowFade: true,
           ),
         ),
+
+        SizedBox(width: dp10(context)),
+
         Icon(
           switch (state) {
             AlertState.success => Icons.check_circle,
@@ -89,9 +111,9 @@ class AlertContent extends StatelessWidget with ResponsiveSizes {
             AlertState.error => Icons.error_rounded,
           },
           color: switch (state) {
-            AlertState.success => _successColor,
-            AlertState.info => _infoColor,
-            AlertState.error => _errorColor,
+            AlertState.success => successColor,
+            AlertState.info => infoColor,
+            AlertState.error => errorColor,
           },
           size: dp28(context),
         ),
