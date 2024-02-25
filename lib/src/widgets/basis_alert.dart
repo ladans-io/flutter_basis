@@ -1,7 +1,16 @@
+import 'dart:ui';
+
 import 'package:flutter/material.dart';
 import 'package:flutter_basis/flutter_basis.dart';
 
 import '../colors.dart';
+
+AlertState _getState(bool error, bool info) {
+  if (error) return AlertState.error;
+  if (info) return AlertState.info;
+
+  return AlertState.success;
+}
 
 void showBasisAlert(
     String msg, {
@@ -10,19 +19,21 @@ void showBasisAlert(
       Duration? duration,
       String? prefixIcon,
       Color? backgroundColor,
-      BorderRadiusGeometry? radius,
-    }) => BasisAlert.show(
+      double? radius,
+      EdgeInsetsGeometry? margin,
+      EdgeInsetsGeometry? padding,
+      Color? fontColor,
+  }
+) => BasisAlert.show(
     message: msg,
     prefixIcon: prefixIcon,
-    radius: radius ?? BorderRadius.zero,
+    radius: radius,
     backgroundColor: (backgroundColor ?? snackBarColor).withOpacity(.9),
     duration: duration ?? const Duration(seconds: 4),
-    state: error
-      ? AlertState.error
-      : info
-        ? AlertState.info
-        : AlertState.success,
-);
+    margin: margin,
+    fontColor: fontColor,
+    padding: padding,
+    state: _getState(error, info));
 
 void closeAlert() {
   GlobalKeys.scaffoldMessengerKey.currentState?.clearSnackBars();
@@ -34,28 +45,28 @@ class BasisAlert {
     required AlertState state,
     String? prefixIcon,
     Color? backgroundColor,
+    Color? fontColor,
     EdgeInsetsGeometry? margin, padding,
     AlertBehavior? behavior,
-    BorderRadiusGeometry? radius,
+    double? radius,
     Duration duration = const Duration(seconds: 3),
     DismissDirection? dismissDirection,
   }) {
     return GlobalKeys.scaffoldMessengerKey.currentState?.showSnackBar(
       SnackBar(
         elevation: 0,
-        backgroundColor: backgroundColor ?? snackBarColor,
+        backgroundColor: Colors.transparent,
         dismissDirection: dismissDirection ?? DismissDirection.down,
         duration: duration,
-        shape: RoundedRectangleBorder(borderRadius: radius ?? BorderRadius.circular(4)),
-        padding: padding,
-        margin: behavior?.value == 1
-          ? margin ?? const EdgeInsets.symmetric(horizontal: 20, vertical: 10)
-          : null,
+        padding: padding ?? EdgeInsets.zero,
+        margin: behavior?.value == 1 ? margin : null,
         content: AlertContent(
           message: message,
           state: state,
-          prefixIcon: prefixIcon, 
+          prefixIcon: prefixIcon,
+          fontColor: fontColor,
           backgroundColor: backgroundColor,
+          radius: radius,
         ),
         behavior: behavior?.getBehavior(),
       ),
@@ -70,54 +81,74 @@ class AlertContent extends StatelessWidget with ResponsiveSizes {
     required this.state,
     this.prefixIcon,
     this.backgroundColor,
+    this.fontColor,
+    this.radius,
   });
 
   final String message;
   final String? prefixIcon;
   final AlertState state;
-  final Color? backgroundColor;
+  final Color? backgroundColor, fontColor;
+  final double? radius;
 
   @override
   Widget build(BuildContext context) {
-    return Row(
-      crossAxisAlignment: CrossAxisAlignment.center,
-      children: [
-        if (prefixIcon != null) ...[
-          Container(
-            width: dp22(context),
-            height: dp22(context),
-            decoration: BoxDecoration(
-              image: DecorationImage(image: AssetImage(prefixIcon!)),
-            ),
-          ),
-          SizedBox(width: dp10(context)),
-        ],
+    final borderRadius = BorderRadius.circular(radius ?? .0);
 
-        Expanded(
-          child: BasisText(
-            message,
-            color: Colors.white,
-            light: true,
-            overflowFade: true,
+    return ClipRRect(
+      borderRadius: borderRadius,
+      child: BackdropFilter(
+        filter: ImageFilter.blur(sigmaX: 16, sigmaY: 16),
+        child: Container(
+          width: screenWidth(context),
+          decoration: BoxDecoration(
+            color: (backgroundColor ?? snackBarColor).withOpacity(.8),
+            borderRadius: borderRadius,
+          ),
+          padding: EdgeInsets.all(dp16(context)),
+          child: Row(
+            crossAxisAlignment: CrossAxisAlignment.center,
+            children: [
+              if (prefixIcon != null) ...[
+                Container(
+                  width: dp22(context),
+                  height: dp22(context),
+                  decoration: BoxDecoration(
+                    image: DecorationImage(image: AssetImage(prefixIcon!)),
+                  ),
+                ),
+
+                SizedBox(width: dp10(context)),
+              ],
+
+              Expanded(
+                child: BasisText(
+                  message,
+                  color: fontColor ?? Colors.white,
+                  light: true,
+                  overflowFade: true,
+                ),
+              ),
+
+              SizedBox(width: dp10(context)),
+
+              Icon(
+                switch (state) {
+                  AlertState.success => Icons.check_circle,
+                  AlertState.info => Icons.info_rounded,
+                  AlertState.error => Icons.error_rounded,
+                },
+                color: switch (state) {
+                  AlertState.success => successColor,
+                  AlertState.info => infoColor,
+                  AlertState.error => errorColor,
+                },
+                size: dp28(context),
+              ),
+            ],
           ),
         ),
-
-        SizedBox(width: dp10(context)),
-
-        Icon(
-          switch (state) {
-            AlertState.success => Icons.check_circle,
-            AlertState.info => Icons.info_rounded,
-            AlertState.error => Icons.error_rounded,
-          },
-          color: switch (state) {
-            AlertState.success => successColor,
-            AlertState.info => infoColor,
-            AlertState.error => errorColor,
-          },
-          size: dp28(context),
-        ),
-      ],
+      ),
     );
   }
 }

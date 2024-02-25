@@ -10,6 +10,8 @@ mixin ErrorHandler {
     
     if (value['message'] != null) return value['message'];
 
+    if (value['detalhes'] != null) return value['detalhes'];
+
     return unknownError;
   }
 

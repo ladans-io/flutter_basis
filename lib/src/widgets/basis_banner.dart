@@ -17,11 +17,16 @@ void showBasisBanner(
     Duration? duration,
     String? prefixIcon,
     Color? backgroundColor,
+    Color? fontColor,
+    String? fontFamily,
+    double? fontSize,
+    double? radius,
 }) {
   closed = false;
     showDialog(
-        barrierDismissible: false,
         context: Navigate.navigatorKey.currentState!.overlay!.context,
+        barrierColor: Colors.transparent,
+        barrierDismissible: false,
         builder: (_) {
             return GestureDetector(
               onVerticalDragStart: (_) => closeBanner(),
@@ -30,6 +35,10 @@ void showBasisBanner(
                   message: msg,
                   prefixIcon: prefixIcon,
                   backgroundColor: backgroundColor,
+                  fontSize: fontSize,
+                  fontFamily: fontFamily,
+                  fontColor: fontColor,
+                  radius: radius,
                   state: error
                       ? BannerState.error
                       : info
@@ -64,25 +73,39 @@ class BannerContent extends StatelessWidget with ResponsiveSizes {
         required this.state,
         this.prefixIcon,
         this.backgroundColor,
+        this.fontColor,
+        this.fontFamily,
+        this.fontSize,
+        this.radius,
     });
 
     final String message;
-    final String? prefixIcon;
+    final String? prefixIcon, fontFamily;
     final BannerState state;
-    final Color? backgroundColor;
+    final Color? backgroundColor, fontColor;
+    final double? fontSize, radius;
 
     @override
     Widget build(BuildContext context) {
+        final borderRadius = BorderRadius.circular(radius ?? dp25(context));
+
         return Column(
           children: [
             ClipRRect(
+              borderRadius: borderRadius,
               child: BackdropFilter(
-                filter: ImageFilter.blur(sigmaX: 7, sigmaY: 7),
+                filter: ImageFilter.blur(sigmaX: 16, sigmaY: 16),
                 child: Container(
-                  color: (backgroundColor ?? snackBarColor).withOpacity(.5),
-                  margin: EdgeInsets.zero,
+                  decoration: BoxDecoration(
+                    color: (backgroundColor ?? snackBarColor).withOpacity(.6),
+                    borderRadius: borderRadius,
+                  ),
+                  margin: EdgeInsets.symmetric(horizontal: dp10(context)),
                   child: Padding(
-                    padding: EdgeInsets.all(dp20(context)),
+                    padding: EdgeInsets.symmetric(
+                        vertical: dp16(context),
+                        horizontal: dp20(context),
+                    ),
                     child: Row(
                         crossAxisAlignment: CrossAxisAlignment.center,
                         children: [
@@ -101,9 +124,11 @@ class BannerContent extends StatelessWidget with ResponsiveSizes {
                             Expanded(
                                 child: BasisText(
                                     message,
-                                    color: Colors.white,
+                                    color: fontColor ?? Colors.white,
                                     light: true,
                                     overflowFade: true,
+                                    fontFamily: fontFamily,
+                                    fontSize: fontSize,
                                 ),
                             ),
 

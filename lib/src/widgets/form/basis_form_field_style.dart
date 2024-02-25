@@ -2,11 +2,16 @@ import 'package:flutter/material.dart';
 import 'package:flutter_basis/flutter_basis.dart';
 
 mixin BasisFormFieldStyle on ResponsiveSizes {
-  TextStyle getInputStyle(BuildContext context, {double? fontSize, bool bold = false}) {
+  TextStyle getInputStyle(
+    BuildContext context, {
+      double? fontSize,
+      bool bold = false,
+        Color? color,
+  }) {
     return TextStyle(
       fontSize: fontSize ?? dp16(context),
       fontWeight: bold ? FontWeight.bold : FontWeight.normal,
-      color: Colors.black87,
+      color: color ?? Colors.black87,
     );
   }
 

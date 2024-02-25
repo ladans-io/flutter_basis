@@ -33,7 +33,7 @@ class BasisFormField extends StatefulWidget {
   final int? maxLines;
   final int? maxLength;
   final String? Function(String?)? validator;
-  final Color? labelColor, disabledColor, borderColor, fillColor;
+  final Color? labelColor, disabledColor, borderColor, fillColor, color;
   final EdgeInsetsGeometry? contentPadding;
   final TextAlign? textAlign;
   final Widget? labelChild;
@@ -81,6 +81,7 @@ class BasisFormField extends StatefulWidget {
     this.fillColor,
     this.bold = false,
     this.fontSize,
+    this.color,
   }) : super(key: key);
 
   @override
@@ -177,7 +178,12 @@ class _BasisFormFieldState extends State<BasisFormField> with ResponsiveSizes,
                   TextField(
                     focusNode: widget.focusNode,
                     enabled: widget.enabled,
-                    style: getInputStyle(context, bold: widget.bold, fontSize: widget.fontSize),
+                    style: getInputStyle(
+                      context,
+                      bold: widget.bold,
+                      fontSize: widget.fontSize,
+                      color: widget.color,
+                    ),
                     maxLength: widget.maxLength,
                     maxLines: widget.maxLines,
                     keyboardType: widget.keyboardType,
