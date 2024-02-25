@@ -14,6 +14,7 @@ abstract class ClientEitherResponseHandler extends ClientRequestHandler {
   Future<(Failure?, BasisClientResponse?)> handleClientEitherResponse<T>(
     ClientRemoteCall call, {
       bool downloadFile = false,
+      String? fileExtension,
     }
   ) async {
     try {
@@ -23,7 +24,10 @@ abstract class ClientEitherResponseHandler extends ClientRequestHandler {
         null,
         BasisClientResponse(
           data: downloadFile 
-            ? await bytesToFile(result.bodyBytes) 
+            ? await bytesToFile(
+                data: result.bodyBytes,
+                extension: fileExtension ?? 'pdf',
+              )
             : switch(result.statusCode) {
                 204 => 'Sucesso',
                 _ => jsonDecode(result.body)

@@ -35,8 +35,8 @@ class BasisPopupAlert extends StatefulWidget {
 class _BasisPopupAlertState extends State<BasisPopupAlert> with ResponsiveSizes {
   @override
   Widget build(BuildContext context) {
-    return WillPopScope(
-      onWillPop: () => Future.value(false),
+    return PopScope(
+      canPop: false,
       child: SizedBox(
         width: MediaQuery.of(context).size.width * .8,
         child: AlertDialog.adaptive(

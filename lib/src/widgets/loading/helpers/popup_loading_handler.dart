@@ -13,9 +13,9 @@ void showPopupLoading([String? loadingMsg, int? canCancelAfterSecs]) {
 
   _timer ??= Timer(
     Duration(seconds: canCancelAfterSecs ?? 45),
-    () => {
-      Navigate.to.pop(),
-      BasisPopupLoading.show(loadingMsg: msg, onCancel: closePopupLoading),
+    () {
+      Navigate.to.pop();
+      BasisPopupLoading.show(loadingMsg: msg, onCancel: closePopupLoading);
     },
   );
 }

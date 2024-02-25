@@ -4,8 +4,6 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_basis/flutter_basis.dart';
 
-import '../utils/url_launcher.dart';
-
 class BasisAppUpdateDialog extends StatefulWidget {
   final bool forceUpdate;
   final String currentVer, 
@@ -30,8 +28,8 @@ class BasisAppUpdateDialog extends StatefulWidget {
 class _DshAlertDialogState extends State<BasisAppUpdateDialog> with ResponsiveSizes {
   @override
   Widget build(BuildContext context) {
-    return WillPopScope(
-      onWillPop: () => Future.value(false),
+    return PopScope(
+      canPop: false,
       child: SizedBox(
         width: MediaQuery.of(context).size.width * .9,
         child: AlertDialog.adaptive(

@@ -13,9 +13,10 @@ class BasisPopDiscard extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return WillPopScope(
+    return PopScope(
       child: child,
-      onWillPop: () async {
+      canPop: false,
+      onPopInvoked: (_) {
         if (condition) {
           showDialog(context: context, builder: (_) {
             return BasisPopupAlert(
@@ -30,8 +31,6 @@ class BasisPopDiscard extends StatelessWidget {
             );
           });
         }
-
-        return true;
       },
     );
   }
