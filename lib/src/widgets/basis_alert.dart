@@ -37,16 +37,17 @@ void showBasisAlert(
     duration: duration ?? const Duration(seconds: 4),
     margin: margin,
     fontColor: fontColor,
- 
     padding: padding,
-    state: _getState(error, info));
-
-  assert(
-    playSound && errorAudioPath == null && successAudioPath == null,
-    'errorAudioPath & successAudioPath should not null',
+    state: _getState(error, info),
   );
-  
-  if (playSound) playAudio(error || info ? errorAudioPath! : successAudioPath!);
+
+  if (playSound) {
+    if (errorAudioPath == null && successAudioPath == null) {
+      throw('You need to specify the errorAudioPath & successAudioPath');
+    } else {
+      playAudio(error || info ? errorAudioPath! : successAudioPath!);
+    }
+  }
 
   emitAlert();
 }
@@ -64,13 +65,11 @@ class BasisAlert {
     AlertBehavior? behavior,
     double? radius,
     Duration duration = const Duration(seconds: 3),
-    DismissDirection? dismissDirection,
   }) {
     return GlobalKeys.scaffoldMessengerKey.currentState?.showSnackBar(
       SnackBar(
         elevation: 0,
         backgroundColor: Colors.transparent,
-        dismissDirection: dismissDirection ?? DismissDirection.down,
         duration: duration,
         padding: padding ?? EdgeInsets.zero,
         margin: behavior?.value == 1 ? margin : null,
