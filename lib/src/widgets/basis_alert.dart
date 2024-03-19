@@ -42,7 +42,7 @@ void showBasisAlert(
     state: _getState(error, info));
 
   assert(
-    playSound && (errorAudioPath == null && successAudioPath == null),
+    playSound && errorAudioPath == null && successAudioPath == null,
     'errorAudioPath & successAudioPath should not null',
   );
   
