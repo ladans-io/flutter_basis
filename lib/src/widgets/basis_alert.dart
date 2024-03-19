@@ -38,13 +38,7 @@ void showBasisAlert(
     padding: padding,
     state: _getState(error, info));
   
-  if (playSound) {
-    playAudio(
-      error || info ? 'assets/error.mp3' : 'assets/success.mp3',
-    ).then((value) => emitAlert());
-
-    return;
-  }
+  if (playSound) playAudio(error || info ? 'assets/error.mp3' : 'assets/success.mp3');
 
   emitAlert();
 }
