@@ -2,6 +2,7 @@ import 'dart:ui';
 
 import 'package:flutter/material.dart';
 import 'package:flutter_basis/flutter_basis.dart';
+import 'package:flutter_basis/src/utils/play_audio.dart';
 
 import '../colors.dart';
 
@@ -23,8 +24,10 @@ void showBasisAlert(
       EdgeInsetsGeometry? margin,
       EdgeInsetsGeometry? padding,
       Color? fontColor,
+      bool playSound = false,
   }
-) => BasisAlert.show(
+) {
+  void emitAlert() => BasisAlert.show(
     message: msg,
     prefixIcon: prefixIcon,
     radius: radius,
@@ -34,6 +37,17 @@ void showBasisAlert(
     fontColor: fontColor,
     padding: padding,
     state: _getState(error, info));
+  
+  if (playSound) {
+    playAudio(
+      error || info ? 'assets/error.mp3' : 'assets/success.mp3',
+    ).then((value) => emitAlert());
+
+    return;
+  }
+
+  emitAlert();
+}
 
 void closeAlert() {
   GlobalKeys.scaffoldMessengerKey.currentState?.clearSnackBars();
