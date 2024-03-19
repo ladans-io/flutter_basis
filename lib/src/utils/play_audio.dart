@@ -1,10 +1,7 @@
-
-
 import 'package:audioplayers/audioplayers.dart';
 
-final player = AudioPlayer();
-
 Future<void> playAudio(String sound) async {
+  final player = AudioPlayer();
   await player.play(AssetSource(sound));
-  player.dispose();
+  await player.dispose();
 }
