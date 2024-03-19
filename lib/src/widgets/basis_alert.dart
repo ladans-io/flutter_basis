@@ -25,7 +25,9 @@ void showBasisAlert(
       EdgeInsetsGeometry? padding,
       Color? fontColor,
       bool playSound = false,
-  }
+      String? errorAudioPath,
+      String? successAudioPath,
+    }
 ) {
   void emitAlert() => BasisAlert.show(
     message: msg,
@@ -35,17 +37,21 @@ void showBasisAlert(
     duration: duration ?? const Duration(seconds: 4),
     margin: margin,
     fontColor: fontColor,
+ 
     padding: padding,
     state: _getState(error, info));
+
+  assert(
+    playSound && (errorAudioPath == null && successAudioPath == null),
+    'errorAudioPath & successAudioPath should not null',
+  );
   
-  if (playSound) playAudio(error || info ? 'assets/error.mp3' : 'assets/success.mp3');
+  if (playSound) playAudio(error || info ? errorAudioPath! : successAudioPath!);
 
   emitAlert();
 }
 
-void closeAlert() {
-  GlobalKeys.scaffoldMessengerKey.currentState?.clearSnackBars();
-}
+void closeAlert() => GlobalKeys.scaffoldMessengerKey.currentState?.clearSnackBars();
 
 class BasisAlert {
   static show({

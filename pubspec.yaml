@@ -34,5 +34,3 @@ flutter:
   assets:
     - assets/app-store.png
     - assets/play-store.png
-    - assets/error.mp3
-    - assets/success.mp3
