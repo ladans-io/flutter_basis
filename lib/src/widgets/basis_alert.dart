@@ -45,7 +45,7 @@ void showBasisAlert(
     if (errorAudioPath == null && successAudioPath == null) {
       throw('You need to specify the errorAudioPath & successAudioPath');
     } else {
-      playAudio(error || info ? errorAudioPath! : successAudioPath!);
+      playAudio(error || info ? errorAudioPath! : successAudioPath!).then((value) => null);
     }
   }
 
