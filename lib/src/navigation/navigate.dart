@@ -56,5 +56,4 @@ class Navigate {
       log('A error found: ', error: getNavigationErrorPrettly(e.toString()));
     }
   }
-
 }

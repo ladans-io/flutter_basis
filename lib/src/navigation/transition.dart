@@ -23,7 +23,6 @@ Widget leftToRight(
   Animation<double> anim, 
   Widget child,
 ) {
-
   const begin = Offset(-1.0, 0.0);
   final parent = CurveTween(curve: Curves.easeIn);
 
@@ -40,7 +39,6 @@ Widget rightToLeft(
   Animation<double> anim, 
   Widget child,
 ) {
-
   const begin = Offset(1.0, 0.0);
   final parent = CurveTween(curve: Curves.easeIn);
 
@@ -57,7 +55,6 @@ Widget leftToRightFaded(
   Animation<double> anim, 
   Widget child,
 ) {
-
   const begin = Offset(-1.0, 0.0);
   final parent = CurveTween(curve: Curves.easeIn);
 
@@ -74,7 +71,6 @@ Widget rightToLeftFaded(
   Animation<double> anim, 
   Widget child,
 ) {
-
   const begin = Offset(1.0, 0.0);
   final parent = CurveTween(curve: Curves.easeIn);
 
@@ -91,7 +87,6 @@ Widget upToDown(
   Animation<double> anim, 
   Widget child,
 ) {
-
   const begin = Offset(0.0, -1.0);
   final parent = CurveTween(curve: Curves.easeIn);
 
@@ -108,7 +103,6 @@ Widget downToUp(
   Animation<double> anim, 
   Widget child,
 ) {
-
   const begin = Offset(0.0, 1.0);
   final parent = CurveTween(curve: Curves.easeIn);
 

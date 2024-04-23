@@ -11,7 +11,7 @@ mixin Routing {
     BuildContext context,
     Animation<double> anim,
     Animation<double> secondAnim,
-    child, {
+    Widget child, {
     TransitionType? transitionType,
   }) =>
     switch (transitionType) {
@@ -31,32 +31,28 @@ mixin Routing {
       _ => rightToLeft(anim, child)
     };
 
-  Route? onGenerateRoute(RouteSettings routerSettings) {
-    var routerName = routerSettings.name;
-    var routerArgs = routerSettings.arguments;
+  Route? onGenerateRoute(
+    RouteSettings routerSettings, [
+    Map<String, BasisRoute>? nestedRoutes,
+  ]) {
+    final routerName = routerSettings.name;
+    final routerArgs = routerSettings.arguments;
 
-    var navigateTo = routes[routerName]?.widgetBuilderArgs;
+    final rts = nestedRoutes ?? routes;
+    final navigateTo = rts[routerName]?.widgetBuilderArgs;
 
-    var transitionType = routes[routerName]?.transitionType;
-    var transitionDuration = routes[routerName]?.transitionDuration;
-    var reverseTransitionDuration = routes[routerName]?.reverseTransitionDuration;
+    final transitionType = rts[routerName]?.transitionType;
+    var transitionDuration = rts[routerName]?.transitionDuration;
+    var reverseTransitionDuration = rts[routerName]?.reverseTransitionDuration;
 
     if (navigateTo == null) return null;
 
     return PageRouteBuilder(
-      pageBuilder: (context, anim, secondAnim) {
-        return navigateTo(context, routerArgs);
-      },
+      pageBuilder: (context, anim, secondAnim) => navigateTo(context, routerArgs),
       transitionDuration: transitionDuration ??= const Duration(milliseconds: 300),
       reverseTransitionDuration: reverseTransitionDuration ??= const Duration(milliseconds: 300),
       transitionsBuilder: (context, anim, secondAnim, child) {
-        return _transitionBuilder(
-          context,
-          anim,
-          secondAnim,
-          child,
-          transitionType: transitionType ?? TransitionType.rightToLeft,
-        );
+        return _transitionBuilder(context, anim, secondAnim, child, transitionType: transitionType ?? TransitionType.rightToLeft);
       },
     );
   }
