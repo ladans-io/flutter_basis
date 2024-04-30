@@ -5,6 +5,7 @@ typedef TypeCacheCall<T> = T;
 mixin CacheResultHandler {
   (Failure?, T?) handleCacheResult<T>(
     TypeCacheCall<T> call,
+    {Function(Object)? onCatch}
   ) {
     try {
       return (null, call);
@@ -13,6 +14,8 @@ mixin CacheResultHandler {
     } on BasisSocketException catch (e) {
       return (CommonFailure(message: e.formattedMessage), null);
     } catch (e) {
+      if (onCatch != null) onCatch(e);
+
       return (CommonFailure(message: e.toString()), null);
     }
   }

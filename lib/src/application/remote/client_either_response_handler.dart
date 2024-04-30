@@ -15,6 +15,7 @@ abstract class ClientEitherResponseHandler extends ClientRequestHandler {
     ClientRemoteCall call, {
       bool downloadFile = false,
       String? fileExtension,
+      Function(Object)? onCatch,
     }
   ) async {
     try {
@@ -45,6 +46,8 @@ abstract class ClientEitherResponseHandler extends ClientRequestHandler {
     } on TimeoutException {
       return (const CommonFailure(message: requestTimeout), null);
     } catch (e) {
+      if (onCatch != null) onCatch(e);
+
       return (CommonFailure(message: e.toString()), null);
     }
   }
