@@ -1,5 +1,3 @@
-import 'package:flutter/foundation.dart';
-
 import '../errors/exports.dart';
 
 typedef TypeCacheCall<T> = T;
@@ -8,7 +6,8 @@ mixin CacheResultHandler {
   (Failure?, T?) handleCacheResult<T>(
     TypeCacheCall<T> call, {
       Function(Object)? onCatch, 
-      VoidCallback? onTry,
+      Function()? onTry,
+      Function()? onFinally,
     }
   ) {
     try {
@@ -23,6 +22,8 @@ mixin CacheResultHandler {
       if (onCatch != null) onCatch(e);
 
       return (CommonFailure(message: e.toString()), null);
+    } finally {
+      if (onFinally != null) onFinally();
     }
   }
 }
