@@ -1,6 +1,7 @@
 import 'dart:async';
 import 'dart:convert';
 
+import 'package:flutter/foundation.dart';
 import 'package:http/http.dart' as http;
 
 import '../../utils/bytes_to_file.dart';
@@ -16,23 +17,20 @@ abstract class ClientEitherResponseHandler extends ClientRequestHandler {
       bool downloadFile = false,
       String? fileExtension,
       Function(Object)? onCatch,
+      VoidCallback? onTry,
     }
   ) async {
     try {
+      if (onTry != null) onTry();
+
       final result = handleClientRequest(await call);
 
       return (
         null,
         BasisClientResponse(
           data: downloadFile 
-            ? await bytesToFile(
-                data: result.bodyBytes,
-                extension: fileExtension ?? 'pdf',
-              )
-            : switch(result.statusCode) {
-                204 => 'Sucesso',
-                _ => jsonDecode(result.body)
-              },
+            ? await bytesToFile(data: result.bodyBytes, extension: fileExtension ?? 'pdf')
+            : switch(result.statusCode) { 204 => 'Sucesso', _ => jsonDecode(result.body) },
           statusCode: result.statusCode,
           statusMessage: result.reasonPhrase,
         ),
