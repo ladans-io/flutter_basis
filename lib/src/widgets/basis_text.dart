@@ -20,6 +20,7 @@ class BasisText extends StatefulWidget {
   final bool overflowClip;
   final bool italic;
   final bool underline;
+  final bool web;
   final EdgeInsetsGeometry? padding;
 
   const BasisText(
@@ -40,6 +41,7 @@ class BasisText extends StatefulWidget {
       this.overflowVisible = false,
       this.italic = false,
       this.underline = false,
+      this.web = false,
       this.padding,
     }
   );
@@ -131,12 +133,18 @@ class _OdxTextState extends State<BasisText> with ResponsiveSizes {
   Widget build(BuildContext context) {
     return Padding(
       padding: widget.padding ?? EdgeInsets.zero,
-      child: Text(
-        widget.text,
-        textAlign: _textAlignment,
-        overflow: _overflow,
-        style: _style,
-      ),
+      child: widget.web 
+        ? SelectableText(
+            widget.text,
+            textAlign: _textAlignment,
+            style: _style,
+          ) 
+        : Text(
+            widget.text,
+            textAlign: _textAlignment,
+            overflow: _overflow,
+            style: _style,
+          ),
     );
   }
 }
