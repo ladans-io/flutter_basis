@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_basis/flutter_basis.dart';
 
-class BasisButton extends StatelessWidget with ResponsiveSizes {
+class BasisButton extends StatelessWidget {
   final Function()? onPressed;
   final String title;
   final double? btnHeight, width, fontSize, horizontalPadding, radius;
@@ -32,17 +32,17 @@ class BasisButton extends StatelessWidget with ResponsiveSizes {
   Widget build(BuildContext context) {
 
     return SizedBox(
-      height: btnHeight ?? (isTablet(context) ? sBtn(context) : btn(context)),
-      width: fullWidth ? screenWidth(context) : width,
+      height: btnHeight ?? (Device.screenType == ScreenType.tablet ? 40.dp : 50.dp),
+      width: fullWidth ? Device.width : width,
       child: ElevatedButton(
         style: ElevatedButton.styleFrom(
           padding: EdgeInsets.symmetric(
             horizontal: horizontalPadding != null
               ? horizontalPadding!
-              : dp20(context),
+              : 20.dp,
           ),
           disabledBackgroundColor: disabledColor ?? Colors.grey,
-          shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(radius ?? dp4(context))),
+          shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(radius ?? 4.dp)),
           backgroundColor: backgroundColor ?? Theme.of(context).colorScheme.secondary,
           shadowColor: Colors.transparent,
           surfaceTintColor: Colors.transparent,
@@ -50,11 +50,11 @@ class BasisButton extends StatelessWidget with ResponsiveSizes {
         ),
         onPressed: onPressed,
         child: loading
-          ? BasisLoading(color: color ?? Colors.white, size: dp12(context))
+          ? BasisLoading(color: color ?? Colors.white, size: 12.dp)
           : BasisText(
               title, 
               color: color ?? Colors.white, 
-              fontSize: fontSize ?? dp16(context),
+              fontSize: fontSize ?? 16.dp,
               bold: bold,
             ),
       ),

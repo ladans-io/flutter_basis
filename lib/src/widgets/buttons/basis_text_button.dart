@@ -2,7 +2,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_basis/flutter_basis.dart';
 
-class BasisTextButton extends StatelessWidget with ResponsiveSizes {
+class BasisTextButton extends StatelessWidget {
   const BasisTextButton({
     super.key, 
     required this.title, 
@@ -26,13 +26,13 @@ class BasisTextButton extends StatelessWidget with ResponsiveSizes {
   @override
   Widget build(BuildContext context) {
     return SizedBox(
-      height: btnHeight ?? btn(context),
-      width: fullWidth ? screenWidth(context) : btnWidth,
+      height: btnHeight ?? 50.dp,
+      width: fullWidth ? Device.width : btnWidth,
       child: TextButton(
         style: TextButton.styleFrom(
           foregroundColor: Colors.transparent,
           shape: RoundedRectangleBorder(
-            borderRadius: BorderRadius.circular(dp5(context)),
+            borderRadius: BorderRadius.circular(5.dp),
           ),
           padding: paddingZero ? EdgeInsets.zero : null,
         ),
@@ -40,7 +40,7 @@ class BasisTextButton extends StatelessWidget with ResponsiveSizes {
         child: BasisText(
           title,
           color: color ?? Colors.black54,
-          fontSize: fontSize ?? dp16(context),
+          fontSize: fontSize ?? 16.dp,
           underline: underline,
           bold: bold,
         ),

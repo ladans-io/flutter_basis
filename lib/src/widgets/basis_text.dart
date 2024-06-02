@@ -50,7 +50,7 @@ class BasisText extends StatefulWidget {
   State<BasisText> createState() => _OdxTextState();
 }
 
-class _OdxTextState extends State<BasisText> with ResponsiveSizes {
+class _OdxTextState extends State<BasisText> {
   FontWeight? get _fontWeight {
     if (widget.light) {
       return FontWeight.w400;
@@ -68,7 +68,7 @@ class _OdxTextState extends State<BasisText> with ResponsiveSizes {
   TextStyle get _style {
     return TextStyle(
       color: widget.color ?? Colors.black87,
-      fontSize: widget.fontSize ?? dp14(context),
+      fontSize: widget.fontSize ?? 14.dp,
       fontWeight: _fontWeight,
       fontFamily: widget.fontFamily,
       fontStyle: widget.italic ? FontStyle.italic : FontStyle.normal,

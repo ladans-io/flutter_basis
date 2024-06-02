@@ -88,8 +88,7 @@ class BasisFormField extends StatefulWidget {
   State<BasisFormField> createState() => _BasisFormFieldState();
 }
 
-class _BasisFormFieldState extends State<BasisFormField> with ResponsiveSizes,
-                                                              BasisFormFieldStyle {
+class _BasisFormFieldState extends State<BasisFormField> with BasisFormFieldStyle {
 
   late bool _obscureText;
   var _success = false;
@@ -104,7 +103,7 @@ class _BasisFormFieldState extends State<BasisFormField> with ResponsiveSizes,
 
   @override
   void didChangeDependencies() {
-    _labelSize = widget.labelSize ?? dp16(context);
+    _labelSize = widget.labelSize ?? 16.dp;
     super.didChangeDependencies();
   }
 
@@ -138,14 +137,14 @@ class _BasisFormFieldState extends State<BasisFormField> with ResponsiveSizes,
                 ),
 
                 if (widget.labelChild != null)...[
-                  SizedBox(width: dp10(context)),
+                  SizedBox(width: 10.dp),
 
                   widget.labelChild!,
                 ],
               ],
             ),
 
-            SizedBox(height: dp8(context)),
+            SizedBox(height: 8.dp),
           ],
 
           FormField<String>(
@@ -205,7 +204,7 @@ class _BasisFormFieldState extends State<BasisFormField> with ResponsiveSizes,
                       counterText: '',
                       hintText: widget.hintText,
                       hintStyle: getInputHintStyle(context),
-                      errorStyle: TextStyle(color: Colors.red.shade300, fontSize: dp12(context)),
+                      errorStyle: TextStyle(color: Colors.red.shade300, fontSize: 12.dp),
                       filled: true,
                       fillColor: getFillColor(
                         context,
@@ -217,23 +216,23 @@ class _BasisFormFieldState extends State<BasisFormField> with ResponsiveSizes,
                       focusedBorder: inputBorder.copy(focusedBorder: true).get(),
                       enabledBorder: inputBorder.get(),
                       disabledBorder: inputBorder.get(),
-                      contentPadding: widget.contentPadding ?? EdgeInsets.symmetric(horizontal: dp16(context), vertical: dp10(context)),
+                      contentPadding: widget.contentPadding ?? EdgeInsets.symmetric(horizontal: 16.dp, vertical: 10.dp),
                       suffix: widget.suffixText != null ? Text(widget.suffixText!) : null,
                       suffixStyle: getInputHintStyle(context),
                       suffixIcon: widget.showSuffixIcon ? Padding(
-                        padding: EdgeInsets.symmetric(horizontal: dp14(context)),
+                        padding: EdgeInsets.symmetric(horizontal: 14.dp),
                         child: Row(
                           mainAxisSize: MainAxisSize.min,
                           mainAxisAlignment: MainAxisAlignment.spaceBetween,
                           children: [
                             _obscureText
                               ? GestureDetector(
-                                  child: Icon(_visibilityIcon, size: dp24(context), color: grey400),
+                                  child: Icon(_visibilityIcon, size: 24.dp, color: grey400),
                                   onTap: () => setState(() => _obscureText = !_obscureText)
                                 )
                               : widget.suffixIcon ?? const SizedBox.shrink(),
 
-                            if (_obscureText) SizedBox(width: dp12(context)),
+                            if (_obscureText) SizedBox(width: 12.dp),
 
                             statusTile(
                               context,
@@ -248,7 +247,7 @@ class _BasisFormFieldState extends State<BasisFormField> with ResponsiveSizes,
                   ),
 
                   if (state.hasError)...[
-                    SizedBox(height: dp4(context)),
+                    SizedBox(height: 4.dp),
 
                     BasisText(state.errorText!, color: Colors.red.shade300, light: true),
                   ],

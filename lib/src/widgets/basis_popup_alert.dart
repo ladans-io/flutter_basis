@@ -32,7 +32,7 @@ class BasisPopupAlert extends StatefulWidget {
   State<BasisPopupAlert> createState() => _BasisPopupAlertState();
 }
 
-class _BasisPopupAlertState extends State<BasisPopupAlert> with ResponsiveSizes {
+class _BasisPopupAlertState extends State<BasisPopupAlert> {
   @override
   Widget build(BuildContext context) {
     return PopScope(
@@ -41,13 +41,13 @@ class _BasisPopupAlertState extends State<BasisPopupAlert> with ResponsiveSizes 
         width: MediaQuery.of(context).size.width * .8,
         child: AlertDialog.adaptive(
           actionsAlignment: MainAxisAlignment.center,
-          shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(dp6(context))),
+          shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(6.dp)),
           surfaceTintColor: Colors.transparent,
           title: _title,
           content: widget.description != null ? _description : null,
           actions: [
             if (widget.cancelable) _onCancelButton,
-            if (widget.loading) BasisLoading(color: Colors.white, size: dp12(context))
+            if (widget.loading) BasisLoading(color: Colors.white, size: 12.dp)
             else _onConfirmButton,
           ],
         ),
@@ -59,7 +59,7 @@ class _BasisPopupAlertState extends State<BasisPopupAlert> with ResponsiveSizes 
     return BasisText(
       widget.title,
       alignCenter: true,
-      fontSize: dp16(context),
+      fontSize: 16.dp,
       bold: widget.description != null,
       color: widget.redTitle ? Colors.red : Colors.black87,
     );
@@ -74,7 +74,7 @@ class _BasisPopupAlertState extends State<BasisPopupAlert> with ResponsiveSizes 
   Widget get _onConfirmButton {
     return BasisButton(
       radius: Platform.isIOS ? 0 : null,
-      horizontalPadding: dp22(context) * 2,
+      horizontalPadding: 44.dp,
       backgroundColor: Colors.red,
       onPressed: widget.onPressed,
       fullWidth: false,
@@ -86,7 +86,7 @@ class _BasisPopupAlertState extends State<BasisPopupAlert> with ResponsiveSizes 
     return BasisLinedButton(
       borderColor: Platform.isIOS ? Colors.transparent : null,
       radius: Platform.isIOS ? 0 : null,
-      horizontalPadding: dp22(context) * 2,
+      horizontalPadding: 44.dp,
       onPressed: Navigator.of(context).pop,
       fullWidth: false,
       title: widget.cancelLabel ?? 'Cancelar',

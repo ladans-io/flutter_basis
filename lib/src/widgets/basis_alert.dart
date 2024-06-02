@@ -87,7 +87,7 @@ class BasisAlert {
   }
 }
 
-class AlertContent extends StatelessWidget with ResponsiveSizes {
+class AlertContent extends StatelessWidget {
   const AlertContent({
     super.key, 
     required this.message, 
@@ -113,25 +113,25 @@ class AlertContent extends StatelessWidget with ResponsiveSizes {
       child: BackdropFilter(
         filter: ImageFilter.blur(sigmaX: 16, sigmaY: 16),
         child: Container(
-          width: screenWidth(context),
+          width: Device.width,
           decoration: BoxDecoration(
             color: (backgroundColor ?? snackBarColor).withOpacity(.8),
             borderRadius: borderRadius,
           ),
-          padding: EdgeInsets.all(dp16(context)),
+          padding: EdgeInsets.all(16.dp),
           child: Row(
             crossAxisAlignment: CrossAxisAlignment.center,
             children: [
               if (prefixIcon != null) ...[
                 Container(
-                  width: dp22(context),
-                  height: dp22(context),
+                  width: 22.dp,
+                  height: 22.dp,
                   decoration: BoxDecoration(
                     image: DecorationImage(image: AssetImage(prefixIcon!)),
                   ),
                 ),
 
-                SizedBox(width: dp10(context)),
+                SizedBox(width: 10.dp),
               ],
 
               Expanded(
@@ -143,7 +143,7 @@ class AlertContent extends StatelessWidget with ResponsiveSizes {
                 ),
               ),
 
-              SizedBox(width: dp10(context)),
+              SizedBox(width: 10.dp),
 
               Icon(
                 switch (state) {
@@ -156,7 +156,7 @@ class AlertContent extends StatelessWidget with ResponsiveSizes {
                   AlertState.info => infoColor,
                   AlertState.error => errorColor,
                 },
-                size: dp28(context),
+                size: 28.dp,
               ),
             ],
           ),

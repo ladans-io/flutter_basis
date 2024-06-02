@@ -49,14 +49,13 @@ class BasisDropdownFormField extends StatefulWidget {
   State<BasisDropdownFormField> createState() => _BasisDropdownFormFieldState();
 }
 
-class _BasisDropdownFormFieldState extends State<BasisDropdownFormField> with ResponsiveSizes,
-                                                                              BasisFormFieldStyle {
+class _BasisDropdownFormFieldState extends State<BasisDropdownFormField> with BasisFormFieldStyle {
 
   late double _labelSize;
 
   @override
   void didChangeDependencies() {
-    _labelSize = widget.labelSize ?? dp16(context);
+    _labelSize = widget.labelSize ?? 16.dp;
     super.didChangeDependencies();
   }
 
@@ -70,7 +69,7 @@ class _BasisDropdownFormFieldState extends State<BasisDropdownFormField> with Re
     );
 
     return ClipRRect(
-      borderRadius: BorderRadius.circular(widget.radius ?? dp4(context)),
+      borderRadius: BorderRadius.circular(widget.radius ?? 4.dp),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
@@ -87,18 +86,18 @@ class _BasisDropdownFormFieldState extends State<BasisDropdownFormField> with Re
                 ),
 
                 if (widget.labelChild != null)...[
-                  SizedBox(width: dp10(context)),
+                  SizedBox(width: 10.dp),
 
                   widget.labelChild!,
                 ],
               ],
             ),
 
-            SizedBox(height: dp8(context)),
+            SizedBox(height: 8.dp),
           ],
 
           SizedBox(
-            width: widget.width ?? screenWidth(context) * .36,
+            width: widget.width ?? 36.w,
             height: widget.height,
             child: ButtonTheme(
               alignedDropdown: true,
@@ -109,7 +108,7 @@ class _BasisDropdownFormFieldState extends State<BasisDropdownFormField> with Re
                   focusNode: widget.focusNode,
                   value: widget.value,
                   style: getInputStyle(context, bold: widget.bold, fontSize: widget.fontSize),
-                  menuMaxHeight: dp25(context) * 8,
+                  menuMaxHeight: 200.dp,
                   onSaved: widget.onSaved,
                   validator: widget.formKey != null ? (value) {
                     if (value == null) return 'Campo obrigatório';
@@ -117,7 +116,7 @@ class _BasisDropdownFormFieldState extends State<BasisDropdownFormField> with Re
                     return null;
                   } : null,
                   decoration: InputDecoration(
-                    errorStyle: TextStyle(color: Colors.red.shade300, fontSize: dp12(context)),
+                    errorStyle: TextStyle(color: Colors.red.shade300, fontSize: 12.dp),
                     hintStyle: getInputHintStyle(context, fontSize: widget.fontSize),
                     filled: true,
                     fillColor: getFillColor(
@@ -128,7 +127,7 @@ class _BasisDropdownFormFieldState extends State<BasisDropdownFormField> with Re
                     ),
                     contentPadding: widget.height != null
                       ? const EdgeInsets.symmetric()
-                      : EdgeInsets.symmetric(vertical: widget.verticalPadding ?? dp10(context)),
+                      : EdgeInsets.symmetric(vertical: widget.verticalPadding ?? 10.dp),
                     border: inputBorder.get(),
                     focusedBorder: inputBorder.copy(focusedBorder: true).get(),
                     enabledBorder: inputBorder.get(),
@@ -141,11 +140,11 @@ class _BasisDropdownFormFieldState extends State<BasisDropdownFormField> with Re
                     (value) => DropdownMenuItem(
                       value: value,
                       child: Container(
-                        constraints: BoxConstraints(maxWidth: screenWidth(context) * .6),
+                        constraints: BoxConstraints(maxWidth: 6.w),
                         child: BasisText(
                           value,
                           light: true,
-                          fontSize: widget.fontSize ?? dp16(context),
+                          fontSize: widget.fontSize ?? 16.dp,
                           color: widget.enabled ? widget.color : Colors.black87,
                         ),
                       ),

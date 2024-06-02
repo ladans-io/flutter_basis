@@ -2,7 +2,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_basis/flutter_basis.dart';
 
-class BasisLinedButton extends StatelessWidget with ResponsiveSizes {
+class BasisLinedButton extends StatelessWidget {
   final Function()? onPressed;
   final String title;
   final double? btnHeight, width, fontSize, horizontalPadding, radius;
@@ -33,19 +33,19 @@ class BasisLinedButton extends StatelessWidget with ResponsiveSizes {
     final textColor = disabled ? Colors.grey : color ?? onPrimary;
 
     return SizedBox(
-      height: btnHeight ?? (isTablet(context) ? sBtn(context) : btn(context)),
-      width: fullWidth ? screenWidth(context) : width,
+      height: btnHeight ?? (Device.screenType == ScreenType.tablet ? 40.dp : 50.dp),
+      width: fullWidth ? Device.width : width,
       child: OutlinedButton(
         style: OutlinedButton.styleFrom(
           padding: EdgeInsets.symmetric(
             horizontal: horizontalPadding != null
               ? horizontalPadding!
-              : dp20(context),
+              : 20.dp,
           ),
           disabledBackgroundColor: Colors.transparent,
           surfaceTintColor: color ?? onPrimary,
           shape: RoundedRectangleBorder(
-            borderRadius: BorderRadius.circular(radius ?? dp4(context)),
+            borderRadius: BorderRadius.circular(radius ?? 4.dp),
           ),
           side: BorderSide(color: (disabled ? Colors.grey.shade500 : borderColor ?? color) ?? onPrimary),
           shadowColor: Colors.transparent,
@@ -53,11 +53,11 @@ class BasisLinedButton extends StatelessWidget with ResponsiveSizes {
         ),
         onPressed: onPressed,
         child: loading
-          ? BasisLoading(color: color ?? onPrimary, size: dp10(context))
+          ? BasisLoading(color: color ?? onPrimary, size: 10.dp)
           : BasisText(
               title, 
               color: textColor, 
-              fontSize: fontSize ?? dp16(context),
+              fontSize: fontSize ?? 16.dp,
               bold: bold,
             ),
       ),

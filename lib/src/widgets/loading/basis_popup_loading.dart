@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_basis/flutter_basis.dart';
 
-class BasisPopupLoading extends StatelessWidget with ResponsiveSizes {
+class BasisPopupLoading extends StatelessWidget {
   final ValueChanged<bool>? onPopInvoked;
   final String? loadingMsg;
   final VoidCallback? onCancel;
@@ -26,13 +26,13 @@ class BasisPopupLoading extends StatelessWidget with ResponsiveSizes {
             alignment: Alignment.topRight,
             children: [
               SizedBox(
-                width: screenWidth(context) * .5,
+                width: 50.w,
                 child: Card(
                   margin: EdgeInsets.zero,
                   elevation: 0,
                   color: Color(0xFF303030).withOpacity(.9),
                   shape: RoundedRectangleBorder(
-                    borderRadius: BorderRadius.circular(dp4(context)),
+                    borderRadius: BorderRadius.circular(4.dp),
                   ),
                   child: _content(context),
                 ),
@@ -40,13 +40,13 @@ class BasisPopupLoading extends StatelessWidget with ResponsiveSizes {
 
               if (onCancel != null) Positioned(
                 child: SizedBox(
-                  height: dp30(context),
-                  width: dp30(context),
+                  height: 30.dp,
+                  width: 30.dp,
                   child: FloatingActionButton(
                     tooltip: 'Cancelar requisição',
                     shape: RoundedRectangleBorder(
                       borderRadius: BorderRadius.only(
-                        topRight: Radius.circular(dp4(context)),
+                        topRight: Radius.circular(4.dp),
                       ),
                     ),
                     elevation: 1,
@@ -66,20 +66,20 @@ class BasisPopupLoading extends StatelessWidget with ResponsiveSizes {
   Widget _content(BuildContext context) {
     return Padding(
       padding: EdgeInsets.symmetric(
-        vertical: dp15(context),
-        horizontal: dp10(context),
+        vertical: 15.dp,
+        horizontal: 10.dp,
       ),
       child: Column(
         mainAxisAlignment:  MainAxisAlignment.spaceEvenly,
         children: [
-          BasisLoading(color: Colors.white, size: dp30(context)),
+          BasisLoading(color: Colors.white, size: 30.dp),
 
           if (loadingMsg != null && loadingMsg!.isNotEmpty) ...[
-            SizedBox(height: dp10(context)),
+            SizedBox(height: 10.dp),
           
             BasisText(
               loadingMsg!,
-              fontSize: dp14(context),
+              fontSize: 14.dp,
               color: Colors.white,
               alignCenter: true,
               light: true,

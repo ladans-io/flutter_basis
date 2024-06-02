@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_basis/flutter_basis.dart';
 
-mixin BasisFormFieldStyle on ResponsiveSizes {
+mixin BasisFormFieldStyle {
   TextStyle getInputStyle(
     BuildContext context, {
       double? fontSize,
@@ -9,7 +9,7 @@ mixin BasisFormFieldStyle on ResponsiveSizes {
         Color? color,
   }) {
     return TextStyle(
-      fontSize: fontSize ?? dp16(context),
+      fontSize: fontSize ?? 16.dp,
       fontWeight: bold ? FontWeight.bold : FontWeight.normal,
       color: color ?? Colors.black87,
     );
@@ -18,7 +18,7 @@ mixin BasisFormFieldStyle on ResponsiveSizes {
   TextStyle getInputHintStyle(BuildContext context, {double? fontSize}) {
     return TextStyle(
       color: Colors.grey,
-      fontSize: fontSize ?? dp16(context),
+      fontSize: fontSize ?? 16.dp,
       fontWeight: FontWeight.w400,
     );
   }
@@ -44,7 +44,7 @@ mixin BasisFormFieldStyle on ResponsiveSizes {
     if (error) {
       return Icon(
         Icons.error, 
-        size: dp20(context), 
+        size: 20.dp, 
         color: Colors.red.shade400,
       );
     } 
@@ -52,7 +52,7 @@ mixin BasisFormFieldStyle on ResponsiveSizes {
     if (success && focused) {
       return Icon(
         Icons.check_circle, 
-        size: dp20(context), 
+        size: 20.dp, 
         color: Colors.green,
       );
     } 
