@@ -103,7 +103,7 @@ class _BasisFormFieldState extends State<BasisFormField> with BasisFormFieldStyl
 
   @override
   void didChangeDependencies() {
-    _labelSize = widget.labelSize ?? 16.dp;
+    _labelSize = widget.labelSize ?? 16;
     super.didChangeDependencies();
   }
 
@@ -137,14 +137,14 @@ class _BasisFormFieldState extends State<BasisFormField> with BasisFormFieldStyl
                 ),
 
                 if (widget.labelChild != null)...[
-                  SizedBox(width: 10.dp),
+                  SizedBox(width: 10),
 
                   widget.labelChild!,
                 ],
               ],
             ),
 
-            SizedBox(height: 8.dp),
+            SizedBox(height: 8),
           ],
 
           FormField<String>(
@@ -204,7 +204,7 @@ class _BasisFormFieldState extends State<BasisFormField> with BasisFormFieldStyl
                       counterText: '',
                       hintText: widget.hintText,
                       hintStyle: getInputHintStyle(context),
-                      errorStyle: TextStyle(color: Colors.red.shade300, fontSize: 12.dp),
+                      errorStyle: TextStyle(color: Colors.red.shade300, fontSize: 12),
                       filled: true,
                       fillColor: getFillColor(
                         context,
@@ -216,23 +216,23 @@ class _BasisFormFieldState extends State<BasisFormField> with BasisFormFieldStyl
                       focusedBorder: inputBorder.copy(focusedBorder: true).get(),
                       enabledBorder: inputBorder.get(),
                       disabledBorder: inputBorder.get(),
-                      contentPadding: widget.contentPadding ?? EdgeInsets.symmetric(horizontal: 16.dp, vertical: 10.dp),
+                      contentPadding: widget.contentPadding ?? EdgeInsets.symmetric(horizontal: 16, vertical: 10),
                       suffix: widget.suffixText != null ? Text(widget.suffixText!) : null,
                       suffixStyle: getInputHintStyle(context),
                       suffixIcon: widget.showSuffixIcon ? Padding(
-                        padding: EdgeInsets.symmetric(horizontal: 14.dp),
+                        padding: EdgeInsets.symmetric(horizontal: 14),
                         child: Row(
                           mainAxisSize: MainAxisSize.min,
                           mainAxisAlignment: MainAxisAlignment.spaceBetween,
                           children: [
                             _obscureText
                               ? GestureDetector(
-                                  child: Icon(_visibilityIcon, size: 24.dp, color: grey400),
+                                  child: Icon(_visibilityIcon, size: 24, color: grey400),
                                   onTap: () => setState(() => _obscureText = !_obscureText)
                                 )
                               : widget.suffixIcon ?? const SizedBox.shrink(),
 
-                            if (_obscureText) SizedBox(width: 12.dp),
+                            if (_obscureText) SizedBox(width: 12),
 
                             statusTile(
                               context,
@@ -247,7 +247,7 @@ class _BasisFormFieldState extends State<BasisFormField> with BasisFormFieldStyl
                   ),
 
                   if (state.hasError)...[
-                    SizedBox(height: 4.dp),
+                    SizedBox(height: 4),
 
                     BasisText(state.errorText!, color: Colors.red.shade300, light: true),
                   ],

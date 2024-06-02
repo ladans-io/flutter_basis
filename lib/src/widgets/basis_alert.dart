@@ -118,20 +118,20 @@ class AlertContent extends StatelessWidget {
             color: (backgroundColor ?? snackBarColor).withOpacity(.8),
             borderRadius: borderRadius,
           ),
-          padding: EdgeInsets.all(16.dp),
+          padding: EdgeInsets.all(16),
           child: Row(
             crossAxisAlignment: CrossAxisAlignment.center,
             children: [
               if (prefixIcon != null) ...[
                 Container(
-                  width: 22.dp,
-                  height: 22.dp,
+                  width: 22,
+                  height: 22,
                   decoration: BoxDecoration(
                     image: DecorationImage(image: AssetImage(prefixIcon!)),
                   ),
                 ),
 
-                SizedBox(width: 10.dp),
+                SizedBox(width: 10),
               ],
 
               Expanded(
@@ -143,7 +143,7 @@ class AlertContent extends StatelessWidget {
                 ),
               ),
 
-              SizedBox(width: 10.dp),
+              SizedBox(width: 10),
 
               Icon(
                 switch (state) {
@@ -156,7 +156,7 @@ class AlertContent extends StatelessWidget {
                   AlertState.info => infoColor,
                   AlertState.error => errorColor,
                 },
-                size: 28.dp,
+                size: 28,
               ),
             ],
           ),

@@ -32,17 +32,17 @@ class BasisButton extends StatelessWidget {
   Widget build(BuildContext context) {
 
     return SizedBox(
-      height: btnHeight ?? (Device.screenType == ScreenType.tablet ? 40.dp : 50.dp),
+      height: btnHeight ?? (Device.screenType == ScreenType.tablet ? 40 : 50),
       width: fullWidth ? Device.width : width,
       child: ElevatedButton(
         style: ElevatedButton.styleFrom(
           padding: EdgeInsets.symmetric(
             horizontal: horizontalPadding != null
               ? horizontalPadding!
-              : 20.dp,
+              : 20,
           ),
           disabledBackgroundColor: disabledColor ?? Colors.grey,
-          shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(radius ?? 4.dp)),
+          shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(radius ?? 4)),
           backgroundColor: backgroundColor ?? Theme.of(context).colorScheme.secondary,
           shadowColor: Colors.transparent,
           surfaceTintColor: Colors.transparent,
@@ -50,11 +50,11 @@ class BasisButton extends StatelessWidget {
         ),
         onPressed: onPressed,
         child: loading
-          ? BasisLoading(color: color ?? Colors.white, size: 12.dp)
+          ? BasisLoading(color: color ?? Colors.white, size: 12)
           : BasisText(
               title, 
               color: color ?? Colors.white, 
-              fontSize: fontSize ?? 16.dp,
+              fontSize: fontSize ?? 16,
               bold: bold,
             ),
       ),

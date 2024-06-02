@@ -26,13 +26,13 @@ class BasisTextButton extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return SizedBox(
-      height: btnHeight ?? 50.dp,
+      height: btnHeight ?? 50,
       width: fullWidth ? Device.width : btnWidth,
       child: TextButton(
         style: TextButton.styleFrom(
           foregroundColor: Colors.transparent,
           shape: RoundedRectangleBorder(
-            borderRadius: BorderRadius.circular(5.dp),
+            borderRadius: BorderRadius.circular(5),
           ),
           padding: paddingZero ? EdgeInsets.zero : null,
         ),
@@ -40,7 +40,7 @@ class BasisTextButton extends StatelessWidget {
         child: BasisText(
           title,
           color: color ?? Colors.black54,
-          fontSize: fontSize ?? 16.dp,
+          fontSize: fontSize ?? 16,
           underline: underline,
           bold: bold,
         ),

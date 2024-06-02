@@ -1,7 +1,6 @@
 import 'dart:ui' as ui;
 
 import 'package:flutter/material.dart';
-import 'package:flutter_basis/flutter_basis.dart';
 
 class BasisText extends StatefulWidget {
   final String text;
@@ -68,7 +67,7 @@ class _OdxTextState extends State<BasisText> {
   TextStyle get _style {
     return TextStyle(
       color: widget.color ?? Colors.black87,
-      fontSize: widget.fontSize ?? 14.dp,
+      fontSize: widget.fontSize ?? 14,
       fontWeight: _fontWeight,
       fontFamily: widget.fontFamily,
       fontStyle: widget.italic ? FontStyle.italic : FontStyle.normal,

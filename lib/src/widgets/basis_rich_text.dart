@@ -1,6 +1,5 @@
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_basis/flutter_basis.dart';
 
 class BasisRichText extends StatelessWidget {
   const BasisRichText({
@@ -83,7 +82,7 @@ class BasisRichText extends StatelessWidget {
             recognizer: TapGestureRecognizer()..onTap = onTap2,
             style: TextStyle(
               color: color ?? color1 ?? primaryColor,
-              fontSize: fontSize ?? fontSize1 ?? 14.dp,
+              fontSize: fontSize ?? fontSize1 ?? 14,
               fontWeight: _fontWeight1,
               fontFamily: fontFamily1 ?? fontFamily,
             ),
@@ -93,7 +92,7 @@ class BasisRichText extends StatelessWidget {
             recognizer: TapGestureRecognizer()..onTap = onTap2,
             style: TextStyle(
               color: color ?? color2 ?? primaryColor,
-              fontSize: fontSize ?? fontSize2 ?? 14.dp,
+              fontSize: fontSize ?? fontSize2 ?? 14,
               fontWeight: _fontWeight2,
               fontFamily: fontFamily2 ?? fontFamily,
             ),
