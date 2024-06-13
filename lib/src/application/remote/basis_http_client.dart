@@ -131,14 +131,8 @@ class BasisHttpClient extends http.BaseClient with AuthHeaders {
               filePath,
             ),
           );
-    final streamResponse = await multipartRequest.send();
-    final asList = await streamResponse.stream.toList();
 
-    return http.Response(
-      utf8.decode(asList.first),
-      streamResponse.statusCode,
-      reasonPhrase: streamResponse.reasonPhrase,
-    );
+    return await http.Response.fromStream(await multipartRequest.send());
   }
 
   Future<http.Response> FORM_DATA_POST(
@@ -164,14 +158,8 @@ class BasisHttpClient extends http.BaseClient with AuthHeaders {
               files.entries.first.value,
             ),
           );
-    final streamResponse = await multipartRequest.send();
-    final asList = await streamResponse.stream.toList();
 
-    return http.Response(
-      utf8.decode(asList.first),
-      streamResponse.statusCode,
-      reasonPhrase: streamResponse.reasonPhrase,
-    );
+    return await http.Response.fromStream(await multipartRequest.send());
   }
 }
 
