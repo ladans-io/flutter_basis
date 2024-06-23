@@ -7,3 +7,7 @@ Future<void> playAudio(String sound) async {
   await player.setSourceAsset(sound);
   await player.resume();
 }
+
+Future<void> playAlert({String? errorPath, required String path}) async {
+  await playAudio(errorPath != null ? errorPath : path);
+}
