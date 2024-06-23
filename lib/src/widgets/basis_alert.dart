@@ -2,7 +2,6 @@ import 'dart:ui';
 
 import 'package:flutter/material.dart';
 import 'package:flutter_basis/flutter_basis.dart';
-import 'package:flutter_basis/src/utils/play_audio.dart';
 
 import '../colors.dart';
 
@@ -42,11 +41,7 @@ void showBasisAlert(
   );
 
   if (playSound) {
-    if (errorAudioPath == null && successAudioPath == null) {
-      throw('You need to specify the errorAudioPath & successAudioPath');
-    } else {
-      playAudio(error ? errorAudioPath! : successAudioPath!).then((value) => null);
-    }
+    playAlert(errorPath: errorAudioPath!, path: successAudioPath!).then((value) => null);
   }
 
   emitAlert();
