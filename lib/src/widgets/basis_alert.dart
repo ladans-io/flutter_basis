@@ -41,7 +41,12 @@ void showBasisAlert(
   );
 
   if (playSound) {
-    playAlert(errorPath: errorAudioPath!, path: successAudioPath!).then((value) => null);
+    playAlert(
+      errorPath: errorAudioPath!, 
+      path: successAudioPath!,
+      error: error,
+      info: info,
+    ).then((value) => null);
   }
 
   emitAlert();

@@ -8,10 +8,12 @@ Future<void> playAudio(String sound) async {
   await player.resume();
 }
 
-Future<void> playAlert({String? errorPath, String? path}) async {
-  if (errorPath == null && path == null) {
-    throw('You need to specify the errorAudioPath & successAudioPath');
-  } else {
-    await playAudio(errorPath != null ? errorPath : path!);
-  }
+Future<void> playAlert({
+  String? errorPath, 
+  required String path, 
+  bool error = false, 
+  bool info = false,
+}) async {
+  if (error && errorPath != null) await playAudio(errorPath);
+  await playAudio(path);
 }
