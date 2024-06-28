@@ -24,8 +24,8 @@ void showBasisAlert(
       EdgeInsetsGeometry? padding,
       Color? fontColor,
       bool playSound = false,
-      String? errorAudioPath,
-      String? successAudioPath,
+      String? errorPath,
+      String? path,
     }
 ) {
   void emitAlert() => BasisAlert.show(
@@ -40,13 +40,13 @@ void showBasisAlert(
     state: _getState(error, info),
   );
 
-  if (playSound) {
+  if (playSound && path != null) {
     playAlert(
-      errorPath: errorAudioPath!, 
-      path: successAudioPath!,
-      error: error,
-      info: info,
-    ).then((value) => null);
+      errorPath: error ? errorPath : null,
+      path: path,
+    );
+  } else {
+    throw Exception('Path shouldn\'t be null');
   }
 
   emitAlert();
