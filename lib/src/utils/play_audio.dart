@@ -14,6 +14,10 @@ Future<void> playAlert({
   bool error = false, 
   bool info = false,
 }) async {
-  if (error && errorPath != null) await playAudio(errorPath);
+  if (error && errorPath != null) {
+    await playAudio(errorPath);
+
+    return;
+  }
   await playAudio(path);
 }
