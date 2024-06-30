@@ -106,10 +106,13 @@ class OdxInputBorder extends OutlineInputBorder {
 
   InputBorder get _border {
     Color getColor() {
-      if (success && !error && focused && statusEnabled) return successColor ?? Colors.green;
+      if (success && !error && focused && statusEnabled) {
+        return successColor ?? Colors.green;
+      } 
       if (error) return Colors.red.shade400;
-      if ((showBorderOnFocus && focused) || showBorder) return borderColor ?? const Color(0xFFE6E6E6);
-
+      if ((showBorderOnFocus && focused) || showBorder) {
+        return borderColor ?? const Color(0xFFE6E6E6);
+      }
       return Colors.transparent;
     }
 

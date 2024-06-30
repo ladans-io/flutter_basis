@@ -243,6 +243,7 @@ class _BasisFormFieldState extends State<BasisFormField> with BasisFormFieldStyl
                               error: state.hasError,
                               success: _success,
                               focused: widget.focusNode?.hasFocus ?? false,
+                              successColor: widget.successColor,
                             ),
                           ],
                         ),
