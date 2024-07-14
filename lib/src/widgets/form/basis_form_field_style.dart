@@ -92,6 +92,7 @@ class OdxInputBorder extends OutlineInputBorder {
     bool? focused,
     bool? success,
     bool? error,
+    Color? successColor,
   }) {
     return OdxInputBorder(
       error: error ?? this.error,
@@ -99,6 +100,7 @@ class OdxInputBorder extends OutlineInputBorder {
       showBorderOnFocus: showBorderOnFocus,
       showBorder: showBorder,
       focusedBorder: focusedBorder ?? this.focusedBorder,
+      successColor: successColor ?? this.successColor,
       focused: focused ?? this.focused,
       statusEnabled: statusEnabled,
     );
