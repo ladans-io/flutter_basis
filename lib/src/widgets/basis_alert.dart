@@ -113,7 +113,7 @@ class AlertContent extends StatelessWidget {
     return Container(
       width: Device.width,
       decoration: BoxDecoration(
-        color: (backgroundColor ?? snackBarColor).withOpacity(.8),
+        color: backgroundColor ?? snackBarColor,
         borderRadius: BorderRadius.circular(radius ?? .0),
       ),
       padding: EdgeInsets.all(16),
