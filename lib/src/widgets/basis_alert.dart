@@ -1,3 +1,4 @@
+import 'dart:io';
 import 'dart:ui';
 
 import 'package:flutter/material.dart';
@@ -43,6 +44,7 @@ void showBasisAlert(
   if (playSound && path != null) {
     playAlert(
       errorPath: error ? errorPath : null,
+      error: error,
       path: path,
     );
   } else {
@@ -64,6 +66,7 @@ class BasisAlert {
     EdgeInsetsGeometry? margin, padding,
     AlertBehavior? behavior,
     double? radius,
+    double? fontSize,
     Duration duration = const Duration(seconds: 3),
   }) {
     return GlobalKeys.scaffoldMessengerKey.currentState?.showSnackBar(
@@ -80,6 +83,7 @@ class BasisAlert {
           fontColor: fontColor,
           backgroundColor: backgroundColor,
           radius: radius,
+          fontSize: fontSize,
         ),
         behavior: behavior?.getBehavior(),
       ),
@@ -96,72 +100,76 @@ class AlertContent extends StatelessWidget {
     this.backgroundColor,
     this.fontColor,
     this.radius,
+    this.fontSize,
   });
 
   final String message;
   final String? prefixIcon;
   final AlertState state;
   final Color? backgroundColor, fontColor;
-  final double? radius;
+  final double? radius, fontSize;
+
+  Widget _buildContent() {
+    return Container(
+      width: Device.width,
+      decoration: BoxDecoration(
+        color: (backgroundColor ?? snackBarColor).withOpacity(.8),
+        borderRadius: BorderRadius.circular(radius ?? .0),
+      ),
+      padding: EdgeInsets.all(16),
+      child: Row(
+        crossAxisAlignment: CrossAxisAlignment.center,
+        children: [
+          if (prefixIcon != null) ...[
+            Container(
+              width: 22,
+              height: 22,
+              decoration: BoxDecoration(
+                image: DecorationImage(image: AssetImage(prefixIcon!)),
+              ),
+            ),
+
+            SizedBox(width: 10),
+          ],
+
+          Expanded(
+            child: BasisText(
+              message,
+              color: fontColor ?? Colors.white,
+              light: true,
+              overflowFade: true,
+              fontSize: fontSize,
+            ),
+          ),
+
+          SizedBox(width: 10),
+
+          Icon(
+            switch (state) {
+              AlertState.success => Icons.check_circle,
+              AlertState.info => Icons.info_rounded,
+              AlertState.error => Icons.error_rounded,
+            },
+            color: switch (state) {
+              AlertState.success => successColor,
+              AlertState.info => infoColor,
+              AlertState.error => errorColor,
+            },
+            size: 28,
+          ),
+        ],
+      ),
+    );
+  }
 
   @override
   Widget build(BuildContext context) {
-    final borderRadius = BorderRadius.circular(radius ?? .0);
-
     return ClipRRect(
-      borderRadius: borderRadius,
-      child: BackdropFilter(
+      borderRadius: BorderRadius.circular(radius ?? .0),
+      child: Platform.isIOS ? BackdropFilter(
         filter: ImageFilter.blur(sigmaX: 16, sigmaY: 16),
-        child: Container(
-          width: Device.width,
-          decoration: BoxDecoration(
-            color: (backgroundColor ?? snackBarColor).withOpacity(.8),
-            borderRadius: borderRadius,
-          ),
-          padding: EdgeInsets.all(16),
-          child: Row(
-            crossAxisAlignment: CrossAxisAlignment.center,
-            children: [
-              if (prefixIcon != null) ...[
-                Container(
-                  width: 22,
-                  height: 22,
-                  decoration: BoxDecoration(
-                    image: DecorationImage(image: AssetImage(prefixIcon!)),
-                  ),
-                ),
-
-                SizedBox(width: 10),
-              ],
-
-              Expanded(
-                child: BasisText(
-                  message,
-                  color: fontColor ?? Colors.white,
-                  light: true,
-                  overflowFade: true,
-                ),
-              ),
-
-              SizedBox(width: 10),
-
-              Icon(
-                switch (state) {
-                  AlertState.success => Icons.check_circle,
-                  AlertState.info => Icons.info_rounded,
-                  AlertState.error => Icons.error_rounded,
-                },
-                color: switch (state) {
-                  AlertState.success => successColor,
-                  AlertState.info => infoColor,
-                  AlertState.error => errorColor,
-                },
-                size: 28,
-              ),
-            ],
-          ),
-        ),
-      ),
+        child: _buildContent(),
+      ) : _buildContent(),
     );
   }
 }
