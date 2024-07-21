@@ -33,7 +33,7 @@ void showBasisAlert(
     message: msg,
     prefixIcon: prefixIcon,
     radius: radius,
-    backgroundColor: (backgroundColor ?? snackBarColor).withOpacity(.9),
+    backgroundColor: backgroundColor ?? snackBarColor,
     duration: duration ?? const Duration(seconds: 4),
     margin: margin,
     fontColor: fontColor,
