@@ -40,15 +40,17 @@ void showBasisAlert(
     padding: padding,
     state: _getState(error, info),
   );
-
-  if (playSound && path != null) {
-    playAlert(
-      errorPath: error ? errorPath : null,
-      error: error,
-      path: path,
-    );
-  } else {
-    throw Exception('Path shouldn\'t be null');
+  
+  if (playSound) {
+    if (path != null) {
+      playAlert(
+        errorPath: error ? errorPath : null,
+        error: error,
+        path: path,
+      );
+    } else {
+      throw Exception('Path shouldn\'t be null');
+    }
   }
 
   emitAlert();
