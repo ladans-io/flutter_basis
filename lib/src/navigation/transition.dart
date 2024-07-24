@@ -21,65 +21,89 @@ const _end = Offset.zero;
 
 Widget leftToRight(
   Animation<double> anim, 
+  Animation<double> secondAnim, 
   Widget child,
 ) {
   const begin = Offset(-1.0, 0.0);
   final parent = CurveTween(curve: Curves.easeIn);
 
   final tween = Tween(begin: begin, end: _end).chain(parent);
+  final tweenReverse = Tween(begin: Offset.zero, end: Offset(1.0, 0.0)).chain(parent);
   final offsetAnimation = anim.drive(tween);
+  final offsetSecondaryAnimation = secondAnim.drive(tweenReverse);
 
   return SlideTransition(
     position: offsetAnimation,
-    child: child,
+    child: SlideTransition(
+      position: offsetSecondaryAnimation,
+      child: child,
+    ),
   );
 }
 
 Widget rightToLeft(
   Animation<double> anim, 
+  Animation<double> secondAnim, 
   Widget child,
 ) {
   const begin = Offset(1.0, 0.0);
   final parent = CurveTween(curve: Curves.easeIn);
 
   final tween = Tween(begin: begin, end: _end).chain(parent);
+  final tweenReverse = Tween(begin: Offset.zero, end: Offset(-1.0, 0.0)).chain(parent);
   final offsetAnimation = anim.drive(tween);
+  final offsetSecondaryAnimation = secondAnim.drive(tweenReverse);
 
   return SlideTransition(
     position: offsetAnimation,
-    child: child,
+    child: SlideTransition(
+      position: offsetSecondaryAnimation,
+      child: child,
+    ),
   );
 }
 
 Widget leftToRightFaded(
   Animation<double> anim, 
+  Animation<double> secondAnim, 
   Widget child,
 ) {
   const begin = Offset(-1.0, 0.0);
   final parent = CurveTween(curve: Curves.easeIn);
 
   final tween = Tween(begin: begin, end: _end).chain(parent);
+  final tweenReverse = Tween(begin: Offset.zero, end: Offset(1.0, 0.0)).chain(parent);
   final offsetAnimation = anim.drive(tween);
+  final offsetSecondaryAnimation = secondAnim.drive(tweenReverse);
 
   return SlideTransition(
     position: offsetAnimation,
-    child: FadeTransition(opacity: anim, child: child),
+    child: SlideTransition(
+      position: offsetSecondaryAnimation,
+      child: FadeTransition(opacity: anim, child: child),
+    ),
   );
 }
 
 Widget rightToLeftFaded(
   Animation<double> anim, 
+  Animation<double> secondAnim, 
   Widget child,
 ) {
   const begin = Offset(1.0, 0.0);
   final parent = CurveTween(curve: Curves.easeIn);
 
   final tween = Tween(begin: begin, end: _end).chain(parent);
+  final tweenReverse = Tween(begin: Offset.zero, end: Offset(-1.0, 0.0)).chain(parent);
   final offsetAnimation = anim.drive(tween);
+  final offsetSecondaryAnimation = secondAnim.drive(tweenReverse);
 
   return SlideTransition(
     position: offsetAnimation,
-    child: FadeTransition(opacity: anim, child: child),
+    child: SlideTransition(
+      position: offsetSecondaryAnimation,
+      child: FadeTransition(opacity: anim, child: child),
+    ),
   );
 }
 

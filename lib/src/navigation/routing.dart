@@ -17,10 +17,10 @@ mixin Routing {
     switch (transitionType) {
       TransitionType.upToDown => upToDown(anim, child),
       TransitionType.downToUp => downToUp(anim, child),
-      TransitionType.leftToRight => leftToRight(anim, child),
-      TransitionType.rightToLeft => rightToLeft(anim, child),
-      TransitionType.leftToRightFaded => leftToRightFaded(anim, child),
-      TransitionType.rightToLeftFaded => rightToLeftFaded(anim, child),
+      TransitionType.leftToRight => leftToRight(anim, secondAnim, child),
+      TransitionType.rightToLeft => rightToLeft(anim, secondAnim, child),
+      TransitionType.leftToRightFaded => leftToRightFaded(anim, secondAnim, child),
+      TransitionType.rightToLeftFaded => rightToLeftFaded(anim, secondAnim, child),
       TransitionType.rotate => rotate(anim, child),
       TransitionType.scale => scale(anim, child),
       TransitionType.scaleElasticIn => scaleElasticIn(anim, child),
@@ -28,7 +28,7 @@ mixin Routing {
       TransitionType.size => size(anim, child),
       TransitionType.fadeIn => fadeIn(anim, child),
       TransitionType.noTransition => child,      
-      _ => rightToLeft(anim, child)
+      _ => rightToLeft(anim, secondAnim, child)
     };
 
   Route? onGenerateRoute(
@@ -52,7 +52,7 @@ mixin Routing {
       transitionDuration: transitionDuration ??= const Duration(milliseconds: 300),
       reverseTransitionDuration: reverseTransitionDuration ??= const Duration(milliseconds: 300),
       transitionsBuilder: (context, anim, secondAnim, child) {
-        return _transitionBuilder(context, anim, secondAnim, child, transitionType: transitionType ?? TransitionType.rightToLeft);
+        return _transitionBuilder(context, anim, secondAnim, child, transitionType: transitionType ?? TransitionType.rightToLeftFaded);
       },
     );
   }
