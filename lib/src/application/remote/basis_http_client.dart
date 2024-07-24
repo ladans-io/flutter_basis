@@ -36,6 +36,7 @@ class BasisHttpClient extends http.BaseClient with AuthHeaders {
     String path, {
     Map<String, String>? headers,
     bool requireAuth = false,
+    bool isCustomHeaders = false,
   }) async {
     return await super.get(
       Uri.parse('$urlBase/$path'),
@@ -43,6 +44,7 @@ class BasisHttpClient extends http.BaseClient with AuthHeaders {
         requireAuth,
         headers ?? _headers,
         _authorizationToken,
+        isCustomHeaders,
       ),
     );
   }
