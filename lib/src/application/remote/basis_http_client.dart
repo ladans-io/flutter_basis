@@ -70,6 +70,28 @@ class BasisHttpClient extends http.BaseClient with AuthHeaders {
     );
   }
 
+
+  Future<http.Response> PATCH(
+    String path, {
+    Map<String, String>? headers,
+    Object? body,
+    Encoding? encoding,
+    bool requireAuth = false,
+    bool isCustomHeaders = false,
+  }) async {
+    return await super.patch(
+      Uri.parse('$urlBase/$path'),
+      headers: authorize(
+        requireAuth,
+        headers ?? _headers,
+        _authorizationToken,
+        isCustomHeaders,
+      ),
+      body: !isCustomHeaders && body != null ? jsonEncode(body) : body,
+      encoding: encoding,
+    );
+  }
+
   Future<http.Response> POST(
     String path, {
     Map<String, String>? headers,
