@@ -53,7 +53,7 @@ class BasisHttpClient extends http.BaseClient with AuthHeaders {
     Object? body,
     Encoding? encoding,
     bool requireAuth = false,
-    bool defaultHeaders = true,
+    bool isCustomHeaders = false,
   }) async {
     return await super.put(
       Uri.parse('$urlBase/$path'),
@@ -61,9 +61,9 @@ class BasisHttpClient extends http.BaseClient with AuthHeaders {
         requireAuth,
         headers ?? _headers,
         _authorizationToken,
-        defaultHeaders,
+        isCustomHeaders,
       ),
-      body: defaultHeaders && body != null ? jsonEncode(body) : body,
+      body: !isCustomHeaders && body != null ? jsonEncode(body) : body,
       encoding: encoding,
     );
   }
@@ -74,7 +74,7 @@ class BasisHttpClient extends http.BaseClient with AuthHeaders {
     Object? body,
     Encoding? encoding,
     bool requireAuth = false,
-    bool setDefaultHeaders = true,
+    bool isCustomHeaders = false,
   }) async {
     return await super.post(
       Uri.parse('$urlBase/$path'),
@@ -82,9 +82,9 @@ class BasisHttpClient extends http.BaseClient with AuthHeaders {
         requireAuth,
         headers ?? _headers,
         _authorizationToken,
-        setDefaultHeaders,
+        isCustomHeaders,
       ),
-      body: setDefaultHeaders ? jsonEncode(body) : body,
+      body: !isCustomHeaders ? jsonEncode(body) : body,
       encoding: encoding,
     );
   }
@@ -95,7 +95,7 @@ class BasisHttpClient extends http.BaseClient with AuthHeaders {
     Object? body,
     Encoding? encoding,
     bool requireAuth = false,
-    bool setDefaultHeaders = true,
+    bool isCustomHeaders = false,
   }) async {
     return await super.delete(
       Uri.parse('$urlBase/$path'),
@@ -103,9 +103,9 @@ class BasisHttpClient extends http.BaseClient with AuthHeaders {
         requireAuth,
         headers ?? _headers,
         _authorizationToken,
-        setDefaultHeaders,
+        isCustomHeaders,
       ),
-      body: setDefaultHeaders ? jsonEncode(body) : body,
+      body: !isCustomHeaders ? jsonEncode(body) : body,
       encoding: encoding,
     );
   }
@@ -116,13 +116,13 @@ class BasisHttpClient extends http.BaseClient with AuthHeaders {
     required String filePath,
     Map<String, String>? headers,
     bool requireAuth = false,
-    bool setDefaultHeaders = true,
+    bool isCustomHeaders = false,
   }) async {
     final multipartRequest =
         http.MultipartRequest('POST', Uri.parse('$urlBase/$path'))
           ..headers.addAll(
               authorize(requireAuth, headers ?? _headers,
-              _authorizationToken, setDefaultHeaders,
+              _authorizationToken, isCustomHeaders,
             ),
           )
           ..files.add(await http.MultipartFile.fromPath(fileName, filePath));
@@ -136,7 +136,7 @@ class BasisHttpClient extends http.BaseClient with AuthHeaders {
     required Map<String, String> body,
     Map<String, String>? headers,
     bool requireAuth = false,
-    bool setDefaultHeaders = true,
+    bool isCustomHeaders = false,
   }) async {
     final multipartRequest =
         http.MultipartRequest('POST', Uri.parse('$urlBase/$path'))
@@ -144,7 +144,7 @@ class BasisHttpClient extends http.BaseClient with AuthHeaders {
             requireAuth,
             headers ?? _headers,
             _authorizationToken,
-            setDefaultHeaders,
+            isCustomHeaders,
           ))
           ..fields.addAll(body)
           ..files.add(
@@ -169,12 +169,12 @@ mixin AuthHeaders {
     bool requireAuth,
     Map<String, String> headers,
     String? authorizationToken, [
-      bool setDefaultHeaders = true,
+      bool isCustomHeaders = false,
     ]
   ) {
-    if (!setDefaultHeaders) _headers.clear();
+    if (isCustomHeaders) _headers.clear();
     if (requireAuth) {
-      headers.addAll({'Authorization': 'Bearer ${authorizationToken ?? ''}'});
+      headers..addAll({'Authorization': 'Bearer ${authorizationToken ?? ''}'});
     }
 
     return headers;
