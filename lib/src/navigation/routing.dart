@@ -52,7 +52,7 @@ mixin Routing {
       transitionDuration: transitionDuration ??= const Duration(milliseconds: 300),
       reverseTransitionDuration: reverseTransitionDuration ??= const Duration(milliseconds: 300),
       transitionsBuilder: (context, anim, secondAnim, child) {
-        return _transitionBuilder(context, anim, secondAnim, child, transitionType: transitionType ?? TransitionType.rightToLeftFaded);
+        return _transitionBuilder(context, anim, secondAnim, child, transitionType: transitionType ?? TransitionType.rightToLeft);
       },
     );
   }
