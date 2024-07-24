@@ -125,12 +125,7 @@ class BasisHttpClient extends http.BaseClient with AuthHeaders {
               _authorizationToken, setDefaultHeaders,
             ),
           )
-          ..files.add(
-            await http.MultipartFile.fromPath(
-              fileName,
-              filePath,
-            ),
-          );
+          ..files.add(await http.MultipartFile.fromPath(fileName, filePath));
 
     return await http.Response.fromStream(await multipartRequest.send());
   }

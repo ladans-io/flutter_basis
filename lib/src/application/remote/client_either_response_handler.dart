@@ -38,7 +38,7 @@ abstract class ClientEitherResponseHandler extends ClientRequestHandler {
     } on BasisClientException catch (e) {
       return (ServerFailure(message: e.formattedMessage, code: e.statusCode), null);
     } on http.ClientException catch (e) {
-      return (ServerFailure(message: getFormattedMessage(e.message), code: 0), null);
+      return (ServerFailure(message: formatMessage(e.message), code: 0), null);
     } on BasisSocketException catch (e) {
       return (CommonFailure(message: e.formattedMessage), null);
     } on TimeoutException {

@@ -2,33 +2,30 @@ import 'dart:io';
 
 import 'package:equatable/equatable.dart';
 
-const internalProcessingError = 'Ocorreu um erro de processamento interno.';
-const errorReceivingData = 'Falha ao receber os dados.';
-const unknownError = 'Ocorreu um erro desconhecido.';
-const serverNotFound = 'Servidor não encontrado';
-const invalidCredentials = 'E-mail ou senha incorretos.';
+const invalidCredentials = 'Invalid credentials.';
 const invalidParameters = 'Dados inválidos.';
-const notFound = 'Funcionalidade indisponível no momento.';
-const requestTimeout = 'Sem resposta do servidor.';
-const cacheException = 'No momento, não encontramos nenhum registro correspondente.';
+const notFound = 'Path supported yet.';
+const cacheException = 'No cached content found.';
+const internalProcessingError = 'Internal processing error.';
+const errorReceivingData = 'Error receiving data.';
+const serverNotFound = 'Server not found! Please, check your connection and try again.';
+const unknownError = 'Unknown error.';
+const requestTimeout = 'Request timed out. Please try again later.';
 
-String getFormattedMessage(String message) {
+String formatMessage(String message) {
   bool contains(String err) => message.contains(err);
-
+  if (contains('Failed host lookup')) return serverNotFound;
+  if (contains('Server Error')) return internalProcessingError;
+  if (contains('Connection closed while receiving data')) return errorReceivingData;
   if (contains('Unauthorized')) return invalidCredentials;
-
   if (contains('Undefined')) return invalidParameters;
-
   if (contains('The operation has timed out') || 
-      contains('Timeout during reading')
+      contains('Timeout during reading') ||
+      contains('TimeoutException')
   ) {
     return requestTimeout;
   }
-
-  if (contains('Server Error')) return internalProcessingError;
-
   if (contains('Name or service not known')) return unknownError;
-
   if (contains('Connection closed while receiving data')) return errorReceivingData;
 
   return message;
@@ -46,7 +43,7 @@ abstract class BasisClientException extends Equatable {
   final int? statusCode;
   const BasisClientException({this.message, this.statusCode});
 
-  String get formattedMessage => getFormattedMessage(message!);
+  String get formattedMessage => formatMessage(message!);
 }
 
 /// [CommonException]
@@ -84,11 +81,7 @@ class BasisSocketException extends SocketException {
     InternetAddress? address,
   }) : super(message, osError: osError, address: address);
 
-  String get formattedMessage {
-    if (message.contains('Failed host lookup')) return serverNotFound;
-
-    return message;
-  }
+  String get formattedMessage => formatMessage(message);
 }
 
 /// [DomainException]
@@ -100,7 +93,7 @@ class DomainException extends BasisException {
 
   @override
   String toString() {
-    return 'EXCEÇÃO DE DOMÍNIO\n$exception';
+    return 'Domain exception:\n$exception';
   }
 }
 
@@ -114,6 +107,6 @@ class UnexpectedValueException extends BasisException {
 
   @override
   String toString() {
-    return 'EXCEÇÃO DE VALOR\n$exception';
+    return 'Value exception:\n$exception';
   }
 }
