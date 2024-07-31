@@ -65,7 +65,9 @@ class BasisHttpClient extends http.BaseClient with AuthHeaders {
         _authorizationToken,
         isCustomHeaders,
       ),
-      body: !isCustomHeaders && body != null ? jsonEncode(body) : body,
+      body: isCustomHeaders && body != null 
+        ? body
+        : jsonEncode(body), 
       encoding: encoding,
     );
   }
@@ -87,7 +89,9 @@ class BasisHttpClient extends http.BaseClient with AuthHeaders {
         _authorizationToken,
         isCustomHeaders,
       ),
-      body: !isCustomHeaders && body != null ? jsonEncode(body) : body,
+      body: isCustomHeaders && body != null 
+        ? body
+        : jsonEncode(body), 
       encoding: encoding,
     );
   }
@@ -108,7 +112,9 @@ class BasisHttpClient extends http.BaseClient with AuthHeaders {
         _authorizationToken,
         isCustomHeaders,
       ),
-      body: !isCustomHeaders ? jsonEncode(body) : body,
+      body: isCustomHeaders 
+        ? body
+        : jsonEncode(body), 
       encoding: encoding,
     );
   }
@@ -129,7 +135,9 @@ class BasisHttpClient extends http.BaseClient with AuthHeaders {
         _authorizationToken,
         isCustomHeaders,
       ),
-      body: !isCustomHeaders ? jsonEncode(body) : body,
+      body: isCustomHeaders 
+        ? body
+        : jsonEncode(body), 
       encoding: encoding,
     );
   }
