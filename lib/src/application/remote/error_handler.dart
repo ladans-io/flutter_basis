@@ -6,6 +6,14 @@ import '../errors/exception.dart';
 
 mixin ErrorHandler {
   String _handleMap(Map value, int _) {
+    if (value['data'] != null) {
+      if (value['data'] is List) {
+        return (value['data'] as List).join(', ');
+      } else {
+        return (value['data']).toString();
+      }
+    }
+    
     if (value['erro'] != null) return value['erro'];
     
     if (value['message'] != null) return value['message'];
