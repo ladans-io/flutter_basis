@@ -25,7 +25,7 @@ class BasisAppUpdateDialog extends StatefulWidget {
   State<BasisAppUpdateDialog> createState() => _DshAlertDialogState();
 }
 
-class _DshAlertDialogState extends State<BasisAppUpdateDialog> {
+class _DshAlertDialogState extends State<BasisAppUpdateDialog> with ResponsiveSizes {
   @override
   Widget build(BuildContext context) {
     return PopScope(
@@ -34,7 +34,7 @@ class _DshAlertDialogState extends State<BasisAppUpdateDialog> {
         width: MediaQuery.of(context).size.width * .9,
         child: AlertDialog.adaptive(
           actionsAlignment: MainAxisAlignment.center,
-          shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(6.dp)),
+          shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(6)),
           surfaceTintColor: Colors.transparent,
           title: _title,
           content: _content,
@@ -54,12 +54,12 @@ class _DshAlertDialogState extends State<BasisAppUpdateDialog> {
           Platform.isAndroid 
             ? 'assets/play-store.png' 
             : 'assets/app-store.png',
-          width: 40.w,
+          width: screenWidth(context) * .4,
         ),
         BasisText(
           'Atualizar Odex${widget.forceUpdate ? '!' : '?'}',
           alignCenter: true,
-          fontSize: 18.dp,
+          fontSize: 18,
           bold: true,
           color: Colors.black87,
         ),
@@ -68,25 +68,23 @@ class _DshAlertDialogState extends State<BasisAppUpdateDialog> {
   }
 
   Widget get _content {
-    final f16 = 16.dp;
-
     return Column(
       mainAxisSize: MainAxisSize.min,
       children: [
         BasisText(
           'Está disponível uma nova versão deste aplicativo! \nVersão atual ${widget.currentVer} \nNova versão ${widget.newVer}',
           color: Colors.black87,
-          fontSize: f16,
+          fontSize: dp16(context),
         ),
         if (widget.versionNews.isNotEmpty) ...[
-          SizedBox(height: 20.dp),
+          SizedBox(height: 20),
           BasisText(
             'O que há de novo?',
             color: Colors.black87,
-            fontSize: f16,
+            fontSize: dp16(context),
             bold: true,
           ),
-          SizedBox(height: 6.dp),
+          SizedBox(height: 6),
           if (widget.versionNews.contains('fixture')) const Align(
             alignment: Alignment.topLeft,
             child: BasisText(
@@ -105,7 +103,7 @@ class _DshAlertDialogState extends State<BasisAppUpdateDialog> {
               underline: true,
             ),
           ),
-          SizedBox(height: 5.dp),
+          SizedBox(height: 5),
           ...List.generate(
               widget.versionNews.split('***').length - 1,
               (index) => Align(

@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_basis/flutter_basis.dart';
 
-class BasisPopupLoading extends StatelessWidget {
+class BasisPopupLoading extends StatelessWidget with ResponsiveSizes {
   final ValueChanged<bool>? onPopInvoked;
   final String? loadingMsg;
   final VoidCallback? onCancel;
@@ -26,13 +26,13 @@ class BasisPopupLoading extends StatelessWidget {
             alignment: Alignment.topRight,
             children: [
               SizedBox(
-                width: 50.w,
+                width: screenWidth(context) * .5,
                 child: Card(
                   margin: EdgeInsets.zero,
                   elevation: 0,
                   color: Color(0xFF303030).withOpacity(.9),
                   shape: RoundedRectangleBorder(
-                    borderRadius: BorderRadius.circular(4.dp),
+                    borderRadius: BorderRadius.circular(4),
                   ),
                   child: _content(context),
                 ),
@@ -40,13 +40,13 @@ class BasisPopupLoading extends StatelessWidget {
 
               if (onCancel != null) Positioned(
                 child: SizedBox(
-                  height: 30.dp,
-                  width: 30.dp,
+                  height: 30,
+                  width: 30,
                   child: FloatingActionButton(
                     tooltip: 'Cancelar requisição',
                     shape: RoundedRectangleBorder(
                       borderRadius: BorderRadius.only(
-                        topRight: Radius.circular(4.dp),
+                        topRight: Radius.circular(4),
                       ),
                     ),
                     elevation: 1,
@@ -66,20 +66,20 @@ class BasisPopupLoading extends StatelessWidget {
   Widget _content(BuildContext context) {
     return Padding(
       padding: EdgeInsets.symmetric(
-        vertical: 15.dp,
-        horizontal: 10.dp,
+        vertical: 15,
+        horizontal: 10,
       ),
       child: Column(
         mainAxisAlignment:  MainAxisAlignment.spaceEvenly,
         children: [
-          BasisLoading(color: Colors.white, size: 30.dp),
+          BasisLoading(color: Colors.white, size: 30),
 
           if (loadingMsg != null && loadingMsg!.isNotEmpty) ...[
-            SizedBox(height: 10.dp),
+            SizedBox(height: 10),
           
             BasisText(
               loadingMsg!,
-              fontSize: 14.dp,
+              fontSize: 14,
               color: Colors.white,
               alignCenter: true,
               light: true,

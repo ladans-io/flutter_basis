@@ -49,13 +49,13 @@ class BasisDropdownFormField extends StatefulWidget {
   State<BasisDropdownFormField> createState() => _BasisDropdownFormFieldState();
 }
 
-class _BasisDropdownFormFieldState extends State<BasisDropdownFormField> with BasisFormFieldStyle {
+class _BasisDropdownFormFieldState extends State<BasisDropdownFormField> with BasisFormFieldStyle, ResponsiveSizes {
 
   late double _labelSize;
 
   @override
   void didChangeDependencies() {
-    _labelSize = widget.labelSize ?? 16.dp;
+    _labelSize = widget.labelSize ?? 16;
     super.didChangeDependencies();
   }
 
@@ -69,7 +69,7 @@ class _BasisDropdownFormFieldState extends State<BasisDropdownFormField> with Ba
     );
 
     return ClipRRect(
-      borderRadius: BorderRadius.circular(widget.radius ?? 4.dp),
+      borderRadius: BorderRadius.circular(widget.radius ?? 4),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
@@ -86,18 +86,18 @@ class _BasisDropdownFormFieldState extends State<BasisDropdownFormField> with Ba
                 ),
 
                 if (widget.labelChild != null)...[
-                  SizedBox(width: 10.dp),
+                  SizedBox(width: 10),
 
                   widget.labelChild!,
                 ],
               ],
             ),
 
-            SizedBox(height: 8.dp),
+            SizedBox(height: 8),
           ],
 
           SizedBox(
-            width: widget.width ?? 36.w,
+            width: widget.width ?? screenWidth(context) * .36,
             height: widget.height,
             child: ButtonTheme(
               alignedDropdown: true,
@@ -108,7 +108,7 @@ class _BasisDropdownFormFieldState extends State<BasisDropdownFormField> with Ba
                   focusNode: widget.focusNode,
                   value: widget.value,
                   style: getInputStyle(context, bold: widget.bold, fontSize: widget.fontSize),
-                  menuMaxHeight: 200.dp,
+                  menuMaxHeight: 200,
                   onSaved: widget.onSaved,
                   validator: widget.formKey != null ? (value) {
                     if (value == null) return 'Campo obrigatório';
@@ -116,7 +116,7 @@ class _BasisDropdownFormFieldState extends State<BasisDropdownFormField> with Ba
                     return null;
                   } : null,
                   decoration: InputDecoration(
-                    errorStyle: TextStyle(color: Colors.red.shade300, fontSize: 12.dp),
+                    errorStyle: TextStyle(color: Colors.red.shade300, fontSize: 12),
                     hintStyle: getInputHintStyle(context, fontSize: widget.fontSize),
                     filled: true,
                     fillColor: getFillColor(
@@ -127,7 +127,7 @@ class _BasisDropdownFormFieldState extends State<BasisDropdownFormField> with Ba
                     ),
                     contentPadding: widget.height != null
                       ? const EdgeInsets.symmetric()
-                      : EdgeInsets.symmetric(vertical: widget.verticalPadding ?? 10.dp),
+                      : EdgeInsets.symmetric(vertical: widget.verticalPadding ?? 10),
                     border: inputBorder.get(),
                     focusedBorder: inputBorder.copy(focusedBorder: true).get(),
                     enabledBorder: inputBorder.get(),
@@ -140,11 +140,11 @@ class _BasisDropdownFormFieldState extends State<BasisDropdownFormField> with Ba
                     (value) => DropdownMenuItem(
                       value: value,
                       child: Container(
-                        constraints: BoxConstraints(maxWidth: 6.w),
+                        constraints: BoxConstraints(maxWidth: screenWidth(context) * .6),
                         child: BasisText(
                           value,
                           light: true,
-                          fontSize: widget.fontSize ?? 16.dp,
+                          fontSize: widget.fontSize ?? 16,
                           color: widget.enabled ? widget.color : Colors.black87,
                         ),
                       ),

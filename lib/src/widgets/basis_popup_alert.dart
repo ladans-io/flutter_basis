@@ -41,13 +41,13 @@ class _BasisPopupAlertState extends State<BasisPopupAlert> {
         width: MediaQuery.of(context).size.width * .8,
         child: AlertDialog.adaptive(
           actionsAlignment: MainAxisAlignment.center,
-          shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(6.dp)),
+          shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(6)),
           surfaceTintColor: Colors.transparent,
           title: _title,
           content: widget.description != null ? _description : null,
           actions: [
             if (widget.cancelable) _onCancelButton,
-            if (widget.loading) BasisLoading(color: Colors.white, size: 12.dp)
+            if (widget.loading) BasisLoading(color: Colors.white, size: 12)
             else _onConfirmButton,
           ],
         ),
@@ -59,7 +59,7 @@ class _BasisPopupAlertState extends State<BasisPopupAlert> {
     return BasisText(
       widget.title,
       alignCenter: true,
-      fontSize: 16.dp,
+      fontSize: 16,
       bold: widget.description != null,
       color: widget.redTitle ? Colors.red : Colors.black87,
     );
@@ -74,7 +74,7 @@ class _BasisPopupAlertState extends State<BasisPopupAlert> {
   Widget get _onConfirmButton {
     return BasisButton(
       radius: Platform.isIOS ? 0 : null,
-      horizontalPadding: 44.dp,
+      horizontalPadding: 44,
       backgroundColor: Colors.red,
       onPressed: widget.onPressed,
       fullWidth: false,
@@ -86,7 +86,7 @@ class _BasisPopupAlertState extends State<BasisPopupAlert> {
     return BasisLinedButton(
       borderColor: Platform.isIOS ? Colors.transparent : null,
       radius: Platform.isIOS ? 0 : null,
-      horizontalPadding: 44.dp,
+      horizontalPadding: 44,
       onPressed: Navigator.of(context).pop,
       fullWidth: false,
       title: widget.cancelLabel ?? 'Cancelar',
