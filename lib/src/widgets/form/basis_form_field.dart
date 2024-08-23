@@ -29,11 +29,11 @@ class BasisFormField extends StatefulWidget {
   final TextInputType? keyboardType;
   final TextInputAction? textInputAction;
   final FocusNode? focusNode;
-  final double? labelSize, radius, fontSize;
+  final double? labelSize, radius, fontSize, focusedBorderWidth;
   final int? maxLines;
   final int? maxLength;
   final String? Function(String?)? validator;
-  final Color? labelColor, disabledColor, borderColor, fillColor, color;
+  final Color? labelColor, disabledColor, borderColor, fillColor, color, successColor;
   final EdgeInsetsGeometry? contentPadding;
   final TextAlign? textAlign;
   final Widget? labelChild;
@@ -82,6 +82,8 @@ class BasisFormField extends StatefulWidget {
     this.bold = false,
     this.fontSize,
     this.color,
+    this.successColor,
+    this.focusedBorderWidth,
   }) : super(key: key);
 
   @override
@@ -162,6 +164,8 @@ class _BasisFormFieldState extends State<BasisFormField> with BasisFormFieldStyl
                 statusEnabled: widget.statusEnabled,
                 borderColor: widget.borderColor,
                 radius: widget.radius,
+                successColor: widget.successColor,
+                focusedBorderWidth: widget.focusedBorderWidth,
               );
 
               if (widget.controller.text.isNotEmpty && updateOdxTextFieldValue) {
@@ -239,6 +243,7 @@ class _BasisFormFieldState extends State<BasisFormField> with BasisFormFieldStyl
                               error: state.hasError,
                               success: _success,
                               focused: widget.focusNode?.hasFocus ?? false,
+                              successColor: widget.successColor,
                             ),
                           ],
                         ),

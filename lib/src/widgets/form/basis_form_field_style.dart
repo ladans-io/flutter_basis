@@ -39,6 +39,7 @@ mixin BasisFormFieldStyle {
       required bool error,
       required bool success,
       required bool focused,
+      Color? successColor,
   }) {
     if (error) {
       return Icon(
@@ -52,7 +53,7 @@ mixin BasisFormFieldStyle {
       return Icon(
         Icons.check_circle, 
         size: 20, 
-        color: Colors.green,
+        color: successColor ?? Colors.green,
       );
     } 
 
@@ -70,11 +71,14 @@ class OdxInputBorder extends OutlineInputBorder {
     this.focused = false,
     this.statusEnabled = true,
     this.borderColor,
+    this.successColor,
     this.radius,
+    this.focusedBorderWidth,
   });
 
-  final Color? borderColor;
+  final Color? borderColor, successColor;
   final double? radius;
+  final double? focusedBorderWidth;
   final bool error,
              success,
              showBorderOnFocus,
@@ -88,6 +92,7 @@ class OdxInputBorder extends OutlineInputBorder {
     bool? focused,
     bool? success,
     bool? error,
+    Color? successColor,
   }) {
     return OdxInputBorder(
       error: error ?? this.error,
@@ -95,6 +100,7 @@ class OdxInputBorder extends OutlineInputBorder {
       showBorderOnFocus: showBorderOnFocus,
       showBorder: showBorder,
       focusedBorder: focusedBorder ?? this.focusedBorder,
+      successColor: successColor ?? this.successColor,
       focused: focused ?? this.focused,
       statusEnabled: statusEnabled,
     );
@@ -102,17 +108,20 @@ class OdxInputBorder extends OutlineInputBorder {
 
   InputBorder get _border {
     Color getColor() {
-      if (success && !error && focused && statusEnabled) return Colors.green;
+      if (success && !error && focused && statusEnabled) {
+        return successColor ?? Colors.green;
+      } 
       if (error) return Colors.red.shade400;
-      if ((showBorderOnFocus && focused) || showBorder) return borderColor ?? const Color(0xFFE6E6E6);
-
+      if ((showBorderOnFocus && focused) || showBorder) {
+        return borderColor ?? const Color(0xFFE6E6E6);
+      }
       return Colors.transparent;
     }
 
     return OutlineInputBorder(
       borderRadius: BorderRadius.circular(radius ?? 5),
       borderSide: BorderSide(
-        width: focusedBorder ? 2.5 : 1,
+        width: focusedBorder ? (focusedBorderWidth ?? 1.5) : 1,
         color: getColor(),
       ),
     );
