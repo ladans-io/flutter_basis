@@ -140,7 +140,7 @@ class _BasisDropdownFormFieldState extends State<BasisDropdownFormField> with Ba
                     (value) => DropdownMenuItem(
                       value: value,
                       child: Container(
-                        constraints: BoxConstraints(maxWidth: 6.w),
+                        constraints: BoxConstraints(maxWidth: 60.w),
                         child: BasisText(
                           value,
                           light: true,
