@@ -229,12 +229,12 @@ class _BasisFormFieldState extends State<BasisFormField> with BasisFormFieldStyl
                           mainAxisSize: MainAxisSize.min,
                           mainAxisAlignment: MainAxisAlignment.spaceBetween,
                           children: [
-                            _obscureText
-                              ? GestureDetector(
-                                  child: Icon(_visibilityIcon, size: 24, color: grey400),
-                                  onTap: () => setState(() => _obscureText = !_obscureText)
-                                )
-                              : widget.suffixIcon ?? const SizedBox.shrink(),
+                            if (widget.obscureText)
+                              GestureDetector(
+                                child: Icon(_visibilityIcon, size: 24, color: grey400),
+                                onTap: () => setState(() => _obscureText = !_obscureText)
+                              )
+                            else widget.suffixIcon ?? const SizedBox.shrink(),
 
                             if (_obscureText) SizedBox(width: 12),
 
