@@ -21,7 +21,8 @@ class BasisFormField extends StatefulWidget {
              lightLabel,
              boldLabel,
              bold,
-             focuseBorder;
+             focuseBorder,
+             showValidationStatus;
   final TextEditingController controller;
   final ValueChanged<String>? onChanged;
   final FormFieldSetter<String>? onSaved;
@@ -35,7 +36,7 @@ class BasisFormField extends StatefulWidget {
   final int? maxLength;
   final String? Function(String?)? validator;
   final Color? labelColor, disabledColor, borderColor, fillColor, color, successColor;
-  final EdgeInsetsGeometry? contentPadding;
+  final EdgeInsetsGeometry? contentPadding, errorPadding;
   final TextAlign? textAlign;
   final Widget? labelChild;
   final String? suffixText;
@@ -67,9 +68,11 @@ class BasisFormField extends StatefulWidget {
     this.lightLabel = false,
     this.boldLabel = false,
     this.contentPadding,
+    this.errorPadding,
     this.showBorder = true,
     this.focuseBorder = true,
     this.showBorderOnFocus = false,
+    this.showValidationStatus = false,
     this.textAlign,
     this.labelChild,
     this.suffixText,
@@ -236,6 +239,7 @@ class _BasisFormFieldState extends State<BasisFormField> with BasisFormFieldStyl
                               success: _success,
                               error: state.hasError,
                               focused: widget.focusNode?.hasFocus ?? false,
+                              showValidationStatus: widget.showValidationStatus,
                               successColor: widget.successColor,
                             ),
                             if (widget.obscureText || widget.suffixIcon != null) SizedBox(width: 12),
@@ -256,7 +260,10 @@ class _BasisFormFieldState extends State<BasisFormField> with BasisFormFieldStyl
                   if (state.hasError)...[
                     SizedBox(height: 4),
 
-                    BasisText(state.errorText!, color: Colors.red.shade300, light: true),
+                    Padding(
+                      padding: widget.errorPadding ?? EdgeInsets.zero,
+                      child: BasisText(state.errorText!, color: Colors.red.shade300, light: true),
+                    ),
                   ],
                 ],
               );

@@ -39,9 +39,10 @@ mixin BasisFormFieldStyle {
       required bool error,
       required bool success,
       required bool focused,
+      bool showValidationStatus = false,
       Color? successColor,
   }) {
-    if (error) {
+    if (error && (showValidationStatus || focused)) {
       return Icon(
         Icons.error, 
         size: 20, 
@@ -49,7 +50,7 @@ mixin BasisFormFieldStyle {
       );
     } 
 
-    if (success && focused) {
+    if (success && (showValidationStatus || focused)) {
       return Icon(
         Icons.check_circle, 
         size: 20, 
