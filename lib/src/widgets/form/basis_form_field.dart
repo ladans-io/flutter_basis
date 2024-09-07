@@ -20,7 +20,8 @@ class BasisFormField extends StatefulWidget {
              enabled,
              lightLabel,
              boldLabel,
-             bold;
+             bold,
+             focuseBorder;
   final TextEditingController controller;
   final ValueChanged<String>? onChanged;
   final FormFieldSetter<String>? onSaved;
@@ -67,6 +68,7 @@ class BasisFormField extends StatefulWidget {
     this.boldLabel = false,
     this.contentPadding,
     this.showBorder = true,
+    this.focuseBorder = true,
     this.showBorderOnFocus = false,
     this.textAlign,
     this.labelChild,
@@ -217,7 +219,7 @@ class _BasisFormFieldState extends State<BasisFormField> with BasisFormFieldStyl
                         disabledColor: widget.disabledColor,
                       ),
                       border: inputBorder.get(),
-                      focusedBorder: inputBorder.copy(focusedBorder: true).get(),
+                      focusedBorder: inputBorder.copy(focusedBorder: widget.focuseBorder).get(),
                       enabledBorder: inputBorder.get(),
                       disabledBorder: inputBorder.get(),
                       contentPadding: widget.contentPadding ?? EdgeInsets.symmetric(horizontal: 16, vertical: 10),
@@ -229,22 +231,22 @@ class _BasisFormFieldState extends State<BasisFormField> with BasisFormFieldStyl
                           mainAxisSize: MainAxisSize.min,
                           mainAxisAlignment: MainAxisAlignment.spaceBetween,
                           children: [
-                            if (widget.obscureText)
-                              GestureDetector(
-                                child: Icon(_visibilityIcon, size: 24, color: grey400),
-                                onTap: () => setState(() => _obscureText = !_obscureText)
-                              )
-                            else widget.suffixIcon ?? const SizedBox.shrink(),
-
-                            if (_obscureText) SizedBox(width: 12),
-
                             statusTile(
                               context,
-                              error: state.hasError,
                               success: _success,
+                              error: state.hasError,
                               focused: widget.focusNode?.hasFocus ?? false,
                               successColor: widget.successColor,
                             ),
+                            if (widget.obscureText || widget.suffixIcon != null) SizedBox(width: 12),
+                            if (widget.obscureText) ...[
+                              GestureDetector(
+                                child: Icon(_visibilityIcon, size: 24, color: grey400),
+                                onTap: () => setState(() => _obscureText = !_obscureText)
+                              ),
+                              SizedBox(width: 12),
+                            ],
+                            widget.suffixIcon ?? const SizedBox.shrink(),
                           ],
                         ),
                       ) : null,
