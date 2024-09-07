@@ -120,10 +120,9 @@ class OdxInputBorder extends OutlineInputBorder {
 
     return OutlineInputBorder(
       borderRadius: BorderRadius.circular(radius ?? 5),
-      borderSide: BorderSide(
-        width: focusedBorder ? (focusedBorderWidth ?? 1.5) : 1,
-        color: getColor(),
-      ),
+      borderSide: focusedBorder 
+        ? BorderSide(width: (focusedBorderWidth ?? 1.5), color: getColor()) 
+        : BorderSide.none,
     );
   }
 
