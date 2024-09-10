@@ -61,9 +61,9 @@ class BasisRichText extends StatelessWidget {
       return FontWeight.w400;
     } else if (bold || bold2) {
       return FontWeight.w700;
-    } else if (extraBold || extraBold1) {
+    } else if (extraBold || extraBold2) {
       return FontWeight.w800;
-    } else if (semiBold || semiBold1) {
+    } else if (semiBold || semiBold2) {
       return FontWeight.w600;
     } else {
       return FontWeight.w500;
