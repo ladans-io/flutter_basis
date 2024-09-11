@@ -212,7 +212,7 @@ class _BasisFormFieldState extends State<BasisFormField> with BasisFormFieldStyl
                     decoration: InputDecoration(
                       counterText: '',
                       hintText: widget.hintText,
-                      hintStyle: getInputHintStyle(context),
+                      hintStyle: getInputHintStyle(context, fontSize: widget.fontSize, color: widget.color),
                       errorStyle: TextStyle(color: Colors.red.shade300, fontSize: 12),
                       filled: true,
                       fillColor: getFillColor(
@@ -227,7 +227,7 @@ class _BasisFormFieldState extends State<BasisFormField> with BasisFormFieldStyl
                       disabledBorder: inputBorder.get(),
                       contentPadding: widget.contentPadding ?? EdgeInsets.symmetric(horizontal: 16, vertical: 10),
                       suffix: widget.suffixText != null ? Text(widget.suffixText!) : null,
-                      suffixStyle: getInputHintStyle(context),
+                      suffixStyle: getInputHintStyle(context, fontSize: widget.fontSize, color: widget.color),
                       suffixIcon: widget.showSuffixIcon ? Padding(
                         padding: EdgeInsets.symmetric(horizontal: 14),
                         child: Row(

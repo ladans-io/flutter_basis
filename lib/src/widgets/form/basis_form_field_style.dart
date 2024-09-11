@@ -14,9 +14,13 @@ mixin BasisFormFieldStyle {
     );
   }
 
-  TextStyle getInputHintStyle(BuildContext context, {double? fontSize}) {
+  TextStyle getInputHintStyle(
+    BuildContext context, {
+    Color? color,
+    double? fontSize,
+  }) {
     return TextStyle(
-      color: Colors.grey,
+      color: color?.withOpacity(.6) ?? Colors.grey,
       fontSize: fontSize ?? 16,
       fontWeight: FontWeight.w400,
     );
