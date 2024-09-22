@@ -11,6 +11,7 @@ class BasisTextButton extends StatelessWidget {
     this.fontSize,
     this.btnHeight,
     this.btnWidth,
+    this.radius,
     this.fullWidth = false,
     this.underline = false,
     this.paddingZero = false,
@@ -20,7 +21,7 @@ class BasisTextButton extends StatelessWidget {
   final String title;
   final VoidCallback? onPressed;
   final Color? color;
-  final double? fontSize, btnHeight, btnWidth;
+  final double? fontSize, btnHeight, btnWidth, radius;
   final bool fullWidth, underline, paddingZero, bold;
 
   @override
@@ -32,7 +33,7 @@ class BasisTextButton extends StatelessWidget {
         style: TextButton.styleFrom(
           foregroundColor: Colors.transparent,
           shape: RoundedRectangleBorder(
-            borderRadius: BorderRadius.circular(5),
+            borderRadius: BorderRadius.circular(radius ?? 5),
           ),
           padding: paddingZero ? EdgeInsets.zero : null,
         ),
