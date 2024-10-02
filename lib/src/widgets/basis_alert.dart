@@ -19,6 +19,7 @@ void showBasisAlert(
       bool info = false,
       Duration? duration,
       String? prefixIcon,
+      Widget? prefix,
       Color? backgroundColor,
       double? radius,
       EdgeInsetsGeometry? margin,
@@ -32,6 +33,7 @@ void showBasisAlert(
   void emitAlert() => BasisAlert.show(
     message: msg,
     prefixIcon: prefixIcon,
+    prefix: prefix,
     radius: radius,
     backgroundColor: backgroundColor ?? snackBarColor,
     duration: duration ?? const Duration(seconds: 4),
@@ -63,6 +65,7 @@ class BasisAlert {
     required String message,
     required AlertState state,
     String? prefixIcon,
+    Widget? prefix,
     Color? backgroundColor,
     Color? fontColor,
     EdgeInsetsGeometry? margin, padding,
@@ -82,6 +85,7 @@ class BasisAlert {
           message: message,
           state: state,
           prefixIcon: prefixIcon,
+          prefix: prefix,
           fontColor: fontColor,
           backgroundColor: backgroundColor,
           radius: radius,
@@ -99,6 +103,7 @@ class AlertContent extends StatelessWidget {
     required this.message, 
     required this.state,
     this.prefixIcon,
+    this.prefix,
     this.backgroundColor,
     this.fontColor,
     this.radius,
@@ -107,6 +112,7 @@ class AlertContent extends StatelessWidget {
 
   final String message;
   final String? prefixIcon;
+  final Widget? prefix;
   final AlertState state;
   final Color? backgroundColor, fontColor;
   final double? radius, fontSize;
@@ -122,15 +128,15 @@ class AlertContent extends StatelessWidget {
       child: Row(
         crossAxisAlignment: CrossAxisAlignment.center,
         children: [
-          if (prefixIcon != null) ...[
-            Container(
-              width: 22,
-              height: 22,
-              decoration: BoxDecoration(
-                image: DecorationImage(image: AssetImage(prefixIcon!)),
-              ),
-            ),
-
+          if (prefixIcon != null || prefix != null) ...[
+            if (prefixIcon != null) 
+              Container(
+                width: 22,
+                height: 22,
+                decoration: BoxDecoration(image: DecorationImage(image: AssetImage(prefixIcon!))),
+              ) 
+            else
+              prefix!,
             SizedBox(width: 10),
           ],
 
