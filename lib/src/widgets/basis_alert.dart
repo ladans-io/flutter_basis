@@ -20,6 +20,7 @@ void showBasisAlert(
       Duration? duration,
       String? prefixIcon,
       Widget? prefix,
+      Widget? suffix,
       Color? backgroundColor,
       double? radius,
       EdgeInsetsGeometry? margin,
@@ -34,6 +35,7 @@ void showBasisAlert(
     message: msg,
     prefixIcon: prefixIcon,
     prefix: prefix,
+    suffix: suffix,
     radius: radius,
     backgroundColor: backgroundColor ?? snackBarColor,
     duration: duration ?? const Duration(seconds: 4),
@@ -66,6 +68,7 @@ class BasisAlert {
     required AlertState state,
     String? prefixIcon,
     Widget? prefix,
+    Widget? suffix,
     Color? backgroundColor,
     Color? fontColor,
     EdgeInsetsGeometry? margin, padding,
@@ -86,6 +89,7 @@ class BasisAlert {
           state: state,
           prefixIcon: prefixIcon,
           prefix: prefix,
+          suffix: suffix,
           fontColor: fontColor,
           backgroundColor: backgroundColor,
           radius: radius,
@@ -104,6 +108,7 @@ class AlertContent extends StatelessWidget {
     required this.state,
     this.prefixIcon,
     this.prefix,
+    this.suffix,
     this.backgroundColor,
     this.fontColor,
     this.radius,
@@ -112,7 +117,7 @@ class AlertContent extends StatelessWidget {
 
   final String message;
   final String? prefixIcon;
-  final Widget? prefix;
+  final Widget? prefix, suffix;
   final AlertState state;
   final Color? backgroundColor, fontColor;
   final double? radius, fontSize;
@@ -149,22 +154,26 @@ class AlertContent extends StatelessWidget {
               fontSize: fontSize,
             ),
           ),
-
-          SizedBox(width: 10),
-
-          Icon(
-            switch (state) {
-              AlertState.success => Icons.check_circle,
-              AlertState.info => Icons.info_rounded,
-              AlertState.error => Icons.error_rounded,
-            },
-            color: switch (state) {
-              AlertState.success => successColor,
-              AlertState.info => infoColor,
-              AlertState.error => errorColor,
-            },
-            size: 28,
-          ),
+          if (prefix == null) ...[            
+            SizedBox(width: 10),
+            Icon(
+              switch (state) {
+                AlertState.success => Icons.check_circle,
+                AlertState.info => Icons.info_rounded,
+                AlertState.error => Icons.error_rounded,
+              },
+              color: switch (state) {
+                AlertState.success => successColor,
+                AlertState.info => infoColor,
+                AlertState.error => errorColor,
+              },
+              size: 28,
+            ),
+          ],
+          if (suffix != null) ...[            
+            SizedBox(width: 10),
+            suffix!
+          ],
         ],
       ),
     );
