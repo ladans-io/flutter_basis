@@ -22,6 +22,15 @@ class Navigate {
     }
   }
 
+  Future<T?> push<T extends Object?>(Route<T> route, {Object? arguments}) async {
+    try {
+      return await navigatorKey.currentState?.push<T>(route);
+    } catch (e) {
+      log('A error found: ', error: getNavigationErrorPrettly(e.toString(), route: '$route'));
+      return null;
+    }
+  }
+
   Future<T?> pushNamedAndRemoveUntil<T extends Object?>(String routeName, bool Function(Route<dynamic>) predicate, {Object? arguments}) async {
     try {
       return await navigatorKey.currentState?.pushNamedAndRemoveUntil<T>(routeName, predicate, arguments: arguments);
