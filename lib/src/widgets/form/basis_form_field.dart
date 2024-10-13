@@ -40,7 +40,7 @@ class BasisFormField extends StatefulWidget {
   final TextAlign? textAlign;
   final Widget? labelChild;
   final String? suffixText;
-  final Widget? suffixIcon;
+  final Widget? suffixIcon, prefix, prefixIcon;
   final TextCapitalization? textCapitalization;
   final GlobalKey<FormState>? formKey;
 
@@ -89,6 +89,8 @@ class BasisFormField extends StatefulWidget {
     this.color,
     this.successColor,
     this.focusedBorderWidth,
+    this.prefix,
+    this.prefixIcon,
   }) : super(key: key);
 
   @override
@@ -226,6 +228,8 @@ class _BasisFormFieldState extends State<BasisFormField> with BasisFormFieldStyl
                       enabledBorder: inputBorder.get(),
                       disabledBorder: inputBorder.get(),
                       contentPadding: widget.contentPadding ?? EdgeInsets.symmetric(horizontal: 16, vertical: 10),
+                      prefixIcon: widget.prefixIcon,
+                      prefix: widget.prefix,
                       suffix: widget.suffixText != null ? Text(widget.suffixText!) : null,
                       suffixStyle: getInputHintStyle(context, fontSize: widget.fontSize, color: widget.color),
                       suffixIcon: widget.showSuffixIcon ? Padding(
