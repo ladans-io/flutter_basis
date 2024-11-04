@@ -4,7 +4,8 @@ import 'package:flutter_basis/flutter_basis.dart';
 class BasisButton extends StatelessWidget {
   final Function()? onPressed;
   final String title;
-  final double? btnHeight, width, fontSize, horizontalPadding, radius;
+  final TextStyle? textStyle;
+  final double? height, width, fontSize, horizontalPadding, radius;
   final bool fullWidth;
   final bool loading;
   final bool bold;
@@ -15,7 +16,7 @@ class BasisButton extends StatelessWidget {
     Key? key,
     required this.onPressed,
     required this.title,
-    this.btnHeight,
+    this.height,
     this.fontSize,
     this.width,
     this.radius,
@@ -26,13 +27,14 @@ class BasisButton extends StatelessWidget {
     this.backgroundColor,
     this.color,
     this.horizontalPadding,
+    this.textStyle,
   }) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
 
     return SizedBox(
-      height: btnHeight ?? (Device.screenType == ScreenType.tablet ? 40 : 50),
+      height: height ?? (Device.screenType == ScreenType.tablet ? 40 : 50),
       width: fullWidth ? Device.width : width,
       child: ElevatedButton(
         style: ElevatedButton.styleFrom(
@@ -47,15 +49,18 @@ class BasisButton extends StatelessWidget {
           shadowColor: Colors.transparent,
           surfaceTintColor: Colors.transparent,
           foregroundColor: Colors.transparent,
+          textStyle: textStyle,
         ),
         onPressed: onPressed,
         child: loading
           ? BasisLoading(color: color ?? Colors.white, size: 12)
-          : BasisText(
+          : Text(
               title, 
-              color: color ?? Colors.white, 
-              fontSize: fontSize ?? 16,
-              bold: bold,
+              style: textStyle ?? TextStyle(
+                color: color ?? Colors.white, 
+                fontWeight: bold ? FontWeight.bold : FontWeight.normal, 
+                fontSize: fontSize ?? 16,
+              )
             ),
       ),
     );

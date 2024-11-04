@@ -9,26 +9,28 @@ class BasisTextButton extends StatelessWidget {
     this.onPressed,
     this.color,
     this.fontSize,
-    this.btnHeight,
-    this.btnWidth,
+    this.height,
+    this.width,
     this.radius,
     this.fullWidth = false,
     this.underline = false,
     this.paddingZero = false,
     this.bold = false,
+    this.textStyle,
   });
 
   final String title;
+  final TextStyle? textStyle;
   final VoidCallback? onPressed;
   final Color? color;
-  final double? fontSize, btnHeight, btnWidth, radius;
+  final double? fontSize, height, width, radius;
   final bool fullWidth, underline, paddingZero, bold;
 
   @override
   Widget build(BuildContext context) {
     return SizedBox(
-      height: btnHeight ?? 50,
-      width: fullWidth ? Device.width : btnWidth,
+      height: height ?? 50,
+      width: fullWidth ? Device.width : width,
       child: TextButton(
         style: TextButton.styleFrom(
           foregroundColor: Colors.transparent,
@@ -38,12 +40,14 @@ class BasisTextButton extends StatelessWidget {
           padding: paddingZero ? EdgeInsets.zero : null,
         ),
         onPressed: onPressed, 
-        child: BasisText(
-          title,
-          color: color ?? Colors.black54,
-          fontSize: fontSize ?? 16,
-          underline: underline,
-          bold: bold,
+        child: Text(
+          title, 
+          style: textStyle ?? TextStyle(
+            color: color ?? Colors.black54, 
+            fontWeight: bold ? FontWeight.bold : FontWeight.normal, 
+            fontSize: fontSize ?? 16,
+            decoration: underline ? TextDecoration.underline : TextDecoration.none
+          ),
         ),
       ),
     );

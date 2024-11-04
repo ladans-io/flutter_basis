@@ -5,15 +5,17 @@ import 'package:flutter_basis/flutter_basis.dart';
 class BasisLinedButton extends StatelessWidget {
   final Function()? onPressed;
   final String title;
-  final double? btnHeight, width, fontSize, horizontalPadding, radius;
+  final double? height, width, fontSize, horizontalPadding, radius;
   final bool fullWidth;
   final bool loading, disabled, bold;
   final Color? color, borderColor, foregroundColor;
+  final TextStyle? textStyle;
+
   const BasisLinedButton({
     Key? key,
     required this.onPressed,
     required this.title,
-    this.btnHeight,
+    this.height,
     this.fontSize,
     this.width,
     this.fullWidth = true,
@@ -25,6 +27,7 @@ class BasisLinedButton extends StatelessWidget {
     this.foregroundColor,
     this.horizontalPadding,
     this.radius,
+    this.textStyle,
   }) : super(key: key);
 
   @override
@@ -33,7 +36,7 @@ class BasisLinedButton extends StatelessWidget {
     final textColor = disabled ? Colors.grey : color ?? onPrimary;
 
     return SizedBox(
-      height: btnHeight ?? (Device.screenType == ScreenType.tablet ? 40 : 50),
+      height: height ?? (Device.screenType == ScreenType.tablet ? 40 : 50),
       width: fullWidth ? Device.width : width,
       child: OutlinedButton(
         style: OutlinedButton.styleFrom(
@@ -44,9 +47,7 @@ class BasisLinedButton extends StatelessWidget {
           ),
           disabledBackgroundColor: Colors.transparent,
           surfaceTintColor: color ?? onPrimary,
-          shape: RoundedRectangleBorder(
-            borderRadius: BorderRadius.circular(radius ?? 4),
-          ),
+          shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(radius ?? 4)),
           side: BorderSide(color: (disabled ? Colors.grey.shade500 : borderColor ?? color) ?? onPrimary),
           shadowColor: Colors.transparent,
           foregroundColor: foregroundColor ?? onPrimary,
@@ -54,12 +55,7 @@ class BasisLinedButton extends StatelessWidget {
         onPressed: onPressed,
         child: loading
           ? BasisLoading(color: color ?? onPrimary, size: 10)
-          : BasisText(
-              title, 
-              color: textColor, 
-              fontSize: fontSize ?? 16,
-              bold: bold,
-            ),
+          : Text(title, style: textStyle ?? TextStyle(color: textColor, fontWeight: bold ? FontWeight.bold : FontWeight.normal, fontSize: fontSize ?? 16)),
       ),
     );
   }
