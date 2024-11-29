@@ -5,7 +5,7 @@ import 'package:flutter/material.dart';
 class BasisText extends StatefulWidget {
   final String text;
   final Color? color;
-  final double? fontSize;
+  final double? fontSize, letterSpacing, height;
   final bool bold;
   final bool extraBold;
   final bool semiBold;
@@ -42,6 +42,8 @@ class BasisText extends StatefulWidget {
       this.underline = false,
       this.web = false,
       this.padding,
+      this.height,
+      this.letterSpacing,
     }
   );
 
@@ -73,6 +75,8 @@ class _OdxTextState extends State<BasisText> {
       fontStyle: widget.italic ? FontStyle.italic : FontStyle.normal,
       decoration: widget.underline ? TextDecoration.underline : TextDecoration.none,
       decorationColor: widget.color,
+      letterSpacing: widget.letterSpacing,
+      height: widget.height,
     );
   }
 
