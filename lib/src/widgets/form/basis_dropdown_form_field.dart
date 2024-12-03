@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_basis/flutter_basis.dart';
+import 'package:flutter_basis/src/responsive/basis_responsive_sizer.dart';
 
 class BasisDropdownFormField extends StatefulWidget {
   const BasisDropdownFormField({
@@ -97,7 +98,7 @@ class _BasisDropdownFormFieldState extends State<BasisDropdownFormField> with Ba
           ],
 
           SizedBox(
-            width: widget.width ?? 36.w,
+            width: widget.width ?? 36.w(context),
             height: widget.height,
             child: ButtonTheme(
               alignedDropdown: true,
@@ -140,7 +141,7 @@ class _BasisDropdownFormFieldState extends State<BasisDropdownFormField> with Ba
                     (value) => DropdownMenuItem(
                       value: value,
                       child: Container(
-                        constraints: BoxConstraints(maxWidth: 60.w),
+                        constraints: BoxConstraints(maxWidth: 60.w(context)),
                         child: BasisText(
                           value,
                           light: true,

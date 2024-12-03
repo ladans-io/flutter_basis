@@ -3,6 +3,7 @@ import 'dart:ui';
 
 import 'package:flutter/material.dart';
 import 'package:flutter_basis/flutter_basis.dart';
+import 'package:flutter_basis/src/responsive/basis_responsive_sizer.dart';
 
 import '../colors.dart';
 
@@ -122,9 +123,9 @@ class AlertContent extends StatelessWidget {
   final Color? backgroundColor, fontColor;
   final double? radius, fontSize;
 
-  Widget _buildContent() {
+  Widget _buildContent(BuildContext context) {
     return Container(
-      width: Device.width,
+      width: dw(context),
       decoration: BoxDecoration(
         color: backgroundColor ?? snackBarColor,
         borderRadius: BorderRadius.circular(radius ?? .0),
@@ -185,8 +186,8 @@ class AlertContent extends StatelessWidget {
       borderRadius: BorderRadius.circular(radius ?? .0),
       child: Platform.isIOS ? BackdropFilter(
         filter: ImageFilter.blur(sigmaX: 16, sigmaY: 16),
-        child: _buildContent(),
-      ) : _buildContent(),
+        child: _buildContent(context),
+      ) : _buildContent(context),
     );
   }
 }

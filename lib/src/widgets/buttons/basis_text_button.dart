@@ -1,6 +1,6 @@
 
 import 'package:flutter/material.dart';
-import 'package:flutter_basis/flutter_basis.dart';
+import 'package:flutter_basis/src/responsive/basis_responsive_sizer.dart';
 
 class BasisTextButton extends StatelessWidget {
   const BasisTextButton({
@@ -30,7 +30,7 @@ class BasisTextButton extends StatelessWidget {
   Widget build(BuildContext context) {
     return SizedBox(
       height: height ?? 50,
-      width: fullWidth ? Device.width : width,
+      width: fullWidth ? dw(context) : width,
       child: TextButton(
         style: TextButton.styleFrom(
           foregroundColor: Colors.transparent,

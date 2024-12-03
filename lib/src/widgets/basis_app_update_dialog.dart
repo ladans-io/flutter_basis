@@ -54,7 +54,7 @@ class _DshAlertDialogState extends State<BasisAppUpdateDialog> {
           Platform.isAndroid 
             ? 'assets/play-store.png' 
             : 'assets/app-store.png',
-          width: 40.w,
+          height: 60,
         ),
         BasisText(
           'Atualizar Odex${widget.forceUpdate ? '!' : '?'}',

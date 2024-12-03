@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_basis/flutter_basis.dart';
+import 'package:flutter_basis/src/responsive/basis_responsive_sizer.dart';
 
 class BasisButton extends StatelessWidget {
   final Function()? onPressed;
@@ -34,8 +35,8 @@ class BasisButton extends StatelessWidget {
   Widget build(BuildContext context) {
 
     return SizedBox(
-      height: height ?? (Device.screenType == ScreenType.tablet ? 40 : 50),
-      width: fullWidth ? Device.width : width,
+      height: height ?? (isTablet(context) ? 40 : 50),
+      width: fullWidth ? dw(context) : width,
       child: ElevatedButton(
         style: ElevatedButton.styleFrom(
           padding: EdgeInsets.symmetric(

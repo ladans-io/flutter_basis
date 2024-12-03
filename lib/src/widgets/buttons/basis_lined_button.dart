@@ -1,6 +1,7 @@
 
 import 'package:flutter/material.dart';
 import 'package:flutter_basis/flutter_basis.dart';
+import 'package:flutter_basis/src/responsive/basis_responsive_sizer.dart';
 
 class BasisLinedButton extends StatelessWidget {
   final Function()? onPressed;
@@ -36,8 +37,8 @@ class BasisLinedButton extends StatelessWidget {
     final textColor = disabled ? Colors.grey : color ?? onPrimary;
 
     return SizedBox(
-      height: height ?? (Device.screenType == ScreenType.tablet ? 40 : 50),
-      width: fullWidth ? Device.width : width,
+      height: height ?? (isTablet(context) ? 40 : 50),
+      width: fullWidth ? dw(context) : width,
       child: OutlinedButton(
         style: OutlinedButton.styleFrom(
           padding: EdgeInsets.symmetric(
