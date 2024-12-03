@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_basis/flutter_basis.dart';
-import 'package:flutter_basis/src/responsive/basis_responsive_sizer.dart';
 
 class BasisPopupLoading extends StatelessWidget {
   final ValueChanged<bool>? onPopInvoked;
