@@ -16,17 +16,16 @@ Orientation deviceOrientation(BuildContext context) => MediaQuery.of(context).or
 bool isPortrait(BuildContext context) => deviceOrientation(context) == Orientation.portrait;
 bool isLandscape(BuildContext context) => deviceOrientation(context) == Orientation.landscape;
 
-bool isMobile(BuildContext context) => 
+bool isMobile(BuildContext context) =>
   (deviceOrientation(context) == Orientation.portrait && dw(context) <= ScreenDimension.mobile.value) ||
   (deviceOrientation(context) == Orientation.landscape && dh(context) <= ScreenDimension.mobile.value);
 
-bool isTablet(BuildContext context) => 
-  ((deviceOrientation(context) == Orientation.portrait && dw(context) <= ScreenDimension.tablet.value) ||
-  (deviceOrientation(context) == Orientation.landscape && dh(context) <= ScreenDimension.tablet.value));
+bool isTablet(BuildContext context) => !isMobile(context) && !isDesktop(context);
 
-bool isDesktop(BuildContext context) => !isMobile(context) && !isTablet(context);
+bool isDesktop(BuildContext context) =>
+  deviceOrientation(context) == Orientation.landscape && dw(context) >= ScreenDimension.tablet.value;
 
 extension PercentageSize on num {
-  double w(BuildContext context) => dw(context) * (this/100);
-  double h(BuildContext context) => dw(context) * (this/100);
+  double w(BuildContext context) => dw(context) * (this / 100);
+  double h(BuildContext context) => dw(context) * (this / 100);
 }
