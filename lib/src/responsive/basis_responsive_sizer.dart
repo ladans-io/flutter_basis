@@ -12,8 +12,19 @@ enum ScreenDimension {
 double dw(BuildContext context) => MediaQuery.of(context).size.width;
 double dh(BuildContext context) => MediaQuery.of(context).size.height;
 
-bool isMobile(BuildContext context) => dw(context) <= ScreenDimension.mobile.value;
-bool isTablet(BuildContext context) => !isMobile(context) && dw(context) <= ScreenDimension.tablet.value;
+Orientation deviceOrientation(BuildContext context) => MediaQuery.of(context).orientation;
+bool isPortrait(BuildContext context) => deviceOrientation(context) == Orientation.portrait;
+bool isLandscape(BuildContext context) => deviceOrientation(context) == Orientation.landscape;
+
+bool isMobile(BuildContext context) => 
+  (deviceOrientation(context) == Orientation.portrait && dw(context) <= ScreenDimension.mobile.value) ||
+  (deviceOrientation(context) == Orientation.landscape && dh(context) <= ScreenDimension.mobile.value);
+
+bool isTablet(BuildContext context) => 
+  !isMobile(context) && 
+  (deviceOrientation(context) == Orientation.portrait && dw(context) <= ScreenDimension.tablet.value) ||
+  (deviceOrientation(context) == Orientation.landscape && dh(context) <= ScreenDimension.tablet.value);
+
 bool isDesktop(BuildContext context) => !isMobile(context) && !isTablet(context);
 
 extension PercentageSize on num {
