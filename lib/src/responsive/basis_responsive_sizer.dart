@@ -21,9 +21,8 @@ bool isMobile(BuildContext context) =>
   (deviceOrientation(context) == Orientation.landscape && dh(context) <= ScreenDimension.mobile.value);
 
 bool isTablet(BuildContext context) => 
-  !isMobile(context) && 
-  ((deviceOrientation(context) == Orientation.landscape && dw(context) <= ScreenDimension.tablet.value) ||
-  (deviceOrientation(context) == Orientation.portrait && dh(context) <= ScreenDimension.tablet.value));
+  ((deviceOrientation(context) == Orientation.portrait && dw(context) <= ScreenDimension.tablet.value) ||
+  (deviceOrientation(context) == Orientation.landscape && dh(context) <= ScreenDimension.tablet.value));
 
 bool isDesktop(BuildContext context) => !isMobile(context) && !isTablet(context);
 
