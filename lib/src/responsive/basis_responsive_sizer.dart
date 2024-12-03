@@ -17,6 +17,6 @@ bool isTablet(BuildContext context) => !isMobile(context) && dw(context) <= Scre
 bool isDesktop(BuildContext context) => !isMobile(context) && !isTablet(context);
 
 extension PercentageSize on num {
-  double w(BuildContext context) => dw(context) * (this/10);
-  double h(BuildContext context) => dw(context) * (this/10);
+  double w(BuildContext context) => dw(context) * (this/100);
+  double h(BuildContext context) => dw(context) * (this/100);
 }
