@@ -3,7 +3,6 @@ import 'dart:ui';
 
 import 'package:flutter/material.dart';
 import 'package:flutter_basis/flutter_basis.dart';
-import 'package:flutter_basis/src/responsive/basis_responsive_sizer.dart';
 
 import '../colors.dart';
 
