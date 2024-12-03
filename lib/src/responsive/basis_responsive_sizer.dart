@@ -25,8 +25,7 @@ bool isTablet(BuildContext context) =>
   ((deviceOrientation(context) == Orientation.portrait && dw(context) <= ScreenDimension.tablet.value) ||
   (deviceOrientation(context) == Orientation.landscape && dh(context) <= ScreenDimension.tablet.value));
 
-bool isDesktop(BuildContext context) =>
-  deviceOrientation(context) == Orientation.landscape && dw(context) >= ScreenDimension.tablet.value;
+bool isDesktop(BuildContext context) => !isMobile(context) && !isTablet(context);
 
 extension PercentageSize on num {
   double w(BuildContext context) => dw(context) * (this / 100);
