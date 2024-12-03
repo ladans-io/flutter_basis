@@ -1,8 +1,8 @@
 import 'package:flutter/widgets.dart';
 
 enum ScreenDimension {
-  mobile(599),
-  tablet(899);
+  mobile(600),
+  tablet(900);
 
   final int value;
 
@@ -22,8 +22,8 @@ bool isMobile(BuildContext context) =>
 
 bool isTablet(BuildContext context) => 
   !isMobile(context) && 
-  (deviceOrientation(context) == Orientation.portrait && dw(context) <= ScreenDimension.tablet.value) ||
-  (deviceOrientation(context) == Orientation.landscape && dh(context) <= ScreenDimension.tablet.value);
+  ((deviceOrientation(context) == Orientation.portrait && dw(context) <= ScreenDimension.tablet.value) ||
+  (deviceOrientation(context) == Orientation.landscape && dh(context) <= ScreenDimension.tablet.value));
 
 bool isDesktop(BuildContext context) => !isMobile(context) && !isTablet(context);
 
