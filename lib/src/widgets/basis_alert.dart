@@ -3,6 +3,7 @@ import 'dart:ui';
 
 import 'package:flutter/material.dart';
 import 'package:flutter_basis/flutter_basis.dart';
+import 'package:flutter_svg/svg.dart';
 
 import '../colors.dart';
 
@@ -29,12 +30,14 @@ void showBasisAlert(
       bool playSound = false,
       String? errorPath,
       String? path,
+      String? prefixIconType,
     }
 ) {
   void emitAlert() => BasisAlert.show(
     message: msg,
     prefixIcon: prefixIcon,
     prefix: prefix,
+    prefixIconType: prefixIconType,
     suffix: suffix,
     radius: radius,
     backgroundColor: backgroundColor ?? snackBarColor,
@@ -75,6 +78,7 @@ class BasisAlert {
     AlertBehavior? behavior,
     double? radius,
     double? fontSize,
+    String? prefixIconType,
     Duration duration = const Duration(seconds: 3),
   }) {
     return GlobalKeys.scaffoldMessengerKey.currentState?.showSnackBar(
@@ -89,6 +93,7 @@ class BasisAlert {
           state: state,
           prefixIcon: prefixIcon,
           prefix: prefix,
+          prefixIconType: prefixIconType,
           suffix: suffix,
           fontColor: fontColor,
           backgroundColor: backgroundColor,
@@ -113,10 +118,11 @@ class AlertContent extends StatelessWidget {
     this.fontColor,
     this.radius,
     this.fontSize,
+    this.prefixIconType = 'img',
   });
 
   final String message;
-  final String? prefixIcon;
+  final String? prefixIcon, prefixIconType;
   final Widget? prefix, suffix;
   final AlertState state;
   final Color? backgroundColor, fontColor;
@@ -138,7 +144,9 @@ class AlertContent extends StatelessWidget {
               Container(
                 width: 22,
                 height: 22,
-                decoration: BoxDecoration(image: DecorationImage(image: AssetImage(prefixIcon!))),
+                child: prefixIconType == 'svg' 
+                  ? SvgPicture.asset(prefixIcon!, width: 22)
+                  : Image.asset(prefixIcon!, width: 22),
               ) 
             else
               prefix!,
